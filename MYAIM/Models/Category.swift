@@ -38,14 +38,13 @@ enum ServiceCategory: String, CaseIterable, Identifiable, Codable {
         }
     }
 
-    /// Cover image for the category card.
-    /// NOTE: development placeholders (loremflickr). Replace with backend/CDN URLs.
-    var imageURL: String {
+    /// Bundled cover image (real photo shipped in the asset catalog).
+    var imageName: String {
         switch self {
-        case .selfDevelopment: return "https://loremflickr.com/600/400/meditation,mindfulness?lock=11"
-        case .sports:          return "https://loremflickr.com/600/400/gym,fitness?lock=12"
-        case .education:       return "https://loremflickr.com/600/400/study,classroom?lock=13"
-        case .tech:            return "https://loremflickr.com/600/400/coding,laptop?lock=14"
+        case .selfDevelopment: return "photo_selfdev"
+        case .sports:          return "photo_sports"
+        case .education:       return "photo_education"
+        case .tech:            return "photo_tech"
         }
     }
 }

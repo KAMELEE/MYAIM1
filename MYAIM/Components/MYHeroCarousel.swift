@@ -75,7 +75,8 @@ private struct FeatureSlide: View {
             onTap?()
         } label: {
             ZStack(alignment: .bottomLeading) {
-                MYRemoteImage(urlString: imageURL, fallbackIcon: "photo", accent: MYColor.primary)
+                MYRemoteImage(assetName: "photo_hero", urlString: imageURL,
+                              fallbackIcon: "photo", accent: MYColor.primary)
                     .frame(maxWidth: .infinity)
 
                 // Solid legibility scrim (not a glow).

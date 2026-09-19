@@ -1,14 +1,21 @@
 import SwiftUI
 
-/// Loads a remote image with a skeleton while loading and a calm, category-tinted
-/// fallback if the URL is missing or fails. Uses AsyncImage (URLCache-backed).
+/// Displays an image with graceful fallbacks:
+/// 1) a bundled asset (`assetName`) — real photo shipped with the app,
+/// 2) a remote URL via AsyncImage (skeleton while loading),
+/// 3) a calm, category-tinted icon placeholder.
 struct MYRemoteImage: View {
-    let urlString: String?
+    var assetName: String? = nil
+    var urlString: String? = nil
     var fallbackIcon: String = "photo"
     var accent: Color = MYColor.primary
 
     var body: some View {
-        if let urlString, let url = URL(string: urlString) {
+        if let assetName, UIImage(named: assetName) != nil {
+            Image(assetName)
+                .resizable()
+                .scaledToFill()
+        } else if let urlString, let url = URL(string: urlString) {
             AsyncImage(url: url, transaction: Transaction(animation: .easeOut(duration: 0.2))) { phase in
                 switch phase {
                 case .empty:

@@ -64,7 +64,8 @@ struct MapResultsView: View {
             onOpen(service)
         } label: {
             HStack(spacing: MYSpacing.md) {
-                MYRemoteImage(urlString: service.imageURL,
+                MYRemoteImage(assetName: service.category.imageName,
+                              urlString: service.imageURL,
                               fallbackIcon: service.category.icon,
                               accent: service.category.accent)
                     .frame(width: 64, height: 64)

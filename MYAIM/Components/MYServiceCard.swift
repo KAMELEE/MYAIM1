@@ -43,7 +43,8 @@ struct MYServiceCard: View {
 
     // MARK: - Image + badge
     private var imageHeader: some View {
-        MYRemoteImage(urlString: service.imageURL,
+        MYRemoteImage(assetName: service.category.imageName,
+                      urlString: service.imageURL,
                       fallbackIcon: service.category.icon,
                       accent: service.category.accent)
             .frame(height: 120)

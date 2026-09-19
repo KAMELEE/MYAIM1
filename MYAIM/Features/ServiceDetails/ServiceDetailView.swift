@@ -32,7 +32,8 @@ struct ServiceDetailView: View {
 
     // MARK: Header image
     private var header: some View {
-        MYRemoteImage(urlString: service.imageURL,
+        MYRemoteImage(assetName: service.category.imageName,
+                      urlString: service.imageURL,
                       fallbackIcon: service.category.icon,
                       accent: service.category.accent)
             .frame(height: 280)

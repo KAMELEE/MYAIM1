@@ -12,7 +12,7 @@ struct MYCategoryCard: View {
             onTap?()
         } label: {
             ZStack(alignment: .bottomLeading) {
-                MYRemoteImage(urlString: category.imageURL,
+                MYRemoteImage(assetName: category.imageName,
                               fallbackIcon: category.icon,
                               accent: category.accent)
                     .frame(width: 150, height: 100)

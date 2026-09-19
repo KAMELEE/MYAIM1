@@ -39,7 +39,8 @@ struct ProviderProfileView: View {
     }
 
     private var cover: some View {
-        MYRemoteImage(urlString: provider.coverURL,
+        MYRemoteImage(assetName: provider.category.imageName,
+                      urlString: provider.coverURL,
                       fallbackIcon: provider.category.icon,
                       accent: provider.category.accent)
             .frame(height: 200)
@@ -49,7 +50,8 @@ struct ProviderProfileView: View {
     private var infoBlock: some View {
         VStack(alignment: .leading, spacing: MYSpacing.sm) {
             HStack(spacing: MYSpacing.md) {
-                MYRemoteImage(urlString: provider.logoURL,
+                MYRemoteImage(assetName: provider.category.imageName,
+                              urlString: provider.logoURL,
                               fallbackIcon: provider.category.icon,
                               accent: provider.category.accent)
                     .frame(width: 68, height: 68)

@@ -79,7 +79,8 @@ struct BookingsView: View {
         } label: {
             VStack(alignment: .leading, spacing: MYSpacing.md) {
                 HStack(spacing: MYSpacing.md) {
-                    MYRemoteImage(urlString: booking.service.imageURL,
+                    MYRemoteImage(assetName: booking.service.category.imageName,
+                                  urlString: booking.service.imageURL,
                                   fallbackIcon: booking.service.category.icon,
                                   accent: booking.service.category.accent)
                         .frame(width: 60, height: 60)

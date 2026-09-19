@@ -11,7 +11,8 @@ struct MYProviderCard: View {
             onTap?()
         } label: {
             HStack(spacing: MYSpacing.md) {
-                MYRemoteImage(urlString: provider.logoURL,
+                MYRemoteImage(assetName: provider.category.imageName,
+                              urlString: provider.logoURL,
                               fallbackIcon: provider.category.icon,
                               accent: provider.category.accent)
                     .frame(width: 56, height: 56)
