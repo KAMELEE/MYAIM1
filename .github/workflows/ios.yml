@@ -52,7 +52,21 @@ jobs:
           echo "$code" > build.code
           exit 0
 
-      - name: Publish CI log to repo (readable without sign-in)
+      - name: Launch in simulator & capture screenshots
+        continue-on-error: true
+        run: |
+          [ "$(cat build.code)" = "0" ] || { echo "build failed; skipping"; exit 0; }
+          RUNTIME=$(xcrun simctl list runtimes | grep -oE 'com.apple.CoreSimulator.SimRuntime.iOS[^ ]*' | tail -1)
+          DEVICE=$(xcrun simctl create "myaim" "iPhone 15 Pro" "$RUNTIME" || xcrun simctl create "myaim" "iPhone 15" "$RUNTIME")
+          xcrun simctl boot "$DEVICE"; sleep 6
+          APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
+          echo "App: $APP"
+          xcrun simctl install "$DEVICE" "$APP"
+          xcrun simctl launch "$DEVICE" com.myaim.app
+          sleep 12
+          xcrun simctl io "$DEVICE" screenshot screenshot.png
+
+      - name: Publish CI log + screenshot to repo (readable without sign-in)
         if: always()
         run: |
           mkdir -p ci-logs
@@ -63,11 +77,12 @@ jobs:
             echo; echo "===== diagnostics ====="; cat diag.log 2>/dev/null
             echo; echo "===== errors ====="
             grep -nE "error:|warning:.*error|does not contain|Unable to|cannot find|No such|fatal" xcodebuild.log 2>/dev/null | head -80
-            echo; echo "===== build tail (120) ====="; tail -120 xcodebuild.log 2>/dev/null
+            echo; echo "===== build tail (80) ====="; tail -80 xcodebuild.log 2>/dev/null
           } > ci-logs/latest.txt
+          [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
           git config user.name "ci-bot"
           git config user.email "ci@myaim.app"
-          git add ci-logs/latest.txt
+          git add -A ci-logs
           git commit -m "CI logs run ${{ github.run_number }} [skip ci]" || echo "no changes"
           git push || echo "push failed"
 
@@ -77,24 +92,3 @@ jobs:
           code=$(cat build.code 2>/dev/null || echo 1)
           echo "build exit code: $code"
           test "$code" = "0"
-
-      - name: Launch in simulator & capture screenshot
-        if: success()
-        continue-on-error: true
-        run: |
-          RUNTIME=$(xcrun simctl list runtimes | grep -oE 'com.apple.CoreSimulator.SimRuntime.iOS[^ ]*' | tail -1)
-          DEVICE=$(xcrun simctl create "myaim" "iPhone 15" "$RUNTIME")
-          xcrun simctl boot "$DEVICE"; sleep 5
-          APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
-          xcrun simctl install "$DEVICE" "$APP"
-          xcrun simctl launch "$DEVICE" com.myaim.app
-          sleep 10
-          xcrun simctl io "$DEVICE" screenshot screenshot.png
-
-      - name: Upload screenshot
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: myaim-screenshot
-          path: screenshot.png
-          if-no-files-found: ignore
