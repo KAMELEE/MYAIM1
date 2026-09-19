@@ -52,19 +52,23 @@ jobs:
           echo "$code" > build.code
           exit 0
 
-      - name: Launch in simulator & capture screenshots
+      - name: Launch in simulator & capture screenshot
         continue-on-error: true
         run: |
-          [ "$(cat build.code)" = "0" ] || { echo "build failed; skipping"; exit 0; }
-          RUNTIME=$(xcrun simctl list runtimes | grep -oE 'com.apple.CoreSimulator.SimRuntime.iOS[^ ]*' | tail -1)
-          DEVICE=$(xcrun simctl create "myaim" "iPhone 15 Pro" "$RUNTIME" || xcrun simctl create "myaim" "iPhone 15" "$RUNTIME")
-          xcrun simctl boot "$DEVICE"; sleep 6
+          set -x
+          [ "$(cat build.code)" = "0" ] || { echo "build failed; skipping" | tee sim.log; exit 0; }
+          xcrun simctl list devices available > devices.txt
+          DEVICE=$(grep -ioE '[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}' devices.txt | head -1)
+          { echo "DEVICE=$DEVICE"; } | tee sim.log
+          xcrun simctl boot "$DEVICE" 2>&1 | tee -a sim.log || true
+          xcrun simctl bootstatus "$DEVICE" 2>&1 | tee -a sim.log || true
           APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
-          echo "App: $APP"
-          xcrun simctl install "$DEVICE" "$APP"
-          xcrun simctl launch "$DEVICE" com.myaim.app
+          echo "APP=$APP" | tee -a sim.log
+          xcrun simctl install "$DEVICE" "$APP" 2>&1 | tee -a sim.log
+          xcrun simctl launch "$DEVICE" com.myaim.app 2>&1 | tee -a sim.log
           sleep 12
-          xcrun simctl io "$DEVICE" screenshot screenshot.png
+          xcrun simctl io "$DEVICE" screenshot screenshot.png 2>&1 | tee -a sim.log
+          ls -la screenshot.png 2>&1 | tee -a sim.log
 
       - name: Publish CI log + screenshot to repo (readable without sign-in)
         if: always()
@@ -78,6 +82,7 @@ jobs:
             echo; echo "===== errors ====="
             grep -nE "error:|warning:.*error|does not contain|Unable to|cannot find|No such|fatal" xcodebuild.log 2>/dev/null | head -80
             echo; echo "===== build tail (80) ====="; tail -80 xcodebuild.log 2>/dev/null
+            echo; echo "===== simulator ====="; cat sim.log 2>/dev/null
           } > ci-logs/latest.txt
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
           git config user.name "ci-bot"
