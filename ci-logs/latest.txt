@@ -1,5 +1,5 @@
-# CI log — run 4
-exit code: 74
+# CI log — run 5
+exit code: 65
 
 ===== xcodegen =====
 ⚙️  Generating plists...
@@ -9,39 +9,92 @@ Created project at /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
 
 ===== diagnostics =====
 Xcode:
-Xcode 15.4
-Build version 15F31d
+Xcode 16.4
+Build version 16F6
 
 --- xcodebuild -list ---
 Command line invocation:
-    /Applications/Xcode_15.4.app/Contents/Developer/usr/bin/xcodebuild -project MYAIM.xcodeproj -list
+    /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/xcodebuild -project MYAIM.xcodeproj -list
 
-User defaults from command line:
-    IDEPackageSupportUseBuiltinSCM = YES
+Information about project "MYAIM":
+    Targets:
+        MYAIM
 
-2026-09-19 23:34:29.635 xcodebuild[2439:10118] Writing error result bundle to /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/ResultBundle_2026-19-09_23-34-0029.xcresult
-xcodebuild: error: Unable to read project 'MYAIM.xcodeproj'.
-	Reason: The project ‘MYAIM’ cannot be opened because it is in a future Xcode project file format (77). Adjust the project format using a compatible version of Xcode to allow it to be opened by this version of Xcode.
+    Build Configurations:
+        Debug
+        Release
 
+    If no build configuration is specified and -scheme is not passed then "Debug" is used.
+
+    Schemes:
+        MYAIM
 
 
 ===== errors =====
-13:xcodebuild: error: Unable to read project 'MYAIM.xcodeproj'.
+39:error: Multiple commands produce '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
 
 ===== build tail (120) =====
 Command line invocation:
-    /Applications/Xcode_15.4.app/Contents/Developer/usr/bin/xcodebuild -project MYAIM.xcodeproj -scheme MYAIM -configuration Debug -sdk iphonesimulator -destination "generic/platform=iOS Simulator" -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
-
-User defaults from command line:
-    IDEDerivedDataPathOverride = /Users/runner/work/MYAIM1/MYAIM1/build
-    IDEPackageSupportUseBuiltinSCM = YES
+    /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/xcodebuild -project MYAIM.xcodeproj -scheme MYAIM -configuration Debug -sdk iphonesimulator -destination "generic/platform=iOS Simulator" -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
 
 Build settings from command line:
     CODE_SIGNING_ALLOWED = NO
-    SDKROOT = iphonesimulator17.5
+    SDKROOT = iphonesimulator18.5
 
-2026-09-19 23:34:31.877 xcodebuild[2692:11016] Writing error result bundle to /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/ResultBundle_2026-19-09_23-34-0031.xcresult
-xcodebuild: error: Unable to read project 'MYAIM.xcodeproj'.
-	Reason: The project ‘MYAIM’ cannot be opened because it is in a future Xcode project file format (77). Adjust the project format using a compatible version of Xcode to allow it to be opened by this version of Xcode.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (1 target)
+    Target 'MYAIM' in project 'MYAIM' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Resources/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 2fc492a19fa6be738868c5d455b9644a
+Build description path: /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/XCBuildData/2fc492a19fa6be738868c5d455b9644a.xcbuilddata
+error: Multiple commands produce '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
+    note: Target 'MYAIM' (project 'MYAIM') has copy command from '/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/README.md' to '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
+    note: Target 'MYAIM' (project 'MYAIM') has copy command from '/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/README.md' to '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
+    note: Target 'MYAIM' (project 'MYAIM') has copy command from '/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Resources/Fonts/README.md' to '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
+    note: Target 'MYAIM' (project 'MYAIM') has copy command from '/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/README.md' to '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md'
+CreateBuildDirectory /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products
+    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
+    builtin-create-build-directory /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products
+
+CreateBuildDirectory /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex
+    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
+    builtin-create-build-directory /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex
+
+ClangStatCache /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk /Users/runner/work/MYAIM1/MYAIM1/build/SDKStatCaches.noindex/iphonesimulator18.5-22F76-96ae0914227b19deccb34b33ba7b5dea.sdkstatcache
+    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
+    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -o /Users/runner/work/MYAIM1/MYAIM1/build/SDKStatCaches.noindex/iphonesimulator18.5-22F76-96ae0914227b19deccb34b33ba7b5dea.sdkstatcache
+
+warning: duplicate output file '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md' on task: CpResource /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/README.md (in target 'MYAIM' from project 'MYAIM')
+warning: duplicate output file '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md' on task: CpResource /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Resources/Fonts/README.md (in target 'MYAIM' from project 'MYAIM')
+warning: duplicate output file '/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md' on task: CpResource /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/README.md /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/README.md (in target 'MYAIM' from project 'MYAIM')
+** BUILD FAILED **
 
 
+The following build commands failed:
+	Building project MYAIM with scheme MYAIM and configuration Debug
+(1 failure)
