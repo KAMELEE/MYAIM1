@@ -24,18 +24,34 @@ jobs:
       - name: Generate Xcode project
         run: xcodegen generate
 
+      - name: Diagnostics
+        run: |
+          echo "## Diagnostics" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          { echo "PWD: $(pwd)"; ls -la; echo "---- xcodebuild -list ----"; \
+            xcodebuild -project MYAIM.xcodeproj -list; } 2>&1 | tee -a $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
       - name: Build (iOS Simulator)
         run: |
-          set -o pipefail
+          set +e
           xcodebuild \
             -project MYAIM.xcodeproj \
-            -target MYAIM \
+            -scheme MYAIM \
             -configuration Debug \
             -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            ONLY_ACTIVE_ARCH=NO \
-            build
+            build 2>&1 | tee xcodebuild.log
+          code=${PIPESTATUS[0]}
+          echo "## Build result: exit $code" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          grep -nE "error:|does not contain|Unable to|cannot|No such" xcodebuild.log | head -60 >> $GITHUB_STEP_SUMMARY
+          echo "---- tail ----" >> $GITHUB_STEP_SUMMARY
+          tail -40 xcodebuild.log >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          exit $code
 
       - name: Launch in simulator & capture screenshot
         continue-on-error: true
