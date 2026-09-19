@@ -1,0 +1,150 @@
+# MY AIM — تطبيق iOS
+
+سوق (Marketplace) عربي أولاً يساعد المستخدم على اكتشاف وحجز الأكاديميات والمدربين والدورات والبرامج التي تحقّق أهدافه.
+
+- **المنصة:** iOS 17+
+- **التقنية:** Swift · SwiftUI · Swift Concurrency · MVVM · SwiftData · MapKit · CoreLocation
+- **اللغة:** عربي أولاً مع دعم RTL حقيقي
+- **الخط:** IBM Plex Sans Arabic
+
+> هذه هي **المرحلة 1**: البنية المعمارية + نظام التصميم + هيكل التطبيق (App Shell).
+
+---
+
+## كيف أفتح المشروع وأشغّله؟ (على جهاز Mac)
+
+### الطريقة الأسرع — XcodeGen
+```bash
+brew install xcodegen      # مرة واحدة
+cd MYAIM                    # مجلد المشروع الذي يحوي project.yml
+xcodegen generate
+open MYAIM.xcodeproj
+```
+ثم اختر محاكي iPhone (iOS 17+) واضغط Run (⌘R).
+
+### الطريقة اليدوية — بدون XcodeGen
+1. في Xcode: File ▸ New ▸ Project ▸ iOS ▸ App، الاسم `MYAIM`، الواجهة SwiftUI، اللغة Swift.
+2. احذف ملفات القالب الافتراضية (`ContentView.swift` وملف الـApp).
+3. اسحب مجلد `MYAIM/` بالكامل إلى المشروع (اختر "Create groups").
+4. تأكد من ضبط:
+   - Deployment Target = iOS 17.0
+   - Info.plist = `MYAIM/Resources/Info.plist`
+5. الخطوط وأيقونة التطبيق **مُضمَّنة مسبقًا** في `Resources/` (لا حاجة لتنزيلها).
+
+---
+
+## هيكل المشروع
+
+```
+MYAIM/
+├─ App/                    نقطة الدخول + حالة التطبيق
+│  ├─ MYAIMApp.swift
+│  └─ AppState.swift
+├─ Core/
+│  ├─ DesignSystem/        الألوان، الخطوط، المسافات، الحواف، الظلال
+│  ├─ Extensions/          Color+Hex, Font+AppFont, Formatters, View+…
+│  └─ Utilities/           Haptics, LoadingState
+├─ Navigation/             AppTab + RootTabView (شريط التبويب)
+├─ Features/               Home · Discover · Goals · Bookings · Profile
+├─ Components/             MYButton · MYSectionHeader · MYEmptyState
+├─ Models/                 (تُبنى مع الميزات)
+├─ Repositories/           (Repository Architecture — تُبنى مع الميزات)
+├─ Services/               (تُبنى مع الميزات)
+└─ Resources/              Info.plist · Assets.xcassets · Fonts
+```
+
+---
+
+## نظام التصميم (Design System)
+
+كل الألوان تُقرأ من مصدر واحد: **`Core/DesignSystem/MYColor.swift`**.
+لمطابقة شعار MY AIM الرسمي، غيّر القيم داخل `enum Brand` فقط — ويُعاد تلوين التطبيق كله دون أي تعديل آخر.
+
+> الهوية = بنفسجي شعار MY AIM (`#5B3FBF`) مستخدَم باحتراف: ألوان **صلبة** فقط، بلا تدرجات وبلا توهّج (لا مظهر AI)، والخلفيات محايدة.
+
+| الرمز | الاستخدام |
+|------|-----------|
+| `MYColor` | الألوان (Light/Dark تلقائي) |
+| `MYTypography` | سلّم الخطوط (IBM Plex Sans Arabic) |
+| `MYSpacing` / `MYRadius` | المسافات والحواف |
+| `MYShadow` + `.myCard()` | البطاقات والظلال |
+
+---
+
+## ما المُنجَز في المرحلة 1
+- [x] بنية مجلدات منظمة وقابلة للتوسع (MVVM + Repository-ready)
+- [x] نظام تصميم مركزي: ألوان، Typography، مسافات، حواف، ظلال
+- [x] دعم Light/Dark حقيقي (ألوان ديناميكية)
+- [x] عربي أولاً + RTL على مستوى التطبيق
+- [x] شريط تبويب أصلي بخمسة أقسام (App Shell)
+- [x] مكوّنات أساسية: `MYButton`, `MYSectionHeader`, `MYEmptyState`
+- [x] `LoadingState` موحّد لحالات التحميل/الفراغ/الخطأ
+- [x] Haptics ومنسّقات (سعر ر.س، مسافة، تقييم، تاريخ)
+
+## اتجاه اللايوت (مرجع المستخدم)
+مستوحى من مرجع تطبيق سوق نظيف: **شريط موقع** أعلى الرئيسية، **بحث + زر فلاتر**، **بانر عرض** (لون صلب بلا تدرّج)، و**كروت شبكية بعمودين**: صورة + شارة زاوية · اسم · مقدّم الخدمة · تقييم + موقع · صف سفلي بالسعر البارز + **زر دائري** (مفضلة). أسفل الرئيسية **خانة «سجّل أكاديميتك»** للمزوّدين.
+
+**الشريط السفلي:** شريط **Boxed عائم** (`MYTabBar`) بحاوية دائرية وظل ناعم؛ التبويب النشط يتمدّد لبطاقة بلون الهوية الخفيف مع أيقونة مملوءة ونص. 5 أقسام. **اللوقو** الحقيقي مُضاف كأصل `Logo` (`MYLogo`).
+
+## الأصول الحقيقية (مُضافة فعليًا)
+- [x] **الخطوط:** ملفات IBM Plex Sans Arabic الأربعة (.ttf) داخل `Resources/Fonts` — تعمل مباشرة.
+- [x] **أيقونة التطبيق:** مولّدة من اللوقو (`AppIcon` 1024×1024، RGB بلا شفافية).
+- [x] **اللوقو:** أصل `Logo` + يظهر داخل شريط الرئيسية العلوي (`MYHomeHeader`).
+- [x] **الصور:** روابط صور حقيقية في `SampleData` والأقسام تُحمّل عبر `AsyncImage` (بدائل تطوير تُستبدل بصور الخادم لاحقًا).
+- [x] **الأيقونات:** SF Symbols من النظام (لا تحتاج ملفات).
+- [x] **الرئيسية:** بُنيت شاشة حقيقية (هيدر باللوقو + بحث/فلاتر + بانر + أقسام + شبكة بطاقات + تسجيل أكاديمية) على بيانات `SampleData` مؤقتًا لحين ربط الـViewModel في المرحلة 5.
+
+## المرحلة 2 (مكتملة)
+- [x] نماذج البيانات الأساسية: `ServiceCategory`, `Provider`, `Service`, `Goal`/`GoalStep`, `Review`, `MYLocation`
+- [x] بيانات عربية واقعية للمعاينة والـMock (`SampleData`)
+- [x] مكوّنات Design System الكاملة:
+  - عناصر: `MYRating` · `MYPrice` · `MYTag` / `MYVerifiedBadge`
+  - إدخال: `MYSearchBar` · `MYSearchButton`
+  - بطاقات: `MYServiceCard` · `MYCategoryCard` · `MYProviderCard` · `MYGoalCard`
+  - أخرى: `MYBottomSheet` (+ Header/Footer) · `MYSkeleton` · `MYRemoteImage` · `MYLogo` · `MYTabBar` · `MYAcademyCTA` · `MYPromoBanner` · `MYHomeHeader` · `MYHeroCarousel`
+
+## سلايدر الهيرو
+`MYHeroCarousel` — سلايدر متحرك أعلى الرئيسية يتنقّل تلقائيًا، بثلاثة أنواع شرائح: **صورة مميّزة** (خلفية صورة + طبقة تعتيم صلبة)، **كود خصم** (`AIM20` مع زر نسخ + Haptic)، و**«ليش MY AIM»** (نقاط مميّزات). مع نقاط ترقيم (Page Dots) وتمرير باللمس. الشرائح في `SampleData.heroSlides`.
+
+## المرحلة 3 (مكتملة) — Navigation + Routing
+- [x] `AppRoute` (وجهات type-safe) + `Router` (@Observable) لكل تبويب
+- [x] `RootTabView` يعطي كل تبويب `NavigationStack` خاص + `withAppRoutes()`
+- [x] `RouteDestination` يربط كل مسار بشاشته
+- [x] الرئيسية تنقل فعليًا: بطاقة → تفاصيل الخدمة، عرض الكل → قائمة، الإشعارات، تسجيل أكاديمية
+- [x] `ServiceDetailView` (تفاصيل حقيقية) + `AllServicesView` (شبكة) + `ComingSoonView` (سقالة للمراحل القادمة)
+
+## المرحلة 4 (مكتملة) — Onboarding + Authentication
+- [x] `AuthRepository` (بروتوكول) + `MockAuthRepository` — **أول Repository فعلي**
+- [x] `AuthViewModel` (@Observable) مع Validation حقيقي (بريد/جوال سعودي/كلمة مرور/OTP)
+- [x] Onboarding 3 شاشات + `RootCoordinatorView` (Onboarding → Auth → App)
+- [x] شاشات: تسجيل الدخول · إنشاء حساب · OTP (4 خانات) · نسيت كلمة المرور
+- [x] `MYTextField` (حقل بأيقونة + إظهار كلمة المرور + خطأ) · تسجيل الخروج من حسابي
+
+## المرحلة 5 (مكتملة) — Home + Repositories
+- [x] `ServiceRepository` + `MockServiceRepository` · `GoalRepository` + `MockGoalRepository`
+- [x] `HomeViewModel` (@Observable) يحمّل الأقسام بالتوازي مع `LoadingState`
+- [x] الرئيسية: Skeleton أثناء التحميل، حالات فراغ/خطأ + إعادة محاولة، Pull-to-refresh
+- [x] أقسام أفقية: الأكثر حجزاً · قريب منك · موصى لك · هدفك الحالي
+
+## المرحلة 6 (مكتملة) — Discover + Search + Filters
+- [x] `DiscoverViewModel` (بحث Debounced، فلاتر، تبديل قائمة/خريطة)
+- [x] `DiscoverView`: بحث + زر فلاتر (بعدّاد) + رقاقات أقسام + تبديل قائمة/خريطة + نتائج
+- [x] `FiltersSheet` (Bottom Sheet: فئة/سعر/تقييم/مسافة/توفّر + إعادة تعيين/عرض)
+- [x] `SearchView` + `SearchViewModel`: بحث أخير (محفوظ) + شائع + اقتراحات مباشرة + نتائج
+- [x] `MapResultsView` (MapKit): Markers بالأسعار + بطاقة مصغّرة عند الاختيار
+
+## المراحل 8–11 (مكتملة) — بقية الصفحات
+- [x] **تفاصيل الخدمة** كاملة + **صفحة مقدّم الخدمة** (`ProviderProfileView`: غلاف/شعار/نبذة/خدمات/آراء)
+- [x] **الحجز** (`BookingView` + `BookingViewModel`): تاريخ → وقت → تأكيد → شاشة نجاح، عبر `BookingRepository`
+- [x] **حجوزاتي** (`BookingsView`): تبويبات القادمة/السابقة + حالات (مؤكد/بانتظار/مكتمل/ملغي)
+- [x] **الأهداف**: `GoalsView` (حالية/مكتملة) · `GoalDetailView` (تبديل الخطوات حيًّا) · `CreateGoalView` — عبر `GoalsStore`
+- [x] **المفضلة** (`FavoritesView`) عبر `FavoritesStore` مشترك (يُحفظ محليًا، متزامن عبر كل الشاشات)
+- [x] **الإشعارات** (`NotificationsView`) + نموذج `AppNotification`
+- [x] **تسجيل الأكاديمية** (`RegisterAcademyView`) بنموذج وValidation وشاشة نجاح
+- [x] كل المسارات موصولة في `RouteDestination` (لا شاشات وهمية متبقية)
+
+## المتبقّي
+- **المرحلة 7:** ربط CoreLocation (موقع المستخدم الحيّ + المسافات + Clustering) — الخريطة تعمل حاليًا بعلامات ثابتة.
+- **المرحلة 12–13:** لمسات حركة إضافية + اختبار شامل على Mac.
+
+> ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.
