@@ -4,10 +4,13 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-14
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -15,22 +18,17 @@ jobs:
       - name: Select latest Xcode
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Show Xcode version
-        run: xcodebuild -version
-
       - name: Install XcodeGen
         run: brew install xcodegen
 
       - name: Generate Xcode project
-        run: xcodegen generate
+        run: xcodegen generate 2>&1 | tee gen.log
 
       - name: Diagnostics
         run: |
-          echo "## Diagnostics" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          { echo "PWD: $(pwd)"; ls -la; echo "---- xcodebuild -list ----"; \
-            xcodebuild -project MYAIM.xcodeproj -list; } 2>&1 | tee -a $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          { echo "Xcode:"; xcodebuild -version; echo; \
+            echo "--- xcodebuild -list ---"; \
+            xcodebuild -project MYAIM.xcodeproj -list; } 2>&1 | tee diag.log
 
       - name: Build (iOS Simulator)
         run: |
@@ -45,28 +43,47 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build 2>&1 | tee xcodebuild.log
           code=${PIPESTATUS[0]}
-          echo "## Build result: exit $code" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          grep -nE "error:|does not contain|Unable to|cannot|No such" xcodebuild.log | head -60 >> $GITHUB_STEP_SUMMARY
-          echo "---- tail ----" >> $GITHUB_STEP_SUMMARY
-          tail -40 xcodebuild.log >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          exit $code
+          echo "$code" > build.code
+          exit 0
+
+      - name: Publish CI log to repo (readable without sign-in)
+        if: always()
+        run: |
+          mkdir -p ci-logs
+          {
+            echo "# CI log — run ${{ github.run_number }}"
+            echo "exit code: $(cat build.code 2>/dev/null || echo '?')"
+            echo; echo "===== xcodegen ====="; cat gen.log 2>/dev/null
+            echo; echo "===== diagnostics ====="; cat diag.log 2>/dev/null
+            echo; echo "===== errors ====="
+            grep -nE "error:|warning:.*error|does not contain|Unable to|cannot find|No such|fatal" xcodebuild.log 2>/dev/null | head -80
+            echo; echo "===== build tail (120) ====="; tail -120 xcodebuild.log 2>/dev/null
+          } > ci-logs/latest.txt
+          git config user.name "ci-bot"
+          git config user.email "ci@myaim.app"
+          git add ci-logs/latest.txt
+          git commit -m "CI logs run ${{ github.run_number }} [skip ci]" || echo "no changes"
+          git push || echo "push failed"
+
+      - name: Fail if build failed
+        if: always()
+        run: |
+          code=$(cat build.code 2>/dev/null || echo 1)
+          echo "build exit code: $code"
+          test "$code" = "0"
 
       - name: Launch in simulator & capture screenshot
+        if: success()
         continue-on-error: true
         run: |
           RUNTIME=$(xcrun simctl list runtimes | grep -oE 'com.apple.CoreSimulator.SimRuntime.iOS[^ ]*' | tail -1)
           DEVICE=$(xcrun simctl create "myaim" "iPhone 15" "$RUNTIME")
-          xcrun simctl boot "$DEVICE"
-          sleep 5
+          xcrun simctl boot "$DEVICE"; sleep 5
           APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
-          echo "App: $APP"
           xcrun simctl install "$DEVICE" "$APP"
           xcrun simctl launch "$DEVICE" com.myaim.app
           sleep 10
           xcrun simctl io "$DEVICE" screenshot screenshot.png
-          echo "Captured screenshot."
 
       - name: Upload screenshot
         if: always()
