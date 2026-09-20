@@ -23,6 +23,9 @@ struct MYHeroCarousel: View {
             .frame(height: height)
             .tabViewStyle(.page(indexDisplayMode: .never))
             .onReceive(timer) { _ in
+                #if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("-demoMode") { return } // freeze for CI capture
+                #endif
                 guard slides.count > 1 else { return }
                 withAnimation(.easeInOut(duration: 0.5)) {
                     index = (index + 1) % slides.count
