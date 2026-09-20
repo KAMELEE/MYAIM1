@@ -21,6 +21,14 @@ final class AppState {
 
     init() {
         self.hasSeenOnboarding = UserDefaults.standard.bool(forKey: Keys.onboarding)
+        #if DEBUG
+        // CI/demo: launch straight into the app with a sample session.
+        if ProcessInfo.processInfo.arguments.contains("-demoMode") {
+            hasSeenOnboarding = true
+            isAuthenticated = true
+            currentUser = .preview
+        }
+        #endif
     }
 
     func completeOnboarding() {

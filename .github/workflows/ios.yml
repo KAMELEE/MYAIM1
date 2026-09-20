@@ -65,8 +65,8 @@ jobs:
           APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
           echo "APP=$APP" | tee -a sim.log
           xcrun simctl install "$DEVICE" "$APP" 2>&1 | tee -a sim.log
-          xcrun simctl launch "$DEVICE" com.myaim.app 2>&1 | tee -a sim.log
-          sleep 12
+          xcrun simctl launch "$DEVICE" com.myaim.app -demoMode 2>&1 | tee -a sim.log
+          sleep 14
           xcrun simctl io "$DEVICE" screenshot screenshot.png 2>&1 | tee -a sim.log
           ls -la screenshot.png 2>&1 | tee -a sim.log
 
