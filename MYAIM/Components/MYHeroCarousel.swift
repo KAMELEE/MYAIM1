@@ -161,23 +161,30 @@ private struct BrandHeroSlide: View {
     }
 
     private var iconCluster: some View {
-        ZStack {
-            tile("brain.head.profile", size: 52).offset(x: -6, y: -44)
-            tile("graduationcap.fill", size: 46).offset(x: 26, y: -6)
-            tile("dumbbell.fill", size: 44).offset(x: -20, y: 30)
-            tile("target", size: 50).offset(x: 20, y: 56)
+        Grid(horizontalSpacing: MYSpacing.sm, verticalSpacing: MYSpacing.sm) {
+            GridRow {
+                tile("brain.head.profile")
+                tile("graduationcap.fill")
+            }
+            GridRow {
+                tile("dumbbell.fill")
+                tile("target")
+            }
         }
-        .frame(width: 96)
     }
 
-    private func tile(_ icon: String, size: CGFloat) -> some View {
+    private func tile(_ icon: String) -> some View {
         Image(systemName: icon)
-            .font(.system(size: size * 0.42, weight: .semibold))
-            .foregroundStyle(.white)
-            .frame(width: size, height: size)
-            .background(MYColor.primary)
-            .clipShape(RoundedRectangle(cornerRadius: size * 0.3, style: .continuous))
-            .myShadow(MYShadow.raised)
+            .font(.system(size: 19, weight: .semibold))
+            .foregroundStyle(MYColor.primary)
+            .frame(width: 46, height: 46)
+            .background(MYColor.surface)
+            .clipShape(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous)
+                    .strokeBorder(MYColor.border, lineWidth: 0.5)
+            )
+            .myShadow()
     }
 }
 
