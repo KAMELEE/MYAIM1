@@ -3,6 +3,7 @@ import SwiftUI
 struct ProviderDashboardView: View {
     @Environment(Router.self) private var router
     @Environment(ProviderStore.self) private var store
+    @State private var demoPushed = false
 
     private let cols = [GridItem(.flexible(), spacing: MYSpacing.md),
                         GridItem(.flexible(), spacing: MYSpacing.md)]
@@ -22,6 +23,14 @@ struct ProviderDashboardView: View {
         .myScreenBackground()
         .navigationTitle("لوحة الأكاديمية")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            #if DEBUG
+            guard !demoPushed, let r = DemoLaunch.route else { return }
+            demoPushed = true
+            if r == "addCourse" { router.push(.addCourse) }
+            if r == "publishPost" { router.push(.publishPost) }
+            #endif
+        }
     }
 
     private var header: some View {

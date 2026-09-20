@@ -1,6 +1,16 @@
 #if DEBUG
 import UIKit
 
+/// DEBUG-only: reads launch args used by CI to deep-link into a screen.
+enum DemoLaunch {
+    static func arg(_ key: String) -> String? {
+        let a = ProcessInfo.processInfo.arguments
+        if let i = a.firstIndex(of: key), i + 1 < a.count { return a[i + 1] }
+        return nil
+    }
+    static var route: String? { arg("-demoRoute") }
+}
+
 /// DEBUG-only helper: when launched with `-scrollTo <fraction 0...1>`, scrolls the
 /// largest on-screen scroll view to that fraction so CI can screenshot full
 /// screens at top / middle / bottom. Never used in release builds.

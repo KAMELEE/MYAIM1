@@ -5,6 +5,7 @@ struct HomeView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
     @State private var vm = HomeViewModel()
+    @State private var demoPushed = false
 
     private let categories = ServiceCategory.allCases
 
@@ -34,6 +35,23 @@ struct HomeView: View {
         .toolbar(.hidden, for: .navigationBar)
         .task { await vm.load() }
         .refreshable { await vm.reload() }
+        .onAppear {
+            #if DEBUG
+            guard !demoPushed, let r = DemoLaunch.route else { return }
+            demoPushed = true
+            switch r {
+            case "serviceDetail":   router.push(.serviceDetail(SampleData.services[0]))
+            case "booking":         router.push(.booking(SampleData.services[0]))
+            case "search":          router.push(.search)
+            case "favorites":       router.push(.favorites)
+            case "notifications":   router.push(.notifications)
+            case "goalDetail":      router.push(.goalDetail(SampleData.goals[0]))
+            case "registerAcademy": router.push(.registerAcademy)
+            case "providerProfile": router.push(.providerProfile(SampleData.providers[0]))
+            default: break
+            }
+            #endif
+        }
     }
 
     // MARK: Search + filter

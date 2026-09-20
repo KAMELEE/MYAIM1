@@ -81,6 +81,28 @@ jobs:
             sleep 5
             xcrun simctl io "$DEVICE" screenshot "shot-prov-$T.png" 2>&1 | tee -a sim.log
           done
+          # Trainee pushed pages
+          for R in serviceDetail booking search favorites notifications goalDetail registerAcademy providerProfile; do
+            xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+            xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -demoRoute "$R" 2>&1 | tee -a sim.log
+            sleep 5
+            xcrun simctl io "$DEVICE" screenshot "shot-page-$R.png" 2>&1 | tee -a sim.log
+          done
+          # Provider pushed pages
+          for R in addCourse publishPost; do
+            xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+            xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -providerMode -demoRoute "$R" 2>&1 | tee -a sim.log
+            sleep 5
+            xcrun simctl io "$DEVICE" screenshot "shot-page-$R.png" 2>&1 | tee -a sim.log
+          done
+          # Onboarding (fresh launch) + Login
+          xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+          xcrun simctl launch "$DEVICE" com.myaim.app 2>&1 | tee -a sim.log
+          sleep 5; xcrun simctl io "$DEVICE" screenshot "shot-onboarding.png" 2>&1 | tee -a sim.log
+          xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+          xcrun simctl launch "$DEVICE" com.myaim.app -authScreen 2>&1 | tee -a sim.log
+          sleep 5; xcrun simctl io "$DEVICE" screenshot "shot-login.png" 2>&1 | tee -a sim.log
+
           cp shot-home-top.png screenshot.png 2>/dev/null || true
           ls -la shot-*.png 2>&1 | tee -a sim.log
 

@@ -37,6 +37,11 @@ final class AppState {
         if ProcessInfo.processInfo.arguments.contains("-providerMode") {
             mode = .provider
         }
+        // Show the auth (login) screen: onboarding done but not signed in.
+        if ProcessInfo.processInfo.arguments.contains("-authScreen") {
+            hasSeenOnboarding = true
+            isAuthenticated = false
+        }
         #endif
     }
 
