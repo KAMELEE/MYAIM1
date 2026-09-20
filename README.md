@@ -2,6 +2,8 @@
 
 سوق (Marketplace) عربي أولاً يساعد المستخدم على اكتشاف وحجز الأكاديميات والمدربين والدورات والبرامج التي تحقّق أهدافه.
 
+> ✅ **حالة البناء:** يُترجَم ويعمل فعليًا على محاكي iOS (Xcode 16.4) عبر GitHub Actions — المستودع: `KAMELEE/MYAIM1`. لقطات التشغيل تُحفظ في `ci-logs/` (`shot-home.png`, `shot-discover.png`, …). لا يمكن البناء على Windows؛ الـCI يبنيه على macOS تلقائيًا عند كل رفع.
+
 - **المنصة:** iOS 17+
 - **التقنية:** Swift · SwiftUI · Swift Concurrency · MVVM · SwiftData · MapKit · CoreLocation
 - **اللغة:** عربي أولاً مع دعم RTL حقيقي
