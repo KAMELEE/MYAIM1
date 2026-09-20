@@ -19,6 +19,11 @@ struct RootCoordinatorView: View {
         }
         .animation(.easeInOut(duration: 0.3), value: appState.hasSeenOnboarding)
         .animation(.easeInOut(duration: 0.3), value: appState.isAuthenticated)
+        .onAppear {
+            #if DEBUG
+            DemoScroll.applyIfNeeded()
+            #endif
+        }
     }
 }
 
