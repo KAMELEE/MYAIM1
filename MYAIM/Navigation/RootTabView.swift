@@ -3,7 +3,24 @@ import SwiftUI
 /// Root shell: a `TabView` (native bar hidden) with a custom boxed `MYTabBar`.
 /// Each tab owns a `Router` + NavigationStack and registers app routes.
 struct RootTabView: View {
-    @State private var selection: AppTab = .home
+    @State private var selection: AppTab
+
+    init() {
+        var initial: AppTab = .home
+        #if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        if let i = args.firstIndex(of: "-demoTab"), i + 1 < args.count {
+            switch args[i + 1] {
+            case "discover": initial = .discover
+            case "goals":    initial = .goals
+            case "bookings": initial = .bookings
+            case "profile":  initial = .profile
+            default:         initial = .home
+            }
+        }
+        #endif
+        _selection = State(initialValue: initial)
+    }
 
     var body: some View {
         TabView(selection: $selection) {

@@ -65,10 +65,14 @@ jobs:
           APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
           echo "APP=$APP" | tee -a sim.log
           xcrun simctl install "$DEVICE" "$APP" 2>&1 | tee -a sim.log
-          xcrun simctl launch "$DEVICE" com.myaim.app -demoMode 2>&1 | tee -a sim.log
-          sleep 14
-          xcrun simctl io "$DEVICE" screenshot screenshot.png 2>&1 | tee -a sim.log
-          ls -la screenshot.png 2>&1 | tee -a sim.log
+          for T in home discover goals bookings profile; do
+            xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+            xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -demoTab "$T" 2>&1 | tee -a sim.log
+            sleep 7
+            xcrun simctl io "$DEVICE" screenshot "shot-$T.png" 2>&1 | tee -a sim.log
+          done
+          cp shot-home.png screenshot.png 2>/dev/null || true
+          ls -la shot-*.png 2>&1 | tee -a sim.log
 
       - name: Publish CI log + screenshot to repo (readable without sign-in)
         if: always()
@@ -85,6 +89,9 @@ jobs:
             echo; echo "===== simulator ====="; cat sim.log 2>/dev/null
           } > ci-logs/latest.txt
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
+          for T in home discover goals bookings profile; do
+            [ -f "shot-$T.png" ] && cp "shot-$T.png" "ci-logs/shot-$T.png" || true
+          done
           cp sim.log ci-logs/sim.txt 2>/dev/null || true
           # capture last crash report if any
           find ~/Library/Logs/DiagnosticReports -name 'MYAIM*' -newermt '-10 minutes' 2>/dev/null \
