@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BookingView: View {
     @Environment(Router.self) private var router
+    @Environment(NotificationService.self) private var notifications
     @State private var vm: BookingViewModel
 
     init(service: Service) {
@@ -26,6 +27,12 @@ struct BookingView: View {
         .myScreenBackground()
         .navigationTitle(vm.didConfirm ? "" : "الحجز")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("-demoMode") { return }
+            #endif
+            notifications.request()
+        }
     }
 
     // MARK: Flow
@@ -154,7 +161,13 @@ struct BookingView: View {
                 MYButton(title: "التالي", isEnabled: vm.canProceed) { vm.next() }
             } else {
                 MYButton(title: "تأكيد الحجز", icon: "checkmark", isLoading: vm.isSubmitting) {
-                    Task { await vm.confirm() }
+                    Task {
+                        await vm.confirm()
+                        if vm.didConfirm, let date = vm.selectedDate, let time = vm.selectedTime {
+                            notifications.scheduleBookingConfirmed(
+                                serviceTitle: vm.service.title, date: date, time: time)
+                        }
+                    }
                 }
             }
         }
@@ -189,6 +202,7 @@ struct BookingView: View {
 #Preview {
     NavigationStack { BookingView(service: SampleData.services[0]) }
         .environment(Router())
+        .environment(NotificationService())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

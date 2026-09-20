@@ -39,6 +39,7 @@ struct RootCoordinatorView: View {
         .environment(ProviderStore())
         .environment(LocationService())
         .environment(MessagesStore())
+        .environment(NotificationService())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

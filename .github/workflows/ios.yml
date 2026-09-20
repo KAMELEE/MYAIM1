@@ -106,6 +106,29 @@ jobs:
           cp shot-home-top.png screenshot.png 2>/dev/null || true
           ls -la shot-*.png 2>&1 | tee -a sim.log
 
+      - name: Upload to Appetize (interactive simulator in the browser)
+        if: always()
+        env:
+          APPETIZE_TOKEN: ${{ secrets.APPETIZE_TOKEN }}
+        run: |
+          mkdir -p ci-logs
+          if [ "$(cat build.code 2>/dev/null)" != "0" ]; then exit 0; fi
+          if [ -z "$APPETIZE_TOKEN" ]; then
+            echo "لتفعيل المعاينة التفاعلية على محاكي حقيقي: أنشئ حساب Appetize.io مجانًا، ثم أضف مفتاح API كـ Secret باسم APPETIZE_TOKEN في إعدادات المستودع (Settings ▸ Secrets ▸ Actions). عند البناء التالي سيظهر الرابط هنا." > ci-logs/appetize.txt
+            exit 0
+          fi
+          APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
+          ( cd "$(dirname "$APP")" && zip -r -q /tmp/MYAIM.zip "$(basename "$APP")" )
+          resp=$(curl -s -H "X-API-KEY: $APPETIZE_TOKEN" -F "file=@/tmp/MYAIM.zip" -F "platform=ios" https://api.appetize.io/v1/apps)
+          echo "$resp" > ci-logs/appetize-raw.json
+          key=$(echo "$resp" | grep -oE '"publicKey" *: *"[^"]+"' | head -1 | sed -E 's/.*"publicKey" *: *"([^"]+)".*/\1/')
+          if [ -n "$key" ]; then
+            echo "https://appetize.io/app/$key?device=iphone15pro&osVersion=17.5&scale=75" > ci-logs/appetize.txt
+            echo "Appetize URL: https://appetize.io/app/$key"
+          else
+            echo "فشل رفع Appetize — الاستجابة في appetize-raw.json" > ci-logs/appetize.txt
+          fi
+
       - name: Publish CI log + screenshot to repo (readable without sign-in)
         if: always()
         run: |
