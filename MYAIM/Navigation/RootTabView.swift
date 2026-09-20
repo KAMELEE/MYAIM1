@@ -32,7 +32,7 @@ struct RootTabView: View {
             }
         }
         .overlay(alignment: .bottom) {
-            MYTabBar(selection: $selection)
+            MYTabBar(items: AppTab.allCases, selection: $selection)
         }
     }
 

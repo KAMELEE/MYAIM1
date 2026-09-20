@@ -12,6 +12,9 @@ struct RootCoordinatorView: View {
             } else if !appState.isAuthenticated {
                 AuthFlowView()
                     .transition(.opacity)
+            } else if appState.mode == .provider {
+                ProviderShell()
+                    .transition(.opacity)
             } else {
                 RootTabView()
                     .transition(.opacity)
@@ -19,6 +22,7 @@ struct RootCoordinatorView: View {
         }
         .animation(.easeInOut(duration: 0.3), value: appState.hasSeenOnboarding)
         .animation(.easeInOut(duration: 0.3), value: appState.isAuthenticated)
+        .animation(.easeInOut(duration: 0.3), value: appState.mode)
         .onAppear {
             #if DEBUG
             DemoScroll.applyIfNeeded()
@@ -32,6 +36,7 @@ struct RootCoordinatorView: View {
         .environment(AppState())
         .environment(FavoritesStore())
         .environment(GoalsStore())
+        .environment(ProviderStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

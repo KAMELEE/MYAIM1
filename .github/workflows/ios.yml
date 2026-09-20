@@ -74,6 +74,13 @@ jobs:
               xcrun simctl io "$DEVICE" screenshot "shot-$T-$K.png" 2>&1 | tee -a sim.log
             done
           done
+          # Provider (academy) interface — top of each tab
+          for T in dashboard courses posts subscription account; do
+            xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+            xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -providerMode -demoTab "$T" -scrollTo 0.0 2>&1 | tee -a sim.log
+            sleep 5
+            xcrun simctl io "$DEVICE" screenshot "shot-prov-$T.png" 2>&1 | tee -a sim.log
+          done
           cp shot-home-top.png screenshot.png 2>/dev/null || true
           ls -la shot-*.png 2>&1 | tee -a sim.log
 

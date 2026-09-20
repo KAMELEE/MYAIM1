@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RegisterAcademyView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(AppState.self) private var appState
 
     @State private var name = ""
     @State private var category: ServiceCategory = .sports
@@ -115,8 +116,14 @@ struct RegisterAcademyView: View {
                 .font(MYTypography.body).foregroundStyle(MYColor.textSecondary)
                 .multilineTextAlignment(.center).padding(.horizontal, MYSpacing.xl)
             Spacer()
-            MYButton(title: "تم") { dismiss() }
-                .padding(.horizontal, MYSpacing.screen)
+            VStack(spacing: MYSpacing.sm) {
+                MYButton(title: "الدخول إلى لوحة الأكاديمية", icon: "building.2.fill") {
+                    Haptics.success()
+                    withAnimation { appState.switchMode(.provider) }
+                }
+                MYButton(title: "لاحقًا", style: .ghost) { dismiss() }
+            }
+            .padding(.horizontal, MYSpacing.screen)
         }
         .padding(.bottom, MYSpacing.xxxl)
     }
@@ -139,6 +146,7 @@ struct RegisterAcademyView: View {
 
 #Preview {
     NavigationStack { RegisterAcademyView() }
+        .environment(AppState())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

@@ -16,11 +16,17 @@ final class AppState {
     /// The currently signed-in user.
     var currentUser: User?
 
+    /// Which interface is active: trainee (default) or provider (academy).
+    var mode: AppMode {
+        didSet { UserDefaults.standard.set(mode.rawValue, forKey: Keys.mode) }
+    }
+
     /// User-selected color scheme override. `nil` = follow system.
     var preferredColorScheme: ColorScheme? = nil
 
     init() {
         self.hasSeenOnboarding = UserDefaults.standard.bool(forKey: Keys.onboarding)
+        self.mode = AppMode(rawValue: UserDefaults.standard.string(forKey: Keys.mode) ?? "") ?? .trainee
         #if DEBUG
         // CI/demo: launch straight into the app with a sample session.
         if ProcessInfo.processInfo.arguments.contains("-demoMode") {
@@ -28,7 +34,14 @@ final class AppState {
             isAuthenticated = true
             currentUser = .preview
         }
+        if ProcessInfo.processInfo.arguments.contains("-providerMode") {
+            mode = .provider
+        }
         #endif
+    }
+
+    func switchMode(_ newMode: AppMode) {
+        mode = newMode
     }
 
     func completeOnboarding() {
@@ -47,5 +60,12 @@ final class AppState {
 
     private enum Keys {
         static let onboarding = "myaim.hasSeenOnboarding"
+        static let mode = "myaim.mode"
     }
+}
+
+/// The two interfaces of MY AIM.
+enum AppMode: String {
+    case trainee
+    case provider
 }

@@ -4,12 +4,13 @@ import SwiftUI
 /// - Floats above the safe area inside a rounded surface container.
 /// - The active tab expands into a tinted pill showing icon + label;
 ///   inactive tabs show the icon only. Animated with a subtle spring.
-struct MYTabBar: View {
-    @Binding var selection: AppTab
+struct MYTabBar<Tab: TabBarItem>: View {
+    let items: [Tab]
+    @Binding var selection: Tab
 
     var body: some View {
         HStack(spacing: MYSpacing.xs) {
-            ForEach(AppTab.allCases) { tab in
+            ForEach(items) { tab in
                 item(for: tab)
             }
         }
@@ -28,7 +29,7 @@ struct MYTabBar: View {
     }
 
     @ViewBuilder
-    private func item(for tab: AppTab) -> some View {
+    private func item(for tab: Tab) -> some View {
         let isActive = selection == tab
 
         Button {
@@ -71,7 +72,7 @@ struct MYTabBar: View {
         var body: some View {
             ZStack(alignment: .bottom) {
                 MYColor.background.ignoresSafeArea()
-                MYTabBar(selection: $sel)
+                MYTabBar(items: AppTab.allCases, selection: $sel)
             }
         }
     }

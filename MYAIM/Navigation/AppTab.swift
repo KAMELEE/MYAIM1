@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// The five root tabs of MY AIM.
-enum AppTab: Int, CaseIterable, Identifiable {
+/// The five root tabs of MY AIM (trainee interface).
+enum AppTab: Int, CaseIterable, Identifiable, TabBarItem {
     case home
     case discover
     case goals

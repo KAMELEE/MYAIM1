@@ -38,6 +38,12 @@ struct RouteDestination: View {
 
         case .booking(let service):
             BookingView(service: service)
+
+        case .addCourse:
+            AddCourseView()
+
+        case .publishPost:
+            PublishPostView()
         }
     }
 }

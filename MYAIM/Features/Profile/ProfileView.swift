@@ -20,6 +20,12 @@ struct ProfileView: View {
                 }
                 .myCard(padding: MYSpacing.xs)
 
+                MYButton(title: "التبديل إلى وضع الأكاديمية", icon: "building.2.fill",
+                         style: .secondary) {
+                    Haptics.medium()
+                    withAnimation { appState.switchMode(.provider) }
+                }
+
                 MYButton(title: "تسجيل الخروج", icon: "rectangle.portrait.and.arrow.right",
                          style: .outline) {
                     withAnimation { appState.signOut() }
