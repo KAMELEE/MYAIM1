@@ -85,6 +85,10 @@ jobs:
             echo; echo "===== simulator ====="; cat sim.log 2>/dev/null
           } > ci-logs/latest.txt
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
+          cp sim.log ci-logs/sim.txt 2>/dev/null || true
+          # capture last crash report if any
+          find ~/Library/Logs/DiagnosticReports -name 'MYAIM*' -newermt '-10 minutes' 2>/dev/null \
+            -exec sh -c 'echo "=== $1 ==="; tail -80 "$1"' _ {} \; > ci-logs/crash.txt 2>/dev/null || true
           git config user.name "ci-bot"
           git config user.email "ci@myaim.app"
           git add -A ci-logs
