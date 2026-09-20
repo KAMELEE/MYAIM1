@@ -1,0 +1,18 @@
+DEVICE=DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9
+Monitoring boot status for iPhone 16 Pro (DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9).
+Device already booted, nothing to do.
+
+APP=build/Build/Products/Debug-iphonesimulator/MYAIM.app
+An error was encountered processing the command (domain=IXErrorDomain, code=13):
+Simulator device failed to install the application.
+Missing bundle ID.
+Underlying error (domain=IXErrorDomain, code=13):
+	Failed to get bundle ID from /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app
+	Missing bundle ID.
+An error was encountered processing the command (domain=FBSOpenApplicationServiceErrorDomain, code=4):
+Simulator device failed to launch com.myaim.app.
+Underlying error (domain=FBSOpenApplicationServiceErrorDomain, code=4):
+	The request to open "com.myaim.app" failed.
+Detected file type 'PNG' from extension
+Wrote screenshot to: screenshot.png
+-rw-r--r--@ 1 runner  staff  2629681 Sep 20 00:13 screenshot.png
