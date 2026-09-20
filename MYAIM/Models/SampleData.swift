@@ -99,10 +99,10 @@ enum SampleData {
 
     // MARK: - Hero carousel slides
     static let heroSlides: [HeroSlide] = [
-        .feature(
-            title: "ابدأ رحلتك نحو هدفك",
-            subtitle: "أفضل الأكاديميات والمدربين في مكان واحد",
-            imageURL: "https://loremflickr.com/800/400/training,success?lock=31",
+        .brandHero(
+            title: "رحلتك نحو تطوير ذاتك",
+            accent: "تبدأ من هنا",
+            subtitle: "اكتشف أفضل الأكاديميات، المدربين، والدورات المصممة خصيصاً لأهدافك.",
             actionTitle: "اكتشف الآن"
         ),
         .discount(

@@ -5,7 +5,7 @@ import SwiftUI
 /// page dots, and a gentle auto-advance every few seconds.
 struct MYHeroCarousel: View {
     let slides: [HeroSlide]
-    var height: CGFloat = 196
+    var height: CGFloat = 206
     var onFeatureTap: (() -> Void)? = nil
 
     @State private var index: Int = 0
@@ -49,6 +49,9 @@ struct MYHeroCarousel: View {
     @ViewBuilder
     private func slideView(_ slide: HeroSlide) -> some View {
         switch slide {
+        case let .brandHero(_, title, accent, subtitle, actionTitle):
+            BrandHeroSlide(title: title, accent: accent, subtitle: subtitle,
+                           actionTitle: actionTitle, onTap: onFeatureTap)
         case let .feature(_, title, subtitle, imageURL, actionTitle):
             FeatureSlide(title: title, subtitle: subtitle, imageURL: imageURL,
                          actionTitle: actionTitle, onTap: onFeatureTap)
@@ -103,6 +106,75 @@ private struct FeatureSlide: View {
             .clipShape(RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous))
         }
         .buttonStyle(PressableButtonStyle())
+    }
+}
+
+// MARK: - Branded intro hero (lavender + floating icons)
+
+private struct BrandHeroSlide: View {
+    let title: String
+    let accent: String
+    let subtitle: String
+    let actionTitle: String
+    var onTap: (() -> Void)? = nil
+
+    var body: some View {
+        Button {
+            Haptics.light()
+            onTap?()
+        } label: {
+            HStack(spacing: MYSpacing.sm) {
+                VStack(alignment: .leading, spacing: MYSpacing.xs) {
+                    Text(title)
+                        .font(.appFont(19, weight: .bold))
+                        .foregroundStyle(MYColor.textPrimary)
+                    Text(accent)
+                        .font(.appFont(19, weight: .bold))
+                        .foregroundStyle(MYColor.primary)
+                    Text(subtitle)
+                        .font(MYTypography.description)
+                        .foregroundStyle(MYColor.textSecondary)
+                        .lineLimit(3)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .padding(.top, MYSpacing.xxs)
+                    Text(actionTitle)
+                        .font(.appFont(13, weight: .bold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, MYSpacing.lg)
+                        .padding(.vertical, MYSpacing.sm)
+                        .background(MYColor.primary)
+                        .clipShape(Capsule())
+                        .padding(.top, MYSpacing.xs)
+                }
+                Spacer(minLength: 0)
+                iconCluster
+            }
+            .padding(MYSpacing.lg)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .background(MYColor.primaryTint)
+            .clipShape(RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous))
+        }
+        .buttonStyle(PressableButtonStyle())
+    }
+
+    private var iconCluster: some View {
+        ZStack {
+            tile("brain.head.profile", size: 52).offset(x: -6, y: -44)
+            tile("graduationcap.fill", size: 46).offset(x: 26, y: -6)
+            tile("dumbbell.fill", size: 44).offset(x: -20, y: 30)
+            tile("target", size: 50).offset(x: 20, y: 56)
+        }
+        .frame(width: 96)
+    }
+
+    private func tile(_ icon: String, size: CGFloat) -> some View {
+        Image(systemName: icon)
+            .font(.system(size: size * 0.42, weight: .semibold))
+            .foregroundStyle(.white)
+            .frame(width: size, height: size)
+            .background(MYColor.primary)
+            .clipShape(RoundedRectangle(cornerRadius: size * 0.3, style: .continuous))
+            .myShadow(MYShadow.raised)
     }
 }
 
