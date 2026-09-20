@@ -1,1 +1,1 @@
-لتفعيل المعاينة التفاعلية على محاكي حقيقي: أنشئ حساب Appetize.io مجانًا، ثم أضف مفتاح API كـ Secret باسم APPETIZE_TOKEN في إعدادات المستودع (Settings ▸ Secrets ▸ Actions). عند البناء التالي سيظهر الرابط هنا.
+https://appetize.io/app/o6ny42tlfkapzspi6xkt2uwhj4?device=iphone15pro&osVersion=17.5&scale=75
