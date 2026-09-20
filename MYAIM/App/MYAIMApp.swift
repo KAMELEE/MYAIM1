@@ -1,7 +1,12 @@
 import SwiftUI
+import FirebaseCore
 
 @main
 struct MYAIMApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
+
     @State private var appState = AppState()
     @State private var favorites = FavoritesStore()
     @State private var goals = GoalsStore()

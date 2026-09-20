@@ -15,6 +15,11 @@ options:
   developmentLanguage: ar
   createIntermediateGroups: true
 
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    from: "11.0.0"
+
 settings:
   base:
     SWIFT_VERSION: "5.9"
@@ -33,6 +38,11 @@ targets:
       - path: MYAIM
         excludes:
           - "**/*.md"          # doc READMEs must not be bundled (name collisions)
+    dependencies:
+      - package: Firebase
+        product: FirebaseCore
+      - package: Firebase
+        product: FirebaseAuth
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.myaim.app

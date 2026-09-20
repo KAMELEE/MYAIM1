@@ -31,7 +31,7 @@ final class AuthViewModel {
     /// User created during register, pending OTP verification.
     private(set) var pendingUser: User?
 
-    init(repo: AuthRepository = MockAuthRepository()) {
+    init(repo: AuthRepository = FirebaseAuthRepository()) {
         self.repo = repo
     }
 
