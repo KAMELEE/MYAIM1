@@ -42,6 +42,12 @@ final class AppState {
             hasSeenOnboarding = true
             isAuthenticated = false
         }
+        // Force the onboarding screen (clear persisted flag for a clean capture).
+        if ProcessInfo.processInfo.arguments.contains("-onboarding") {
+            UserDefaults.standard.removeObject(forKey: Keys.onboarding)
+            hasSeenOnboarding = false
+            isAuthenticated = false
+        }
         #endif
     }
 
