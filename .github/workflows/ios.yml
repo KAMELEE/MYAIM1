@@ -161,3 +161,5 @@ jobs:
           code=$(cat build.code 2>/dev/null || echo 1)
           echo "build exit code: $code"
           test "$code" = "0"
+
+# trigger Appetize upload
