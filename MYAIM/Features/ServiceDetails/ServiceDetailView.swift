@@ -20,6 +20,8 @@ struct ServiceDetailView: View {
                 aboutSection
                 includesSection
                 locationSection
+                reviewsSection
+                similarSection
             }
             .padding(.bottom, MYSpacing.xxxl)
         }
@@ -174,6 +176,62 @@ struct ServiceDetailView: View {
             }
         }
         .padding(.horizontal, MYSpacing.screen)
+    }
+
+    // MARK: Reviews
+    private var reviewsSection: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            HStack {
+                Text("آراء العملاء")
+                    .font(MYTypography.section)
+                    .foregroundStyle(MYColor.textPrimary)
+                Spacer()
+                MYRating(rating: service.rating, reviewsCount: service.reviewsCount)
+            }
+            ForEach(SampleData.reviews) { review in
+                VStack(alignment: .leading, spacing: MYSpacing.xs) {
+                    HStack {
+                        Text(review.authorName)
+                            .font(MYTypography.cardTitle)
+                            .foregroundStyle(MYColor.textPrimary)
+                        Spacer()
+                        MYRating(rating: review.rating, showCount: false)
+                    }
+                    Text(review.comment)
+                        .font(MYTypography.secondary)
+                        .foregroundStyle(MYColor.textSecondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .myCard(padding: MYSpacing.md)
+            }
+        }
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
+    // MARK: Similar services
+    private var similar: [Service] {
+        SampleData.services.filter { $0.category == service.category && $0.id != service.id }
+    }
+
+    @ViewBuilder
+    private var similarSection: some View {
+        if !similar.isEmpty {
+            VStack(alignment: .leading, spacing: MYSpacing.md) {
+                Text("خدمات مشابهة")
+                    .font(MYTypography.section)
+                    .foregroundStyle(MYColor.textPrimary)
+                    .padding(.horizontal, MYSpacing.screen)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: MYSpacing.md) {
+                        ForEach(similar) { s in
+                            MYServiceCard(service: s, onTap: { router.push(.serviceDetail(s)) })
+                                .frame(width: 244)
+                        }
+                    }
+                    .padding(.horizontal, MYSpacing.screen)
+                }
+            }
+        }
     }
 
     // MARK: Sticky book bar

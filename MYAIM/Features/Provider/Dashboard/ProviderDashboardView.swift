@@ -29,6 +29,7 @@ struct ProviderDashboardView: View {
             demoPushed = true
             if r == "addCourse" { router.push(.addCourse) }
             if r == "publishPost" { router.push(.publishPost) }
+            if r == "courseDetail", let c = store.courses.first { router.push(.courseDetail(c)) }
             #endif
         }
     }
@@ -109,7 +110,13 @@ struct ProviderDashboardView: View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
             MYSectionHeader(title: "أحدث الدورات", actionTitle: nil)
             ForEach(store.courses.prefix(3)) { course in
-                CourseRow(course: course)
+                Button {
+                    Haptics.light()
+                    router.push(.courseDetail(course))
+                } label: {
+                    CourseRow(course: course)
+                }
+                .buttonStyle(PressableButtonStyle())
             }
         }
     }

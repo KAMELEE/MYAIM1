@@ -13,7 +13,9 @@ enum AppRoute: Hashable {
     case createGoal
     case registerAcademy
     case booking(Service)
+    case settings
     // Provider (academy) interface
     case addCourse
     case publishPost
+    case courseDetail(Course)
 }

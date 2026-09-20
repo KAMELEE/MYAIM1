@@ -24,7 +24,13 @@ struct ProviderCoursesView: View {
 
     private func courseCard(_ course: Course) -> some View {
         VStack(spacing: MYSpacing.md) {
-            CourseRow(course: course)
+            Button {
+                Haptics.light()
+                router.push(.courseDetail(course))
+            } label: {
+                CourseRow(course: course)
+            }
+            .buttonStyle(PressableButtonStyle())
             HStack(spacing: MYSpacing.md) {
                 stat("person.2", "\(MYFormat.integer(course.students)) طالب")
                 stat("tag", MYFormat.price(course.price))

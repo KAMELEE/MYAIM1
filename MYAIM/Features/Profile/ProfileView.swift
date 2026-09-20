@@ -14,7 +14,7 @@ struct ProfileView: View {
                     row("heart", "المفضلة") { router.push(.favorites) }
                     row("bell", "الإشعارات") { router.push(.notifications) }
                     row("building.2", "سجّل أكاديميتك") { router.push(.registerAcademy) }
-                    row("gearshape", "الإعدادات")
+                    row("gearshape", "الإعدادات") { router.push(.settings) }
                     row("questionmark.circle", "المساعدة")
                     row("doc.text", "الشروط والأحكام")
                 }

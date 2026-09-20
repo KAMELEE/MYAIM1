@@ -49,6 +49,7 @@ struct HomeView: View {
             case "goalDetail":      router.push(.goalDetail(SampleData.goals[0]))
             case "registerAcademy": router.push(.registerAcademy)
             case "providerProfile": router.push(.providerProfile(SampleData.providers[0]))
+            case "settings":        router.push(.settings)
             default: break
             }
             #endif

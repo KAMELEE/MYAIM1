@@ -3,6 +3,7 @@ import SwiftUI
 struct ProviderAccountView: View {
     @Environment(AppState.self) private var appState
     @Environment(ProviderStore.self) private var store
+    @Environment(Router.self) private var router
 
     var body: some View {
         ScrollView {
@@ -14,7 +15,7 @@ struct ProviderAccountView: View {
                     row("photo.on.rectangle", "الصور والغلاف")
                     row("calendar", "الحجوزات والطلاب")
                     row("chart.bar", "الإحصائيات")
-                    row("gearshape", "الإعدادات")
+                    row("gearshape", "الإعدادات") { router.push(.settings) }
                 }
                 .myCard(padding: MYSpacing.xs)
 
@@ -54,15 +55,20 @@ struct ProviderAccountView: View {
         .myCard(padding: MYSpacing.lg)
     }
 
-    private func row(_ icon: String, _ title: String) -> some View {
-        HStack(spacing: MYSpacing.md) {
-            Image(systemName: icon).font(.system(size: 16)).foregroundStyle(MYColor.primary).frame(width: 24)
-            Text(title).font(MYTypography.body).foregroundStyle(MYColor.textPrimary)
-            Spacer()
-            Image(systemName: "chevron.forward").font(.system(size: 13, weight: .semibold)).foregroundStyle(MYColor.textTertiary)
+    private func row(_ icon: String, _ title: String, action: (() -> Void)? = nil) -> some View {
+        Button {
+            if let action { Haptics.light(); action() }
+        } label: {
+            HStack(spacing: MYSpacing.md) {
+                Image(systemName: icon).font(.system(size: 16)).foregroundStyle(MYColor.primary).frame(width: 24)
+                Text(title).font(MYTypography.body).foregroundStyle(MYColor.textPrimary)
+                Spacer()
+                Image(systemName: "chevron.forward").font(.system(size: 13, weight: .semibold)).foregroundStyle(MYColor.textTertiary)
+            }
+            .padding(.vertical, MYSpacing.md).padding(.horizontal, MYSpacing.md)
+            .contentShape(Rectangle())
         }
-        .padding(.vertical, MYSpacing.md).padding(.horizontal, MYSpacing.md)
-        .contentShape(Rectangle())
+        .buttonStyle(.plain)
     }
 }
 
@@ -70,6 +76,7 @@ struct ProviderAccountView: View {
     NavigationStack { ProviderAccountView() }
         .environment(AppState())
         .environment(ProviderStore())
+        .environment(Router())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }
