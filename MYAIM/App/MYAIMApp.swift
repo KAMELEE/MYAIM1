@@ -6,6 +6,7 @@ struct MYAIMApp: App {
     @State private var favorites = FavoritesStore()
     @State private var goals = GoalsStore()
     @State private var provider = ProviderStore()
+    @State private var location = LocationService()
 
     var body: some Scene {
         WindowGroup {
@@ -14,6 +15,7 @@ struct MYAIMApp: App {
                 .environment(favorites)
                 .environment(goals)
                 .environment(provider)
+                .environment(location)
                 // Arabic-first: force RTL layout and Arabic locale app-wide.
                 .environment(\.layoutDirection, .rightToLeft)
                 .environment(\.locale, Locale(identifier: "ar"))

@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 /// A bookable service / program / course offered by a provider.
 struct Service: Identifiable, Hashable, Codable {
@@ -17,4 +18,13 @@ struct Service: Identifiable, Hashable, Codable {
 
     /// Distance in meters from the user (nil if unknown). Set at load time.
     var distanceMeters: Double?
+
+    /// Returns a copy with `distanceMeters` recomputed from a coordinate
+    /// (e.g. the live user location). Unchanged if `coord` is nil.
+    func distanced(from coord: CLLocationCoordinate2D?) -> Service {
+        guard let coord else { return self }
+        var copy = self
+        copy.distanceMeters = location.distance(from: coord)
+        return copy
+    }
 }

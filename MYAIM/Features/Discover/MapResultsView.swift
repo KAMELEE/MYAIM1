@@ -5,6 +5,7 @@ import MapKit
 /// Live user location + clustering arrive in Phase 7.
 struct MapResultsView: View {
     let services: [Service]
+    var userLocation: CLLocationCoordinate2D? = nil
     var onOpen: (Service) -> Void
 
     @State private var position: MapCameraPosition = .region(
@@ -14,13 +15,31 @@ struct MapResultsView: View {
         )
     )
     @State private var selectedID: UUID?
+    @State private var centeredOnUser = false
 
     private var selectedService: Service? {
         services.first { $0.id == selectedID }
     }
 
+    private var userLocationKey: String {
+        guard let u = userLocation else { return "" }
+        return "\(u.latitude),\(u.longitude)"
+    }
+
+    private func centerOnUserIfNeeded() {
+        guard !centeredOnUser, let u = userLocation else { return }
+        centeredOnUser = true
+        withAnimation {
+            position = .region(MKCoordinateRegion(
+                center: u,
+                span: MKCoordinateSpan(latitudeDelta: 0.15, longitudeDelta: 0.15)
+            ))
+        }
+    }
+
     var body: some View {
         Map(position: $position, selection: $selectedID) {
+            UserAnnotation()
             ForEach(services) { service in
                 Annotation(service.title, coordinate: service.location.coordinate) {
                     pin(for: service)
@@ -29,9 +48,12 @@ struct MapResultsView: View {
             }
         }
         .mapControls {
+            MapUserLocationButton()
             MapCompass()
             MapScaleView()
         }
+        .onChange(of: userLocationKey) { _, _ in centerOnUserIfNeeded() }
+        .onAppear { centerOnUserIfNeeded() }
         .overlay(alignment: .bottom) {
             if let service = selectedService {
                 miniCard(service)

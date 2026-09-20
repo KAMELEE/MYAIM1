@@ -4,6 +4,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
+    @Environment(LocationService.self) private var location
     @State private var vm = HomeViewModel()
     @State private var demoPushed = false
 
@@ -138,7 +139,7 @@ struct HomeView: View {
                             onAction: { router.push(.allServices(title: title)) })
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: MYSpacing.md) {
-                    ForEach(services) { service in
+                    ForEach(services.map { $0.distanced(from: location.userLocation) }) { service in
                         MYServiceCard(
                             service: service,
                             isFavorite: favorites.contains(service.id),
@@ -188,6 +189,7 @@ struct HomeView: View {
     NavigationStack { HomeView() }
         .environment(Router())
         .environment(FavoritesStore())
+        .environment(LocationService())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

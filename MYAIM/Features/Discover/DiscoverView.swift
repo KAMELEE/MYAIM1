@@ -3,6 +3,7 @@ import SwiftUI
 struct DiscoverView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
+    @Environment(LocationService.self) private var location
     @State private var vm = DiscoverViewModel()
     @State private var showFilters = false
 
@@ -19,6 +20,12 @@ struct DiscoverView: View {
         .navigationTitle("اكتشف")
         .navigationBarTitleDisplayMode(.inline)
         .task { vm.loadIfNeeded() }
+        .onAppear {
+            #if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("-demoMode") { return }
+            #endif
+            location.request()
+        }
         .onChange(of: vm.query) { _, _ in vm.onQueryChange() }
         .myBottomSheet(isPresented: $showFilters) {
             FiltersSheet(initial: vm.filters) { vm.apply($0) }
@@ -126,10 +133,13 @@ struct DiscoverView: View {
         case .idle, .loading:
             loadingGrid
         case .loaded(let services):
+            let located = services.map { $0.distanced(from: location.userLocation) }
             if vm.viewMode == .map {
-                MapResultsView(services: services) { router.push(.serviceDetail($0)) }
+                MapResultsView(services: located, userLocation: location.userLocation) {
+                    router.push(.serviceDetail($0))
+                }
             } else {
-                resultsList(services)
+                resultsList(located)
             }
         case .empty:
             MYEmptyState(icon: "magnifyingglass", title: "لا توجد نتائج",
@@ -187,6 +197,7 @@ struct DiscoverView: View {
     NavigationStack { DiscoverView() }
         .environment(Router())
         .environment(FavoritesStore())
+        .environment(LocationService())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }
