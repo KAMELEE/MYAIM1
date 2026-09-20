@@ -42,6 +42,12 @@ struct RouteDestination: View {
         case .settings:
             SettingsView()
 
+        case .messages:
+            MessagesView()
+
+        case .chat(let conversation):
+            ChatView(conversation: conversation)
+
         case .addCourse:
             AddCourseView()
 

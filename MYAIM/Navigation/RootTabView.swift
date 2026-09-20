@@ -70,6 +70,7 @@ private struct TabNavigationStack<Content: View>: View {
         .environment(FavoritesStore())
         .environment(GoalsStore())
         .environment(LocationService())
+        .environment(MessagesStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

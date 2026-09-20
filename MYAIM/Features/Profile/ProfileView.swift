@@ -12,6 +12,7 @@ struct ProfileView: View {
                 // Full menu (favorites, notifications, settings, etc.) is built in Phase 11.
                 VStack(spacing: 0) {
                     row("heart", "المفضلة") { router.push(.favorites) }
+                    row("bubble.left.and.bubble.right", "الرسائل") { router.push(.messages) }
                     row("bell", "الإشعارات") { router.push(.notifications) }
                     row("building.2", "سجّل أكاديميتك") { router.push(.registerAcademy) }
                     row("gearshape", "الإعدادات") { router.push(.settings) }

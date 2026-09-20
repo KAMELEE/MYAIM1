@@ -5,6 +5,7 @@ struct HomeView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
     @Environment(LocationService.self) private var location
+    @Environment(MessagesStore.self) private var messages
     @State private var vm = HomeViewModel()
     @State private var demoPushed = false
 
@@ -50,6 +51,8 @@ struct HomeView: View {
             case "registerAcademy": router.push(.registerAcademy)
             case "providerProfile": router.push(.providerProfile(SampleData.providers[0]))
             case "settings":        router.push(.settings)
+            case "messages":        router.push(.messages)
+            case "chat":            if let c = messages.conversations.first { router.push(.chat(c)) }
             default: break
             }
             #endif
@@ -191,6 +194,7 @@ struct HomeView: View {
         .environment(Router())
         .environment(FavoritesStore())
         .environment(LocationService())
+        .environment(MessagesStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

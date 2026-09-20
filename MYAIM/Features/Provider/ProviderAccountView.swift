@@ -14,6 +14,7 @@ struct ProviderAccountView: View {
                     row("building.2", "معلومات الأكاديمية")
                     row("photo.on.rectangle", "الصور والغلاف")
                     row("calendar", "الحجوزات والطلاب")
+                    row("bubble.left.and.bubble.right", "الرسائل") { router.push(.messages) }
                     row("chart.bar", "الإحصائيات")
                     row("gearshape", "الإعدادات") { router.push(.settings) }
                 }
