@@ -45,6 +45,7 @@ struct AddCourseView: View {
             MYButton(title: "نشر الدورة", icon: "checkmark") { save() }
                 .padding(MYSpacing.lg)
                 .background(.regularMaterial)
+                .myTabBarClearance()
         }
         .myScreenBackground()
         .navigationTitle("دورة جديدة")

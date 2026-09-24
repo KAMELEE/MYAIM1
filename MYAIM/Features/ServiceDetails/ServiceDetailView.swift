@@ -252,6 +252,7 @@ struct ServiceDetailView: View {
         .padding(MYSpacing.lg)
         .background(.regularMaterial)
         .overlay(alignment: .top) { Divider() }
+        .myTabBarClearance()
     }
 }
 

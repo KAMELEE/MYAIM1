@@ -52,6 +52,7 @@ struct PublishPostView: View {
             }
             .padding(MYSpacing.lg)
             .background(.regularMaterial)
+            .myTabBarClearance()
         }
         .myScreenBackground()
         .navigationTitle("منشور جديد")

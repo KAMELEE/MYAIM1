@@ -174,6 +174,7 @@ struct BookingView: View {
         .padding(MYSpacing.lg)
         .background(.regularMaterial)
         .overlay(alignment: .top) { Divider() }
+        .myTabBarClearance()
     }
 
     // MARK: Success

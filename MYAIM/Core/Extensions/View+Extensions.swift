@@ -21,6 +21,13 @@ extension View {
         self.safeAreaPadding(.bottom, 84)
     }
 
+    /// Lifts a PINNED bottom bar (CTA) above the floating MYTabBar, which is
+    /// drawn as an overlay on TabView and therefore covers pushed screens too.
+    /// Use on fixed bottom bars; use `myTabBarInset()` for scroll content.
+    func myTabBarClearance() -> some View {
+        self.padding(.bottom, 84)
+    }
+
     /// Conditionally apply a modifier.
     @ViewBuilder
     func `if`<Content: View>(_ condition: Bool,

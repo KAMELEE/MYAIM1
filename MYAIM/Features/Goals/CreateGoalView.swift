@@ -53,6 +53,7 @@ struct CreateGoalView: View {
             }
             .padding(MYSpacing.lg)
             .background(.regularMaterial)
+            .myTabBarClearance()
         }
         .myScreenBackground()
         .navigationTitle("هدف جديد")
