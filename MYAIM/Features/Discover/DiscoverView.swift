@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 
 struct DiscoverView: View {
     @Environment(Router.self) private var router
@@ -133,7 +134,7 @@ struct DiscoverView: View {
         case .idle, .loading:
             loadingGrid
         case .loaded(let services):
-            let located = services.map { $0.distanced(from: location.userLocation) }
+            let located = Self.located(services, from: location.userLocation)
             if vm.viewMode == .map {
                 MapResultsView(services: located, userLocation: location.userLocation) {
                     router.push(.serviceDetail($0))
@@ -153,6 +154,15 @@ struct DiscoverView: View {
                          onAction: { vm.runSearch() })
                 .frame(maxHeight: .infinity)
         }
+    }
+
+    /// Recompute distances from the live location; sort nearest-first when known.
+    private static func located(_ services: [Service],
+                                from userLocation: CLLocationCoordinate2D?) -> [Service] {
+        let mapped = services.map { $0.distanced(from: userLocation) }
+        guard userLocation != nil else { return mapped }
+        return mapped.sorted { ($0.distanceMeters ?? .greatestFiniteMagnitude)
+                              < ($1.distanceMeters ?? .greatestFiniteMagnitude) }
     }
 
     private func resultsList(_ services: [Service]) -> some View {
