@@ -124,7 +124,7 @@ struct ChatView: View {
 
     private func togglePlay(_ msg: Message) {
         guard let url = msg.audioURL else { return }
-        if isPlaying {
+        if playingId == msg.id {
             player?.stop()
             playingId = nil
             return
