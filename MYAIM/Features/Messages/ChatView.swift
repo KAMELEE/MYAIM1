@@ -17,6 +17,10 @@ struct ChatView: View {
                         ForEach(live.messages) { msg in
                             bubble(msg).id(msg.id)
                         }
+                        if !starterChips.isEmpty {
+                            starterReplies
+                                .id("starter")
+                        }
                     }
                     .padding(MYSpacing.screen)
                 }
@@ -56,6 +60,41 @@ struct ChatView: View {
                     .font(MYTypography.caption).foregroundStyle(MYColor.textTertiary)
             }
             if !msg.fromMe { Spacer(minLength: 40) }
+        }
+    }
+
+    /// Quick starter questions, shown once at the start of a fresh thread to
+    /// make contacting an academy frictionless.
+    private var starterChips: [String] {
+        live.messages.count == 1 && live.messages.first?.fromMe == false
+            ? ["ما هي مواعيد الدورات؟", "هل توجد خصومات؟", "كيف أقدر أحجز؟"]
+            : []
+    }
+
+    @ViewBuilder
+    private var starterReplies: some View {
+        if !starterChips.isEmpty {
+            VStack(alignment: .leading, spacing: MYSpacing.sm) {
+                ForEach(starterChips, id: \.self) { chip in
+                    Button {
+                        draft = chip
+                        focused = true
+                        Haptics.selection()
+                    } label: {
+                        Text(chip)
+                            .font(MYTypography.secondary)
+                            .foregroundStyle(MYColor.primary)
+                            .padding(.horizontal, MYSpacing.md)
+                            .padding(.vertical, MYSpacing.sm)
+                            .background(MYColor.primaryTint)
+                            .clipShape(Capsule())
+                            .overlay(Capsule().strokeBorder(MYColor.border, lineWidth: 0.5))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, MYSpacing.xs)
         }
     }
 

@@ -24,9 +24,9 @@ enum AppTab: Int, CaseIterable, Identifiable, TabBarItem {
         switch self {
         case .home:     return "house"
         case .discover: return "safari"
-        case .goals:    return "target"
+        case .goals:    return "scope"
         case .bookings: return "calendar"
-        case .profile:  return "person"
+        case .profile:  return "person.crop.circle"
         }
     }
 
@@ -34,9 +34,9 @@ enum AppTab: Int, CaseIterable, Identifiable, TabBarItem {
         switch self {
         case .home:     return "house.fill"
         case .discover: return "safari.fill"
-        case .goals:    return "target"
-        case .bookings: return "calendar"
-        case .profile:  return "person.fill"
+        case .goals:    return "scope"
+        case .bookings: return "calendar.fill"
+        case .profile:  return "person.crop.circle.fill"
         }
     }
 }

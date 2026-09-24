@@ -14,37 +14,40 @@ private struct OnboardingPage: Identifiable {
 struct OnboardingView: View {
     @Environment(AppState.self) private var appState
     @State private var index = 0
-    @State private var illustrationAppeared = false
 
     private let pages: [OnboardingPage] = [
         .init(imageName: "onboard_verified",
-              icon: "checkmark.seal.fill",
+              icon: "building.2.fill",
               eyebrow: "MY AIM",
-              titlePlain: "أكاديميات",
-              titleBold: "موثقة في كل التخصصات",
-              subtitle: "نتحقق من كل مزوّد قبل ظهوره لك، فتحجز وأنت مطمئن للجودة والمصداقية.",
-              stats: [("checkmark.shield.fill", "توثيق كامل"), ("star.fill", "تقييمات حقيقية")]),
+              titlePlain: "اكتشف أفضل الأكاديميات",
+              titleBold: "والجهات التدريبية",
+              subtitle: "ابحث عن الأكاديمية أو الدورة التي تناسبك، وقارن الخيارات المتاحة واختر ما يناسب تخصصك واحتياجك.",
+              stats: [("checkmark.seal.fill", "جهات تدريبية موثوقة"),
+                      ("books.vertical.fill", "دورات وتخصصات متنوعة")]),
         .init(imageName: "onboard_nearby",
-              icon: "location.fill",
+              icon: "location.circle.fill",
               eyebrow: "MY AIM",
-              titlePlain: "أقرب الخيارات",
-              titleBold: "قريبة منك",
-              subtitle: "نرتب لك الأكاديميات والخدمات حسب موقعك، فتوفّر وقتك وتختار الأقرب لك.",
-              stats: [("map.fill", "فرز بالمسافة"), ("bolt.fill", "نتائج فورية")]),
+              titlePlain: "الجهات الأقرب",
+              titleBold: "لك أولاً",
+              subtitle: "نعرض لك الأكاديميات والخدمات مرتبة حسب موقعك، فتعرف المسافة قبل أن تحجز.",
+              stats: [("map.fill", "ترتيب حسب المسافة"),
+                      ("figure.walk.motion", "خيارات قريبة")]),
         .init(imageName: "onboard_choice",
               icon: "slider.horizontal.3",
               eyebrow: "MY AIM",
-              titlePlain: "اختر",
-              titleBold: "ما يناسبك تمامًا",
-              subtitle: "فلاتر ذكية للسعر والتخصص والتوقيت، لتصل لخيارك المثالي بضغطات قليلة.",
-              stats: [("target", "توصيات مخصّصة"), ("slider.horizontal.below.rectangle", "فلترة دقيقة")]),
+              titlePlain: "قارن الخيارات",
+              titleBold: "واختر بثقة",
+              subtitle: "فلاتر للسعر والتخصص والتوقيت تسهّل المقارنة بين الجهات حتى تصل لما يناسبك.",
+              stats: [("arrow.left.arrow.right", "مقارنة مباشرة"),
+                      ("line.3.horizontal.decrease.circle.fill", "فلاتر واضحة")]),
         .init(imageName: "onboard_offers",
               icon: "tag.fill",
               eyebrow: "MY AIM",
-              titlePlain: "أسعار وعروض",
-              titleBold: "تناسب ميزانيتك",
-              subtitle: "خصومات وباقات حصرية تتجدد باستمرار، لتحصل على أفضل قيمة لكل ريال.",
-              stats: [("percent", "عروض أسبوعية"), ("wallet.pass.fill", "خيارات لكل ميزانية")])
+              titlePlain: "أسعار واضحة",
+              titleBold: "من البداية",
+              subtitle: "السعر يظهر مع كل خدمة، وتجد خصومات على دورات مختارة بشكل مستمر.",
+              stats: [("percent", "خصومات متجددة"),
+                      ("banknote.fill", "سعر معلن لكل خدمة")])
     ]
 
     private var isLast: Bool { index == pages.count - 1 }
@@ -55,18 +58,12 @@ struct OnboardingView: View {
 
             TabView(selection: $index) {
                 ForEach(Array(pages.enumerated()), id: \.element.id) { i, page in
-                    pageView(page).tag(i)
+                    PageContent(page: page, isActive: i == index)
+                        .tag(i)
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             .animation(.easeInOut(duration: 0.3), value: index)
-            .onChange(of: index) { _, _ in
-                illustrationAppeared = false
-                Haptics.selection()
-                withAnimation(.spring(response: 0.5, dampingFraction: 0.75).delay(0.05)) {
-                    illustrationAppeared = true
-                }
-            }
 
             dots.padding(.vertical, MYSpacing.lg)
 
@@ -75,11 +72,6 @@ struct OnboardingView: View {
                 .padding(.bottom, MYSpacing.xl)
         }
         .myScreenBackground()
-        .onAppear {
-            withAnimation(.spring(response: 0.5, dampingFraction: 0.75).delay(0.1)) {
-                illustrationAppeared = true
-            }
-        }
     }
 
     // MARK: Header
@@ -97,91 +89,19 @@ struct OnboardingView: View {
         .padding(.top, MYSpacing.sm)
     }
 
-    // MARK: Page
-    private func pageView(_ page: OnboardingPage) -> some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: MYSpacing.xl) {
-                illustration(page)
-                    .padding(.top, MYSpacing.sm)
-
-                VStack(spacing: MYSpacing.md) {
-                    Text(page.eyebrow)
-                        .font(MYTypography.caption)
-                        .foregroundStyle(MYColor.primary)
-                        .tracking(1.2)
-
-                    (Text(page.titlePlain + " ")
-                        .foregroundStyle(MYColor.textPrimary)
-                     + Text(page.titleBold)
-                        .foregroundStyle(MYColor.primary))
-                        .font(MYTypography.largeTitle)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    Text(page.subtitle)
-                        .font(MYTypography.body)
-                        .foregroundStyle(MYColor.textSecondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, MYSpacing.lg)
-                }
-
-                statChips(page.stats)
-                    .padding(.bottom, MYSpacing.md)
-            }
-            .padding(.horizontal, MYSpacing.screen)
-        }
-    }
-
-    /// Illustration image with a floating breathing animation, an animated
-    /// interactive icon badge, and a spring-in entrance transition.
-    private func illustration(_ page: OnboardingPage) -> some View {
-        ZStack(alignment: .bottomTrailing) {
-            Image(page.imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 190)
-                .frame(maxWidth: .infinity, minHeight: 240)
-                .background(
-                    RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous)
-                        .fill(MYColor.surfaceSecondary)
-                )
-                .modifier(FloatingAnimation())
-
-            InteractiveIconBadge(icon: page.icon)
-                .offset(x: -8, y: 8)
-        }
-        .scaleEffect(illustrationAppeared ? 1 : 0.85)
-        .opacity(illustrationAppeared ? 1 : 0)
-    }
-
-    private func statChips(_ stats: [(icon: String, text: String)]) -> some View {
-        HStack(spacing: MYSpacing.sm) {
-            ForEach(stats, id: \.text) { stat in
-                HStack(spacing: MYSpacing.xs) {
-                    Image(systemName: stat.icon)
-                        .font(.system(size: 11, weight: .semibold))
-                    Text(stat.text)
-                        .font(MYTypography.caption)
-                }
-                .foregroundStyle(MYColor.primary)
-                .padding(.horizontal, MYSpacing.md)
-                .padding(.vertical, MYSpacing.sm)
-                .background(MYColor.primaryTint)
-                .clipShape(Capsule())
-            }
-        }
-    }
-
     // MARK: Dots
     private var dots: some View {
         HStack(spacing: MYSpacing.xs) {
             ForEach(pages.indices, id: \.self) { i in
                 Capsule()
                     .fill(i == index ? MYColor.primary : MYColor.border)
-                    .frame(width: i == index ? 22 : 7, height: 7)
-                    .animation(.easeOut(duration: 0.25), value: index)
+                    .frame(width: i == index ? 26 : 8, height: 8)
+                    .scaleEffect(i == index ? 1 : 0.85, anchor: .center)
+                    .animation(.spring(response: 0.4, dampingFraction: 0.7), value: index)
             }
         }
+        .padding(MYSpacing.xs)
+        .background(Capsule().fill(MYColor.surfaceSecondary))
     }
 
     // MARK: Controls — circular back / forward, final pill "start"
@@ -229,49 +149,165 @@ struct OnboardingView: View {
     }
 }
 
-/// Small circular icon badge with a continuous, subtle "breathing" scale and
-/// a tap ripple — the "interactive icon" accent floating over the illustration.
-private struct InteractiveIconBadge: View {
-    let icon: String
-    @State private var pulse = false
-    @State private var tapped = false
+// MARK: - Page content (staggered entrance, breathing illustration)
+
+/// One onboarding page. Content enters in a staggered sequence (illustration
+/// → eyebrow → title → subtitle → chips) whenever the page becomes active,
+/// giving each swipe a crisp, layered reveal.
+private struct PageContent: View {
+    let page: OnboardingPage
+    let isActive: Bool
+
+    @State private var appeared = false
+
+    private let columns = [GridItem(.flexible(), spacing: MYSpacing.md),
+                           GridItem(.flexible(), spacing: MYSpacing.md)]
 
     var body: some View {
-        Button {
-            Haptics.light()
-            tapped = true
-            withAnimation(.spring(response: 0.35, dampingFraction: 0.5)) { tapped = false }
-        } label: {
-            Image(systemName: icon)
-                .font(.system(size: 18, weight: .semibold))
-                .foregroundStyle(MYColor.onPrimary)
-                .frame(width: 44, height: 44)
-                .background(MYColor.primary)
-                .clipShape(Circle())
-                .myShadow(MYShadow.raised)
-                .scaleEffect(pulse ? 1.08 : 1.0)
-                .scaleEffect(tapped ? 0.85 : 1.0)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: MYSpacing.xl) {
+                illustration
+                    .padding(.top, MYSpacing.sm)
+
+                VStack(spacing: MYSpacing.md) {
+                    Text(page.eyebrow)
+                        .font(MYTypography.caption)
+                        .foregroundStyle(MYColor.primary)
+                        .tracking(1.2)
+                        .stagger(0.10, appeared: appeared)
+
+                    (Text(page.titlePlain + " ")
+                        .foregroundStyle(MYColor.textPrimary)
+                     + Text(page.titleBold)
+                        .foregroundStyle(MYColor.primary))
+                        .font(MYTypography.largeTitle)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .stagger(0.20, appeared: appeared)
+
+                    Text(page.subtitle)
+                        .font(MYTypography.body)
+                        .foregroundStyle(MYColor.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, MYSpacing.lg)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .stagger(0.30, appeared: appeared)
+                }
+
+                statChips(page.stats)
+                    .padding(.bottom, MYSpacing.md)
+                    .stagger(0.42, appeared: appeared)
+            }
+            .padding(.horizontal, MYSpacing.screen)
         }
-        .buttonStyle(.plain)
-        .onAppear {
-            withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) {
-                pulse = true
+        .onAppear { play() }
+        .onChange(of: isActive) { _, active in if active { play() } }
+    }
+
+    private func play() {
+        appeared = false
+        withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) { appeared = true }
+    }
+
+    /// Illustration with a gentle continuous float and a gradient icon badge.
+    private var illustration: some View {
+        ZStack(alignment: .bottomLeading) {
+            Image(page.imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 190)
+                .frame(maxWidth: .infinity, minHeight: 240)
+                .background(
+                    RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous)
+                        .fill(MYColor.surfaceSecondary)
+                )
+                .modifier(FloatingAnimation())
+
+            IconBadge(icon: page.icon)
+                .offset(x: 8, y: 8)
+        }
+        .scaleEffect(appeared ? 1 : 0.85)
+        .opacity(appeared ? 1 : 0)
+    }
+
+    private func statChips(_ stats: [(icon: String, text: String)]) -> some View {
+        HStack(spacing: MYSpacing.sm) {
+            ForEach(stats, id: \.text) { stat in
+                HStack(spacing: MYSpacing.xs) {
+                    Image(systemName: stat.icon)
+                        .font(.system(size: 12, weight: .semibold))
+                        .symbolRenderingMode(.hierarchical)
+                    Text(stat.text)
+                        .font(MYTypography.caption)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .foregroundStyle(MYColor.primary)
+                .padding(.horizontal, MYSpacing.md)
+                .padding(.vertical, MYSpacing.sm)
+                .background(MYColor.primaryTint, in: Capsule())
             }
         }
+    }
+}
+
+/// Slide-up + fade entrance, staggered by delay.
+private struct StaggerEffect: ViewModifier {
+    let delay: Double
+    let appeared: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .opacity(appeared ? 1 : 0)
+            .offset(y: appeared ? 0 : 18)
+    }
+}
+
+private extension View {
+    func stagger(_ delay: Double, appeared: Bool) -> some View {
+        modifier(StaggerEffect(delay: delay, appeared: appeared))
+            .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(delay),
+                       value: appeared)
+    }
+}
+
+/// Rounded-square gradient badge with a soft breathing pulse — the modern
+/// replacement for the old circle badge.
+private struct IconBadge: View {
+    let icon: String
+    @State private var pulse = false
+
+    var body: some View {
+        Image(systemName: icon)
+            .font(.system(size: 20, weight: .semibold))
+            .foregroundStyle(.white)
+            .frame(width: 48, height: 48)
+            .background(
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(LinearGradient(colors: [MYColor.primary,
+                                                  MYColor.primary.opacity(0.72)],
+                                         startPoint: .topLeading, endPoint: .bottomTrailing))
+            )
+            .myShadow(MYShadow.raised)
+            .scaleEffect(pulse ? 1.06 : 1.0)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
+                    pulse = true
+                }
+            }
     }
 }
 
 /// Continuous gentle vertical float, used to give the flat illustrations
 /// a sense of life without any heavy motion.
 private struct FloatingAnimation: ViewModifier {
-    @State private var floating = false
+    @State private var up = false
 
     func body(content: Content) -> some View {
         content
-            .offset(y: floating ? -6 : 6)
+            .offset(y: up ? -6 : 6)
             .onAppear {
-                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
-                    floating = true
+                withAnimation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true)) {
+                    up = true
                 }
             }
     }

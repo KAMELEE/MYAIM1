@@ -51,4 +51,25 @@ final class MessagesStore {
     }
 
     func conversation(_ id: UUID) -> Conversation? { conversations.first { $0.id == id } }
+
+    /// Opens (or creates) a conversation with a service's academy — the
+    /// "تواصل" entry point. Reuses the existing thread when present.
+    @discardableResult
+    func openConversation(with service: Service) -> Conversation {
+        if let existing = conversations.first(where: { $0.name == service.providerName }) {
+            return existing
+        }
+        let conversation = Conversation(
+            name: service.providerName,
+            avatarAsset: service.category.imageName,
+            category: service.category,
+            unread: 0,
+            messages: [
+                Message(text: "أهلاً بك في \(service.providerName)! اسألنا عن \(service.title) وسنرد عليك بسرعة.",
+                        fromMe: false, date: Date())
+            ]
+        )
+        conversations.insert(conversation, at: 0)
+        return conversation
+    }
 }

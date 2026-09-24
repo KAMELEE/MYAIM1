@@ -7,6 +7,7 @@ struct ServiceDetailView: View {
 
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
+    @Environment(MessagesStore.self) private var messages
     @Environment(\.dismiss) private var dismiss
 
     private var isFavorite: Bool { favorites.contains(service.id) }
@@ -105,7 +106,7 @@ struct ServiceDetailView: View {
             HStack(spacing: MYSpacing.md) {
                 MYRating(rating: service.rating, reviewsCount: service.reviewsCount)
                 HStack(spacing: MYSpacing.xxs) {
-                    Image(systemName: "mappin.and.ellipse")
+                    Image(systemName: "mappin.circle.fill")
                         .font(.system(size: 11))
                         .foregroundStyle(MYColor.textTertiary)
                     Text(locationText)
@@ -245,6 +246,8 @@ struct ServiceDetailView: View {
                     .font(MYTypography.cardTitle)
                     .foregroundStyle(MYColor.textPrimary)
             }
+            Spacer(minLength: 0)
+            contactButton
             MYButton(title: "احجز الآن", icon: "calendar") {
                 router.push(.booking(service))
             }
@@ -254,6 +257,25 @@ struct ServiceDetailView: View {
         .overlay(alignment: .top) { Divider() }
         .myTabBarClearance()
     }
+
+    /// "تواصل" — opens a chat thread with this service's academy.
+    private var contactButton: some View {
+        Button {
+            Haptics.light()
+            let conversation = messages.openConversation(with: service)
+            router.push(.chat(conversation))
+        } label: {
+            Image(systemName: "bubble.left.and.exclamationmark.bubble.right.fill")
+                .font(.system(size: 18, weight: .semibold))
+                .symbolRenderingMode(.hierarchical)
+                .foregroundStyle(MYColor.primary)
+                .frame(width: 48, height: 48)
+                .background(MYColor.primaryTint, in: Circle())
+                .overlay(Circle().strokeBorder(MYColor.border, lineWidth: 0.5))
+        }
+        .buttonStyle(PressableButtonStyle())
+        .accessibilityLabel("تواصل مع الأكاديمية")
+    }
 }
 
 #Preview {
@@ -261,6 +283,7 @@ struct ServiceDetailView: View {
         ServiceDetailView(service: SampleData.services[0])
             .environment(Router())
             .environment(FavoritesStore())
+            .environment(MessagesStore())
     }
     .environment(\.layoutDirection, .rightToLeft)
     .environment(\.locale, Locale(identifier: "ar"))

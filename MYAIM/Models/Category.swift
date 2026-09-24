@@ -21,9 +21,9 @@ enum ServiceCategory: String, CaseIterable, Identifiable, Codable {
     /// SF Symbol used as a lightweight, non-decorative icon.
     var icon: String {
         switch self {
-        case .selfDevelopment: return "figure.mind.and.body"
-        case .sports:          return "figure.run"
-        case .education:       return "book"
+        case .selfDevelopment: return "brain.filled.head.profile"
+        case .sports:          return "figure.run.circle.fill"
+        case .education:       return "book.fill"
         case .tech:            return "laptopcomputer"
         }
     }
