@@ -1,4 +1,4 @@
-# CI log — run 28
+# CI log — run 29
 exit code: 65
 
 ===== xcodegen =====
@@ -20,9 +20,9 @@ Resolve Package Graph
 
 Fetching from https://github.com/firebase/firebase-ios-sdk.git
 
-Fetching from https://github.com/google/app-check.git
-
 Fetching from https://github.com/google/interop-ios-for-google-sdks.git
+
+Fetching from https://github.com/google/app-check.git
 
 Fetching from https://github.com/firebase/leveldb.git
 
@@ -46,33 +46,21 @@ Fetching from https://github.com/google/promises.git
 
 Fetching from https://github.com/googleads/google-ads-on-device-conversion-ios-sdk
 
-Creating working copy of package ‘promises’
+Creating working copy of package ‘GoogleDataTransport’
 
-Checking out 2.4.1 of package ‘promises’
+Checking out 10.1.1 of package ‘GoogleDataTransport’
 
-Creating working copy of package ‘firebase-ios-sdk’
+Creating working copy of package ‘app-check’
 
-Checking out 11.15.0 of package ‘firebase-ios-sdk’
-
-Creating working copy of package ‘abseil-cpp-binary’
-
-Checking out 1.2024072200.0 of package ‘abseil-cpp-binary’
-
-Creating working copy of package ‘google-ads-on-device-conversion-ios-sdk’
-
-Checking out 2.3.0 of package ‘google-ads-on-device-conversion-ios-sdk’
-
-Creating working copy of package ‘nanopb’
-
-Checking out 2.30910.1 of package ‘nanopb’
-
-Creating working copy of package ‘interop-ios-for-google-sdks’
-
-Checking out 101.0.0 of package ‘interop-ios-for-google-sdks’
+Checking out 11.3.2 of package ‘app-check’
 
 Creating working copy of package ‘leveldb’
 
 Checking out 1.22.5 of package ‘leveldb’
+
+Creating working copy of package ‘promises’
+
+Checking out 2.4.1 of package ‘promises’
 
 Creating working copy of package ‘gtm-session-fetcher’
 
@@ -82,9 +70,17 @@ Creating working copy of package ‘GoogleUtilities’
 
 Checking out 8.1.3 of package ‘GoogleUtilities’
 
-Creating working copy of package ‘app-check’
+Creating working copy of package ‘google-ads-on-device-conversion-ios-sdk’
 
-Checking out 11.3.2 of package ‘app-check’
+Checking out 2.3.0 of package ‘google-ads-on-device-conversion-ios-sdk’
+
+Creating working copy of package ‘GoogleAppMeasurement’
+
+Checking out 11.15.0 of package ‘GoogleAppMeasurement’
+
+Creating working copy of package ‘nanopb’
+
+Checking out 2.30910.1 of package ‘nanopb’
 
 Creating working copy of package ‘grpc-binary’
 
@@ -94,30 +90,34 @@ Creating working copy of package ‘swift-protobuf’
 
 Checking out 1.38.1 of package ‘swift-protobuf’
 
-Creating working copy of package ‘GoogleAppMeasurement’
+Creating working copy of package ‘abseil-cpp-binary’
 
-Checking out 11.15.0 of package ‘GoogleAppMeasurement’
+Checking out 1.2024072200.0 of package ‘abseil-cpp-binary’
 
-Creating working copy of package ‘GoogleDataTransport’
+Creating working copy of package ‘firebase-ios-sdk’
 
-Checking out 10.1.1 of package ‘GoogleDataTransport’
+Checking out 11.15.0 of package ‘firebase-ios-sdk’
+
+Creating working copy of package ‘interop-ios-for-google-sdks’
+
+Checking out 101.0.0 of package ‘interop-ios-for-google-sdks’
 
 
 Resolved source packages:
-  nanopb: https://github.com/firebase/nanopb.git @ 2.30910.1
-  GoogleDataTransport: https://github.com/google/GoogleDataTransport.git @ 10.1.1
-  leveldb: https://github.com/firebase/leveldb.git @ 1.22.5
-  Promises: https://github.com/google/promises.git @ 2.4.1
-  abseil: https://github.com/google/abseil-cpp-binary.git @ 1.2024072200.0
-  InteropForGoogle: https://github.com/google/interop-ios-for-google-sdks.git @ 101.0.0
-  AppCheck: https://github.com/google/app-check.git @ 11.3.2
-  SwiftProtobuf: https://github.com/apple/swift-protobuf.git @ 1.38.1
   GoogleAppMeasurement: https://github.com/google/GoogleAppMeasurement.git @ 11.15.0
-  GoogleUtilities: https://github.com/google/GoogleUtilities.git @ 8.1.3
   GoogleAdsOnDeviceConversion: https://github.com/googleads/google-ads-on-device-conversion-ios-sdk @ 2.3.0
-  Firebase: https://github.com/firebase/firebase-ios-sdk.git @ 11.15.0
+  nanopb: https://github.com/firebase/nanopb.git @ 2.30910.1
   GTMSessionFetcher: https://github.com/google/gtm-session-fetcher.git @ 4.5.0
+  Promises: https://github.com/google/promises.git @ 2.4.1
+  GoogleUtilities: https://github.com/google/GoogleUtilities.git @ 8.1.3
+  SwiftProtobuf: https://github.com/apple/swift-protobuf.git @ 1.38.1
+  leveldb: https://github.com/firebase/leveldb.git @ 1.22.5
+  abseil: https://github.com/google/abseil-cpp-binary.git @ 1.2024072200.0
+  AppCheck: https://github.com/google/app-check.git @ 11.3.2
+  InteropForGoogle: https://github.com/google/interop-ios-for-google-sdks.git @ 101.0.0
+  GoogleDataTransport: https://github.com/google/GoogleDataTransport.git @ 10.1.1
   gRPC: https://github.com/google/grpc-binary.git @ 1.69.1
+  Firebase: https://github.com/firebase/firebase-ios-sdk.git @ 11.15.0
 
 Information about project "MYAIM":
     Targets:
@@ -134,89 +134,90 @@ Information about project "MYAIM":
 
 
 ===== errors =====
-1479:/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift:20:19: error: no such module 'GoogleUtilities'
+6701:/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/FirebaseAuthRepository.swift:83:36: error: type 'AuthErrors' has no member 'errorDomain'
+6704:/Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/FirebaseAuthRepository.swift:88:34: error: type 'AuthErrorCode' has no member 'malformedEmail'
 
 ===== build tail (80) =====
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_setjmp-6148OGDVXPYRKLWUSAJJALAAS.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_setjmp-6148OGDVXPYRKLWUSAJJALAAS.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Extensions/Font+AppFont.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_inttypes-CZ5C1HUSOE355T49YDTWVG4OD.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_inttypes-CZ5C1HUSOE355T49YDTWVG4OD.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/ForgotPasswordView.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_tgmath-EMAEF5H5FJE3CKLF89PN1YXA0.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_tgmath-EMAEF5H5FJE3CKLF89PN1YXA0.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Extensions/Formatters.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_sys_select-1P5A02VLTBCDEYHV1HYNRVIUM.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_sys_select-1P5A02VLTBCDEYHV1HYNRVIUM.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Goal.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_limits-1DDL4DJSPPKHTTKH2Y4D9R74P.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_limits-1DDL4DJSPPKHTTKH2Y4D9R74P.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Goals/GoalDetailView.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/sys_types-31FUN5UCJ1Z5ZFAGCBB60CKMR.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/sys_types-31FUN5UCJ1Z5ZFAGCBB60CKMR.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/GoalRepository.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_assert-4G10VUPAV0ZVQROFI7HO5JV62.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_assert-4G10VUPAV0ZVQROFI7HO5JV62.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/GoalsStore.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/nl_types-F35ZSJC1CNE3R315UXUXGF9CR.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/nl_types-F35ZSJC1CNE3R315UXUXGF9CR.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Goals/GoalsView.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_stdio-B0RFAUWCXUDHFYT7AKOGVORUL.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_stdio-B0RFAUWCXUDHFYT7AKOGVORUL.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Utilities/Haptics.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_time-C3XIQ6XLRDSLFAPEHOCRU36ZJ.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_time-C3XIQ6XLRDSLFAPEHOCRU36ZJ.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/HeroSlide.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_signal-98F9HUOXVC5OAO0ZTDSC2JDWQ.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_signal-98F9HUOXVC5OAO0ZTDSC2JDWQ.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Home/HomeView.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/gethostuuid-AAI5R6WYZMIMFOWXBIICTL8IP.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/gethostuuid-AAI5R6WYZMIMFOWXBIICTL8IP.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Home/HomeViewModel.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/pthread-7P6631R9WE26NK0L0YBNE7EMA.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/pthread-7P6631R9WE26NK0L0YBNE7EMA.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Utilities/LoadingState.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/sys_select-EBZS2MT9XX82PI1L0KH77AL41.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/sys_select-EBZS2MT9XX82PI1L0KH77AL41.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Location.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_limits-DRLOXFXWWWSQ64WSVD7ANRH5I.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_limits-DRLOXFXWWWSQ64WSVD7ANRH5I.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/LocationService.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/unistd-1EW7WW8GCY7SLU7ZF9G86VYCI.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/unistd-1EW7WW8GCY7SLU7ZF9G86VYCI.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/LoginView.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_string-AU1Z9Y59MZXT2LDA6LF09W0K9.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_string-AU1Z9Y59MZXT2LDA6LF09W0K9.scan
+SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/App/MYAIMApp.swift (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    
 
-PrecompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_wchar-EU62MBYZZ9IP5Y9POKOJTVCG4.scan
-    cd /Users/runner/work/MYAIM1/MYAIM1/MYAIM.xcodeproj
-    builtin-precompileModule /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/ExplicitPrecompiledModules/_wchar-EU62MBYZZ9IP5Y9POKOJTVCG4.scan
+SwiftCompile normal x86_64 Compiling\ MYTextField.swift,\ MYTypography.swift,\ MapResultsView.swift,\ Message.swift,\ MessagesStore.swift,\ MessagesView.swift,\ NotificationService.swift,\ NotificationsView.swift,\ OTPView.swift,\ OnboardingView.swift,\ Post.swift,\ ProfileView.swift,\ Provider.swift,\ ProviderAccountView.swift,\ ProviderCoursesView.swift,\ ProviderDashboardView.swift,\ ProviderPostsView.swift,\ ProviderProfileView.swift,\ ProviderShell.swift,\ ProviderStore.swift,\ ProviderTab.swift,\ PublishPostView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Components/MYTextField.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/DesignSystem/MYTypography.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Discover/MapResultsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Message.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/MessagesStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Messages/MessagesView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/NotificationService.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Notifications/NotificationsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/OTPView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Onboarding/OnboardingView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Post.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Profile/ProfileView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Provider.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderAccountView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderCoursesView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/Dashboard/ProviderDashboardView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderPostsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderProfileView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Navigation/ProviderShell.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/ProviderStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Navigation/ProviderTab.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/PublishPostView.swift (in target 'MYAIM' from project 'MYAIM')
+Command SwiftCompile failed with a nonzero exit code
 
 ** BUILD FAILED **
 
 
 The following build commands failed:
-	EmitSwiftModule normal x86_64 (in target 'FirebaseCoreInternal' from project 'Firebase')
-	SwiftEmitModule normal x86_64 Emitting\ module\ for\ FirebaseCoreInternal (in target 'FirebaseCoreInternal' from project 'Firebase')
+	SwiftCompile normal arm64 Compiling\ DiscoverView.swift,\ DiscoverViewModel.swift,\ FavoritesStore.swift,\ FavoritesView.swift,\ FiltersSheet.swift,\ FirebaseAuthRepository.swift,\ Font+AppFont.swift,\ ForgotPasswordView.swift,\ Formatters.swift,\ Goal.swift,\ GoalDetailView.swift,\ GoalRepository.swift,\ GoalsStore.swift,\ GoalsView.swift,\ Haptics.swift,\ HeroSlide.swift,\ HomeView.swift,\ HomeViewModel.swift,\ LoadingState.swift,\ Location.swift,\ LocationService.swift,\ LoginView.swift,\ MYAIMApp.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Discover/DiscoverView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Discover/DiscoverViewModel.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/FavoritesStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Favorites/FavoritesView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Discover/FiltersSheet.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/FirebaseAuthRepository.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Extensions/Font+AppFont.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/ForgotPasswordView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Extensions/Formatters.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Goal.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Goals/GoalDetailView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/GoalRepository.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/GoalsStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Goals/GoalsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Utilities/Haptics.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/HeroSlide.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Home/HomeView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Home/HomeViewModel.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/Utilities/LoadingState.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Location.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/LocationService.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/LoginView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/App/MYAIMApp.swift (in target 'MYAIM' from project 'MYAIM')
+	SwiftCompile normal arm64 /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Repositories/FirebaseAuthRepository.swift (in target 'MYAIM' from project 'MYAIM')
+	SwiftCompile normal x86_64 Compiling\ MYTextField.swift,\ MYTypography.swift,\ MapResultsView.swift,\ Message.swift,\ MessagesStore.swift,\ MessagesView.swift,\ NotificationService.swift,\ NotificationsView.swift,\ OTPView.swift,\ OnboardingView.swift,\ Post.swift,\ ProfileView.swift,\ Provider.swift,\ ProviderAccountView.swift,\ ProviderCoursesView.swift,\ ProviderDashboardView.swift,\ ProviderPostsView.swift,\ ProviderProfileView.swift,\ ProviderShell.swift,\ ProviderStore.swift,\ ProviderTab.swift,\ PublishPostView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Components/MYTextField.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Core/DesignSystem/MYTypography.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Discover/MapResultsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Message.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/MessagesStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Messages/MessagesView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/NotificationService.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Notifications/NotificationsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Authentication/OTPView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Onboarding/OnboardingView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Post.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Profile/ProfileView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Models/Provider.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderAccountView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderCoursesView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/Dashboard/ProviderDashboardView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderPostsView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/ProviderProfileView.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Navigation/ProviderShell.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Services/ProviderStore.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Navigation/ProviderTab.swift /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Features/Provider/PublishPostView.swift (in target 'MYAIM' from project 'MYAIM')
 	Building project MYAIM with scheme MYAIM and configuration Debug
-(3 failures)
+(4 failures)
 
 ===== simulator =====
 build failed; skipping
