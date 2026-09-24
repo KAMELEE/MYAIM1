@@ -38,7 +38,7 @@ final class FirestoreServiceRepository: ServiceRepository {
             batch.setData(FirestoreMappers.serviceData(service),
                           forDocument: db.collection(Self.collection).document(service.id.uuidString))
         }
-        try batch.commit()
+        try await batch.commit()
         return SampleData.services
     }
 
