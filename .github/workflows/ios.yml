@@ -47,7 +47,7 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
-            SWIFT_ACTIVE_COMPILATION_CONDITIONS="DEBUG DEMO" \
+            DEMO_FLAG=DEMO \
             build 2>&1 | tee xcodebuild.log
           code=${PIPESTATUS[0]}
           echo "$code" > build.code

@@ -154,7 +154,7 @@ MYAIM/
 - إسقاط تحديد البطاقة المصغّرة تلقائيًا إذا اندمجت خدمتها في عنقود.
 
 ## وضع العرض التجريبي (DEMO)
-- بناء الـCI يمرر `SWIFT_ACTIVE_COMPILATION_CONDITIONS="DEBUG DEMO"` — نسخة Appetize تستخدم
+- بناء الـCI يمرر `DEMO_FLAG=DEMO` إلى xcodebuild — نسخة Appetize تستخدم
   مصادقة وهمية (`MockAuthRepository`): أي بيانات دخول تنجح، والتسجيل يقبل رمز OTP `1234`.
 - البناء المحلي من Xcode (بدون `DEMO`) يستخدم Firebase الحقيقي، ورسائل خطأ Firebase أصبحت
   بالعربية (حساب غير موجود / مزوّد غير مفعّل في Console …).
