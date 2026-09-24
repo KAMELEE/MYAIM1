@@ -9,7 +9,8 @@ struct AcademyStory: Identifiable {
     let providerName: String
     let avatarAsset: String?
     let accent: Color
-    let pages: [StoryPage]
+    /// Pages are mutable so the academy can append later from the dashboard.
+    var pages: [StoryPage]
 
     struct StoryPage: Identifiable {
         let id = UUID()
