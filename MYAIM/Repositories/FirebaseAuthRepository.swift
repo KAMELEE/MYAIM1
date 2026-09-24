@@ -80,12 +80,12 @@ final class FirebaseAuthRepository: AuthRepository {
 
     private func map(_ error: Error) -> RepositoryError {
         let ns = error as NSError
-        if ns.domain == AuthErrors.errorDomain,
+        if ns.domain == AuthErrors.domain,
            let code = AuthErrorCode(rawValue: ns.code) {
             switch code {
             case .operationNotAllowed:
                 return .unknown("طريقة تسجيل الدخول هذه غير مفعّلة في مشروع Firebase.")
-            case .invalidEmail, .malformedEmail:
+            case .invalidEmail:
                 return .unknown("صيغة البريد الإلكتروني غير صحيحة.")
             case .wrongPassword, .userNotFound, .invalidCredential:
                 return .unknown("البريد الإلكتروني أو كلمة المرور غير صحيحة.")
