@@ -62,10 +62,12 @@ struct DiscoverView: View {
                         Text("\(vm.filters.activeCount)")
                             .font(.appFont(10, weight: .bold))
                             .foregroundStyle(MYColor.primary)
-                            .frame(width: 18, height: 18)
+                            .frame(width: 17, height: 17)
                             .background(.white)
                             .clipShape(Circle())
-                            .offset(x: -4, y: 4)
+                            .overlay(Circle().strokeBorder(MYColor.border, lineWidth: 0.5))
+                            .offset(x: 6, y: 6)
+                            .padding(2)
                     }
                 }
         }
@@ -80,7 +82,9 @@ struct DiscoverView: View {
                     chip(c.title, isOn: vm.selectedCategory == c) { vm.selectedCategory = c }
                 }
             }
+            .padding(.horizontal, MYSpacing.md)
         }
+        .padding(.horizontal, -MYSpacing.md)
     }
 
     private func chip(_ title: String, isOn: Bool, action: @escaping () -> Void) -> some View {
@@ -107,6 +111,8 @@ struct DiscoverView: View {
         .padding(3)
         .background(MYColor.surfaceSecondary)
         .clipShape(Capsule())
+        .frame(width: 180)
+        .frame(maxWidth: .infinity)
     }
 
     private func toggleButton(_ title: String, _ icon: String, mode: DiscoverViewMode) -> some View {
@@ -139,6 +145,7 @@ struct DiscoverView: View {
                 MapResultsView(services: located, userLocation: location.userLocation) {
                     router.push(.serviceDetail($0))
                 }
+                .myTabBarInset()
             } else {
                 resultsList(located)
             }
@@ -200,6 +207,7 @@ struct DiscoverView: View {
             }
             .padding(MYSpacing.screen)
         }
+        .myTabBarInset()
     }
 }
 

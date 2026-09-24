@@ -29,6 +29,8 @@ struct ProviderDashboardView: View {
             demoPushed = true
             if r == "addCourse" { router.push(.addCourse) }
             if r == "publishPost" { router.push(.publishPost) }
+            if r == "publishStory" { router.push(.publishStory) }
+            if r == "publishAd" { router.push(.publishAd) }
             if r == "courseDetail", let c = store.courses.first { router.push(.courseDetail(c)) }
             #endif
         }
@@ -83,9 +85,11 @@ struct ProviderDashboardView: View {
     private var quickActions: some View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
             MYSectionHeader(title: "إجراءات سريعة", actionTitle: nil)
-            HStack(spacing: MYSpacing.md) {
+            LazyVGrid(columns: cols, spacing: MYSpacing.md) {
                 action("plus.circle.fill", "إضافة دورة") { router.push(.addCourse) }
                 action("megaphone.fill", "نشر منشور") { router.push(.publishPost) }
+                action("flame.fill", "نشر ستوري") { router.push(.publishStory) }
+                action("banner.fill", "نشر إعلان") { router.push(.publishAd) }
             }
         }
     }

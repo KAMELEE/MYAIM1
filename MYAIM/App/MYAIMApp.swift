@@ -14,6 +14,7 @@ struct MYAIMApp: App {
     @State private var location = LocationService()
     @State private var messages = MessagesStore()
     @State private var notifications = NotificationService()
+    @State private var featured = FeaturedStore()
 
     var body: some Scene {
         WindowGroup {
@@ -25,6 +26,7 @@ struct MYAIMApp: App {
                 .environment(location)
                 .environment(messages)
                 .environment(notifications)
+                .environment(featured)
                 // Arabic-first: force RTL layout and Arabic locale app-wide.
                 .environment(\.layoutDirection, .rightToLeft)
                 .environment(\.locale, Locale(identifier: "ar"))

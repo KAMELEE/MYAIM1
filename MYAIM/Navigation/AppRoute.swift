@@ -19,5 +19,7 @@ enum AppRoute: Hashable {
     // Provider (academy) interface
     case addCourse
     case publishPost
+    case publishStory
+    case publishAd
     case courseDetail(Course)
 }

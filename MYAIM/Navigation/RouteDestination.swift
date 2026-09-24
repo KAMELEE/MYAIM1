@@ -54,6 +54,12 @@ struct RouteDestination: View {
         case .publishPost:
             PublishPostView()
 
+        case .publishStory:
+            PublishStoryView()
+
+        case .publishAd:
+            PublishAdView()
+
         case .courseDetail(let course):
             CourseDetailView(course: course)
         }

@@ -6,6 +6,7 @@ struct HomeView: View {
     @Environment(FavoritesStore.self) private var favorites
     @Environment(LocationService.self) private var location
     @Environment(MessagesStore.self) private var messages
+    @Environment(FeaturedStore.self) private var featured
     @State private var vm = HomeViewModel()
     @State private var demoPushed = false
     @State private var seenStoryIds: Set<UUID> = []
@@ -25,7 +26,7 @@ struct HomeView: View {
 
                 HomeHero(onCTA: { router.push(.allServices(title: "الأكاديميات")) })
 
-                HeroFeatureTiles(onTap: { router.push(.allServices(title: "كل الخدمات")) })
+                featuredAdsSection
 
                 categoriesSection
 
@@ -68,10 +69,10 @@ struct HomeView: View {
     private var storiesSection: some View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
             AcademyStoriesRow(
-                stories: SampleData.academyStories,
+                stories: featured.stories,
                 seenStoryIds: $seenStoryIds,
                 onTap: { story in
-                    if let i = SampleData.academyStories.firstIndex(where: { $0.id == story.id }) {
+                    if let i = featured.stories.firstIndex(where: { $0.id == story.id }) {
                         activeStory = ActiveStory(index: i)
                     }
                 }
@@ -79,11 +80,30 @@ struct HomeView: View {
         }
         .fullScreenCover(item: $activeStory) { active in
             StoryViewer(
-                stories: SampleData.academyStories,
+                stories: featured.stories,
                 startIndex: active.index,
                 seenStoryIds: $seenStoryIds,
                 onClose: { activeStory = nil }
             )
+        }
+    }
+
+    // MARK: Featured academy ads — «أكاديميات مميزة»
+    private var featuredAdsSection: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            MYSectionHeader(title: "أكاديميات مميزة",
+                            onAction: { router.push(.allServices(title: "أكاديميات مميزة")) })
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: MYSpacing.md) {
+                    ForEach(featured.ads) { ad in
+                        FeaturedAdCard(ad: ad) {
+                            router.push(.allServices(title: "أكاديميات مميزة"))
+                        }
+                    }
+                }
+                .padding(.horizontal, MYSpacing.screen)
+            }
+            .padding(.horizontal, -MYSpacing.screen)
         }
     }
 
@@ -230,6 +250,7 @@ private struct ActiveStory: Identifiable {
         .environment(FavoritesStore())
         .environment(LocationService())
         .environment(MessagesStore())
+        .environment(FeaturedStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }
