@@ -1,15 +1,34 @@
 import SwiftUI
 
+/// Fetches the live catalog once so favorites resolve against real data.
+@MainActor
+@Observable
+final class FavoritesViewModel {
+    var catalog: [Service] = []
+    private let repo: ServiceRepository
+
+    init(repo: ServiceRepository = AppRepositories.services()) {
+        self.repo = repo
+    }
+
+    func load() async {
+        catalog = (try? await repo.services(in: nil)) ?? []
+    }
+}
+
 struct FavoritesView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
+    @State private var vm = FavoritesViewModel()
 
     private let columns = [GridItem(.flexible(), spacing: MYSpacing.md),
                            GridItem(.flexible(), spacing: MYSpacing.md)]
 
+    private var favoritesList: [Service] { favorites.services(in: vm.catalog) }
+
     var body: some View {
         Group {
-            if favorites.services.isEmpty {
+            if favoritesList.isEmpty {
                 MYEmptyState(icon: "heart",
                              title: "لا توجد مفضلة بعد",
                              message: "أضف الخدمات والأكاديميات المفضلة لديك للوصول إليها بسرعة.",
@@ -19,7 +38,7 @@ struct FavoritesView: View {
             } else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: MYSpacing.md) {
-                        ForEach(favorites.services) { service in
+                        ForEach(favoritesList) { service in
                             MYServiceCard(
                                 service: service,
                                 isFavorite: true,
@@ -35,6 +54,7 @@ struct FavoritesView: View {
         }
         .myScreenBackground()
         .navigationTitle("المفضلة")
+        .task { await vm.load() }
         .navigationBarTitleDisplayMode(.inline)
     }
 }

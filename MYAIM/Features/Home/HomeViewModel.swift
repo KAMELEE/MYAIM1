@@ -17,8 +17,8 @@ final class HomeViewModel {
     var state: LoadingState<Content> = .idle
     var favorites: Set<UUID> = []
 
-    init(services: ServiceRepository = MockServiceRepository(),
-         goals: GoalRepository = MockGoalRepository()) {
+    init(services: ServiceRepository = AppRepositories.services(),
+         goals: GoalRepository = AppRepositories.goals()) {
         self.services = services
         self.goals = goals
     }

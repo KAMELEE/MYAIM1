@@ -11,7 +11,7 @@ final class BookingsViewModel {
     var upcoming: LoadingState<[Booking]> = .idle
     var past: LoadingState<[Booking]> = .idle
 
-    init(repo: BookingRepository = MockBookingRepository.shared) {
+    init(repo: BookingRepository = AppRepositories.bookings()) {
         self.repo = repo
     }
 

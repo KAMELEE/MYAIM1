@@ -3,6 +3,7 @@ import SwiftUI
 /// Decides which top-level flow to show: Onboarding → Authentication → App.
 struct RootCoordinatorView: View {
     @Environment(AppState.self) private var appState
+    @Environment(GoalsStore.self) private var goalsStore
 
     var body: some View {
         Group {
@@ -27,6 +28,10 @@ struct RootCoordinatorView: View {
             #if DEBUG
             DemoScroll.applyIfNeeded()
             #endif
+        }
+        // After login, pull the signed-in user's real goals from Firestore.
+        .onChange(of: appState.isAuthenticated) { _, signedIn in
+            if signedIn { Task { await goalsStore.reload() } }
         }
     }
 }

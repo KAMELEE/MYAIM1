@@ -20,9 +20,10 @@ final class FavoritesStore {
         persist()
     }
 
-    /// Favorited services resolved from the catalog (SampleData for now).
-    var services: [Service] {
-        SampleData.services.filter { ids.contains($0.id) }
+    /// Favorited services resolved against a catalog fetched from the active
+    /// repository (Firestore in production, SampleData in DEMO).
+    func services(in catalog: [Service]) -> [Service] {
+        catalog.filter { ids.contains($0.id) }
     }
 
     private func persist() {

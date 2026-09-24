@@ -153,9 +153,49 @@ MYAIM/
   الشارة المجمّعة تعرض العدد + أرخص سعر، والنقر عليها يقرّب الكاميرا حتى تنفصل العلامات.
 - إسقاط تحديد البطاقة المصغّرة تلقائيًا إذا اندمجت خدمتها في عنقود.
 
+## البيانات الحقيقية (Firestore)
+- الإنتاج (بناء Xcode المحلي بدون `DEMO`) يعمل الآن كليًا على Firestore:
+  - **`services`** — كتالوج الخدمات. عند أول إطلاق، إن كانت المجموعة فارغة تُزرع
+    تلقائيًا من الكتالوج العربي المدمج (`SampleData`) مرة واحدة، ثم يقرأ التطبيق
+    البيانات الحية دائمًا.
+  - **`bookings`** — حجوزات المستخدم (`userId` + لقطة الخدمة لحظة الحجز + التاريخ/الوقت/الحالة).
+  - **`goals`** — أهداف المستخدم وخطواتها؛ الإضافة وتأشير الخطوات تُكتب فورًا إلى Firestore.
+- `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks، غير ذلك → Firestore.
+- ملاحظة: لوحة الأكاديمية (Provider) والدردشة ما زالتا في الذاكرة (عرض تجريبي).
+
+### قواعد الحماية المقترحة (Firestore ▸ Rules)
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /services/{doc} {
+      allow read: if true;
+      // بذر الكتالوج أول مرة فقط (المجموعة الفارغة)
+      allow create: if true;
+      allow update, delete: if false;
+    }
+    match /bookings/{doc} {
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+    }
+    match /goals/{doc} {
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+    }
+  }
+}
+```
+> الإنتاج يحتاج أيضًا تفعيل **Email/Password** و**Phone** في Authentication
+> (Console ▸ Sign-in method)، وإضافة أرقام تجريبية للجوال عند الرغبة بتجربة OTP بدون SMS.
+
 ## وضع العرض التجريبي (DEMO)
 - بناء الـCI يمرر `DEMO_FLAG=DEMO` إلى xcodebuild — نسخة Appetize تستخدم
-  مصادقة وهمية (`MockAuthRepository`): أي بيانات دخول تنجح، والتسجيل يقبل رمز OTP `1234`.
+  مصادقة وهمية (`MockAuthRepository`) وبيانات Mock كاملة: أي بيانات دخول تنجح،
+  والتسجيل يقبل رمز OTP `1234`.
 - البناء المحلي من Xcode (بدون `DEMO`) يستخدم Firebase الحقيقي، ورسائل خطأ Firebase أصبحت
   بالعربية (حساب غير موجود / مزوّد غير مفعّل في Console …).
 - أتمتة CI (`-autoLogin` / `-autoRegister` / `-autoOTP`): تشغيل مسارات الدخول والتسجيل

@@ -16,7 +16,7 @@ final class SearchViewModel {
     private var task: Task<Void, Never>?
     private let recentKey = "myaim.recentSearches"
 
-    init(repo: ServiceRepository = MockServiceRepository()) {
+    init(repo: ServiceRepository = AppRepositories.services()) {
         self.repo = repo
         recent = UserDefaults.standard.stringArray(forKey: recentKey) ?? []
     }

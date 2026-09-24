@@ -16,7 +16,7 @@ final class DiscoverViewModel {
 
     private var searchTask: Task<Void, Never>?
 
-    init(repo: ServiceRepository = MockServiceRepository()) {
+    init(repo: ServiceRepository = AppRepositories.services()) {
         self.repo = repo
     }
 

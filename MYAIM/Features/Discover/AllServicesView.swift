@@ -8,13 +8,14 @@ struct AllServicesView: View {
 
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
+    @State private var catalog: [Service] = []
 
     private let columns = [GridItem(.flexible(), spacing: MYSpacing.md),
                            GridItem(.flexible(), spacing: MYSpacing.md)]
 
     private var services: [Service] {
-        guard let category else { return SampleData.services }
-        return SampleData.services.filter { $0.category == category }
+        guard let category else { return catalog }
+        return catalog.filter { $0.category == category }
     }
 
     var body: some View {
@@ -40,6 +41,9 @@ struct AllServicesView: View {
         }
         .myTabBarInset()
         .myScreenBackground()
+        .task {
+            catalog = (try? await AppRepositories.services().services(in: category)) ?? []
+        }
         .navigationTitle(title)
         .navigationBarTitleDisplayMode(.inline)
     }

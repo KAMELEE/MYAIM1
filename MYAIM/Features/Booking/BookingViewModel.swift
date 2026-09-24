@@ -17,7 +17,7 @@ final class BookingViewModel {
     let days: [Date]
     let times = ["09:00 ص", "10:30 ص", "12:00 م", "02:00 م", "04:00 م", "06:00 م", "08:00 م"]
 
-    init(service: Service, repo: BookingRepository = MockBookingRepository.shared) {
+    init(service: Service, repo: BookingRepository = AppRepositories.bookings()) {
         self.service = service
         self.repo = repo
         let cal = Calendar(identifier: .gregorian)
