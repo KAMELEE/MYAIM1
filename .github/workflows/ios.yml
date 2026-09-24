@@ -111,7 +111,9 @@ jobs:
             ARGS="-authScreen -$FLAG"
             [ "$FLAG" = "autoRegisterOtp" ] && ARGS="-authScreen -autoRegister -autoOTP"
             xcrun simctl launch "$DEVICE" com.myaim.app $ARGS 2>&1 | tee -a sim.log
-            sleep 8; xcrun simctl io "$DEVICE" screenshot "$SHOT.png" 2>&1 | tee -a sim.log
+            # Full register+OTP chain needs more time (cold start + 3 async steps).
+            W=8; [ "$FLAG" = "autoRegisterOtp" ] && W=16
+            sleep $W; xcrun simctl io "$DEVICE" screenshot "$SHOT.png" 2>&1 | tee -a sim.log
           done
 
           cp shot-home-top.png screenshot.png 2>/dev/null || true
