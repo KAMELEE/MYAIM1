@@ -97,6 +97,44 @@ enum SampleData {
         )
     ]
 
+    // MARK: - Academy stories (Home)
+    static let academyStories: [AcademyStory] = [
+        AcademyStory(
+            providerName: "أكاديمية النخبة الرياضية",
+            avatarAsset: "photo_sports",
+            accent: .sportsAccent,
+            pages: [
+                .init(imageAsset: "photo_sports", caption: "برنامج لياقة جديد يبدأ الأحد"),
+                .init(imageAsset: "photo_sports", caption: "خصم ٢٥٪ لأول ١٠ مشتركين")
+            ]
+        ),
+        AcademyStory(
+            providerName: "أكاديمية إتقان التعليمية",
+            avatarAsset: "photo_education",
+            accent: .educationAccent,
+            pages: [
+                .init(imageAsset: "photo_education", caption: "دورات تأسيس الرياضيات لكل المراحل"),
+                .init(imageAsset: "photo_education", caption: "حصة تجريبية مجانية عند التسجيل")
+            ]
+        ),
+        AcademyStory(
+            providerName: "منصّة مسار لتطوير الذات",
+            avatarAsset: "photo_selfdev",
+            accent: .selfDevAccent,
+            pages: [
+                .init(imageAsset: "photo_selfdev", caption: "ورشة القيادة والإنتاجية هذا الخميس")
+            ]
+        ),
+        AcademyStory(
+            providerName: "تِك سوليوشنز",
+            avatarAsset: "photo_tech",
+            accent: .techAccent,
+            pages: [
+                .init(imageAsset: "photo_tech", caption: "معسكر تطوير iOS — المقاعد محدودة")
+            ]
+        )
+    ]
+
     // MARK: - Hero carousel slides
     static let heroSlides: [HeroSlide] = [
         .brandHero(

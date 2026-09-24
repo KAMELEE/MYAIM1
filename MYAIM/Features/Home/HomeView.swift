@@ -8,6 +8,8 @@ struct HomeView: View {
     @Environment(MessagesStore.self) private var messages
     @State private var vm = HomeViewModel()
     @State private var demoPushed = false
+    @State private var seenStoryIds: Set<UUID> = []
+    @State private var activeStory: ActiveStory?
 
     private let categories = ServiceCategory.allCases
 
@@ -17,10 +19,13 @@ struct HomeView: View {
                 MYHomeHeader(onLocationTap: {},
                              onNotificationsTap: { router.push(.notifications) })
 
+                storiesSection
+
                 searchRow
 
-                MYHeroCarousel(slides: SampleData.heroSlides,
-                               onFeatureTap: { router.push(.allServices(title: "مميّزة لك")) })
+                HomeHero(onCTA: { router.push(.allServices(title: "الأكاديميات")) })
+
+                HeroFeatureTiles(onTap: { router.push(.allServices(title: "كل الخدمات")) })
 
                 categoriesSection
 
@@ -59,6 +64,29 @@ struct HomeView: View {
         }
     }
 
+    // MARK: Academy stories (first thing on Home)
+    private var storiesSection: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            AcademyStoriesRow(
+                stories: SampleData.academyStories,
+                seenStoryIds: $seenStoryIds,
+                onTap: { story in
+                    if let i = SampleData.academyStories.firstIndex(where: { $0.id == story.id }) {
+                        activeStory = ActiveStory(index: i)
+                    }
+                }
+            )
+        }
+        .fullScreenCover(item: $activeStory) { active in
+            StoryViewer(
+                stories: SampleData.academyStories,
+                startIndex: active.index,
+                seenStoryIds: $seenStoryIds,
+                onClose: { activeStory = nil }
+            )
+        }
+    }
+
     // MARK: Search + filter
     private var searchRow: some View {
         HStack(spacing: MYSpacing.sm) {
@@ -93,14 +121,15 @@ struct HomeView: View {
                             HStack(spacing: MYSpacing.xs) {
                                 Image(systemName: category.icon)
                                     .font(.system(size: 14, weight: .semibold))
+                                    .symbolRenderingMode(.hierarchical)
                                 Text(category.title).font(MYTypography.secondary)
                             }
-                            .foregroundStyle(MYColor.textPrimary)
+                            .foregroundStyle(category.accent)
                             .padding(.horizontal, MYSpacing.md)
                             .padding(.vertical, MYSpacing.sm)
-                            .background(MYColor.surface)
+                            .background(category.accent.opacity(0.09))
                             .clipShape(Capsule())
-                            .overlay(Capsule().strokeBorder(MYColor.border, lineWidth: 1))
+                            .overlay(Capsule().strokeBorder(category.accent.opacity(0.25), lineWidth: 1))
                         }
                         .buttonStyle(PressableButtonStyle())
                     }
@@ -187,6 +216,12 @@ struct HomeView: View {
         .overlay(RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous)
             .strokeBorder(MYColor.border, lineWidth: 0.5))
     }
+}
+
+/// Identifiable wrapper so the stories viewer can present via fullScreenCover(item:).
+private struct ActiveStory: Identifiable {
+    let index: Int
+    var id: Int { index }
 }
 
 #Preview {

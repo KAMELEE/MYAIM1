@@ -72,3 +72,11 @@ enum CategoryFilter: Hashable, Identifiable {
         [.all] + ServiceCategory.allCases.map { .category($0) }
     }
 }
+
+
+extension Color {
+    static let sportsAccent = ServiceCategory.sports.accent
+    static let educationAccent = ServiceCategory.education.accent
+    static let selfDevAccent = ServiceCategory.selfDevelopment.accent
+    static let techAccent = ServiceCategory.tech.accent
+}

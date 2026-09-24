@@ -6,6 +6,12 @@ struct Message: Identifiable, Hashable {
     var text: String
     var fromMe: Bool
     var date: Date
+    /// Voice note file URL (local .m4a) — nil for text messages.
+    var audioURL: URL? = nil
+    /// Voice note length in seconds, nil for text messages.
+    var audioDuration: Double? = nil
+
+    var isVoice: Bool { audioURL != nil }
 }
 
 /// A conversation thread with a provider/coach.

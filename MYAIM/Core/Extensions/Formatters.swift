@@ -9,6 +9,12 @@ enum MYFormat {
     // MARK: - Currency (ر.س)
 
     /// Formats a price like `450 ر.س` (no fractional zeros for whole numbers).
+    /// Voice-note duration: "0:07" / "1:02".
+    static func duration(_ seconds: Double) -> String {
+        let total = Int(seconds.rounded())
+        return String(format: "%d:%02d", total / 60, total % 60)
+    }
+
     static func price(_ amount: Double) -> String {
         let number: String
         if amount.truncatingRemainder(dividingBy: 1) == 0 {

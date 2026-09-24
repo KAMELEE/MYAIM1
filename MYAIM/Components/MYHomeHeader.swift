@@ -39,8 +39,9 @@ struct MYHomeHeader: View {
                 Haptics.light()
                 onNotificationsTap?()
             } label: {
-                Image(systemName: "bell")
-                    .font(.system(size: 19, weight: .regular))
+                Image(systemName: hasUnreadNotifications ? "bell.badge.fill" : "bell")
+                    .font(.system(size: 18, weight: .regular))
+                    .symbolRenderingMode(.hierarchical)
                     .foregroundStyle(MYColor.textPrimary)
                     .frame(width: 42, height: 42)
                     .background(MYColor.surface)

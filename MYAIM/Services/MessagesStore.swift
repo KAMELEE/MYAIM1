@@ -38,12 +38,49 @@ final class MessagesStore {
 
     var totalUnread: Int { conversations.reduce(0) { $0 + $1.unread } }
 
+    /// Conversations where the academy is "typing…" (auto-reply inbound).
+    var typingIn: Set<UUID> = []
+
     func send(_ text: String, to id: UUID) {
         guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
         let t = text.trimmingCharacters(in: .whitespaces)
         guard !t.isEmpty else { return }
         conversations[i].messages.append(Message(text: t, fromMe: true, date: Date()))
+        queueAutoReply(to: id)
     }
+
+    /// Sends a locally recorded voice note into the thread.
+    func sendVoice(url: URL, duration: Double, to id: UUID) {
+        guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
+        conversations[i].messages.append(
+            Message(text: "", fromMe: true, date: Date(),
+                    audioURL: url, audioDuration: duration)
+        )
+        queueAutoReply(to: id)
+    }
+
+    /// Simulates the academy replying shortly after your message, so the
+    /// thread stays alive instead of going silent.
+    private func queueAutoReply(to id: UUID) {
+        typingIn.insert(id)
+        Task { @MainActor in
+            try? await Task.sleep(for: .seconds(2.2))
+            guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
+            typingIn.remove(id)
+            conversations[i].messages.append(
+                Message(text: Self.replies[conversations[i].messages.count % Self.replies.count],
+                        fromMe: false, date: Date())
+            )
+        }
+    }
+
+    private static let replies: [String] = [
+        "وصلتنا رسالتك، نرد عليك بالتفاصيل بعد قليل 🙏",
+        "شكراً لتواصلك! كيف نقدر نساعدك أكثر؟",
+        "سؤال جيد — نأكد لك المواعيد المتاحة ونعود إليك.",
+        "أبشر، نسويها لك 🌟",
+        "نراسل الجهة المسؤولة ونرد عليك بأسرع وقت."
+    ]
 
     func markRead(_ id: UUID) {
         guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }

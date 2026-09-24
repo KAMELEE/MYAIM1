@@ -57,6 +57,8 @@
 	<!-- Permissions used later in the project -->
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>نستخدم موقعك لعرض الأكاديميات والخدمات القريبة منك على الخريطة.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>نستخدم الميكروفون لتسجيل الرسائل الصوتية داخل المحادثات مع الأكاديميات.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>نحتاج الوصول إلى الصور لتحديث صورتك الشخصية.</string>
 
