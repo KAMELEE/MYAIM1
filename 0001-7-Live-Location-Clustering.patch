@@ -1,0 +1,260 @@
+From 5a7e69125bb751b7e55e38daabcfbf20995e2fb2 Mon Sep 17 00:00:00 2001
+From: Superagent <superagent@base44.com>
+Date: Thu, 24 Sep 2026 01:45:16 +0000
+Subject: [PATCH] =?UTF-8?q?=D8=A7=D9=84=D9=85=D8=B1=D8=AD=D9=84=D8=A9=207:?=
+ =?UTF-8?q?=20Live=20Location=20+=20Clustering=20=D8=B9=D9=84=D9=89=20?=
+ =?UTF-8?q?=D8=AE=D8=B1=D9=8A=D8=B7=D8=A9=20=D8=A7=D9=84=D8=A7=D9=83=D8=AA?=
+ =?UTF-8?q?=D8=B4=D8=A7=D9=81?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- MapResultsView: تجميع شبكي يتكيّف مع الزوم (onMapCameraChange)،
+  شارة العنقود تعرض العدد + أرخص سعر، النقر يقرّب الكاميرا
+- إسقاط تحديد البطاقة عند اندماج الخدمة في عنقود
+- DiscoverView: ترتيب النتائج بالمسافة الحيّة (الأقرب أولاً)
+- README: توثيق المرحلة 7 كمكتملة
+---
+ MYAIM/Features/Discover/DiscoverView.swift   |  12 +-
+ MYAIM/Features/Discover/MapResultsView.swift | 124 +++++++++++++++++--
+ README.md                                    |   9 +-
+ 3 files changed, 136 insertions(+), 9 deletions(-)
+
+diff --git a/MYAIM/Features/Discover/DiscoverView.swift b/MYAIM/Features/Discover/DiscoverView.swift
+index e9c5b6a..c6e3ca4 100644
+--- a/MYAIM/Features/Discover/DiscoverView.swift
++++ b/MYAIM/Features/Discover/DiscoverView.swift
+@@ -1,4 +1,5 @@
+ import SwiftUI
++import CoreLocation
+ 
+ struct DiscoverView: View {
+     @Environment(Router.self) private var router
+@@ -133,7 +134,7 @@ struct DiscoverView: View {
+         case .idle, .loading:
+             loadingGrid
+         case .loaded(let services):
+-            let located = services.map { $0.distanced(from: location.userLocation) }
++            let located = Self.located(services, from: location.userLocation)
+             if vm.viewMode == .map {
+                 MapResultsView(services: located, userLocation: location.userLocation) {
+                     router.push(.serviceDetail($0))
+@@ -155,6 +156,15 @@ struct DiscoverView: View {
+         }
+     }
+ 
++    /// Recompute distances from the live location; sort nearest-first when known.
++    private static func located(_ services: [Service],
++                                from userLocation: CLLocationCoordinate2D?) -> [Service] {
++        let mapped = services.map { $0.distanced(from: userLocation) }
++        guard userLocation != nil else { return mapped }
++        return mapped.sorted { ($0.distanceMeters ?? .greatestFiniteMagnitude)
++                              < ($1.distanceMeters ?? .greatestFiniteMagnitude) }
++    }
++
+     private func resultsList(_ services: [Service]) -> some View {
+         ScrollView {
+             LazyVGrid(columns: columns, spacing: MYSpacing.md) {
+diff --git a/MYAIM/Features/Discover/MapResultsView.swift b/MYAIM/Features/Discover/MapResultsView.swift
+index fd989ff..b5f995e 100644
+--- a/MYAIM/Features/Discover/MapResultsView.swift
++++ b/MYAIM/Features/Discover/MapResultsView.swift
+@@ -1,8 +1,8 @@
+ import SwiftUI
+ import MapKit
+ 
+-/// Map mode for Discover. Shows service markers; tapping one reveals a mini card.
+-/// Live user location + clustering arrive in Phase 7.
++/// Map mode for Discover. Shows live user location, price pins for services,
++/// and grid-based clustering that merges nearby markers as you zoom out (Phase 7).
+ struct MapResultsView: View {
+     let services: [Service]
+     var userLocation: CLLocationCoordinate2D? = nil
+@@ -17,6 +17,10 @@ struct MapResultsView: View {
+     @State private var selectedID: UUID?
+     @State private var centeredOnUser = false
+ 
++    // Clustering state (recomputed whenever the camera settles).
++    @State private var clusters: [ServiceCluster] = []
++    @State private var currentSpan = 6.0
++
+     private var selectedService: Service? {
+         services.first { $0.id == selectedID }
+     }
+@@ -37,14 +41,50 @@ struct MapResultsView: View {
+         }
+     }
+ 
++    /// Rebuild clusters for the visible region. Cell size scales with zoom
++    /// (~9 grid rows), so markers merge when zoomed out and split as you zoom in.
++    private func rebuildClusters(for region: MKCoordinateRegion) {
++        currentSpan = max(region.span.latitudeDelta, 0.005)
++        var buckets: [String: [Service]] = [:]
++        for service in services {
++            let key = "\(Int(service.location.latitude / (region.span.latitudeDelta / 9))):\(Int(service.location.longitude / (region.span.longitudeDelta / 9)))"
++            buckets[key, default: []].append(service)
++        }
++        let next = buckets.values
++            .map { ServiceCluster(services: $0.sorted { $0.title < $1.title }) }
++            .sorted { $0.anchor.title < $1.anchor.title }
++        // Keep selection valid: if the selected service's cluster still exists
++        // as a merged cluster, drop the selection (a cluster isn't a card).
++        if let selectedID,
++           let cluster = next.first(where: { $0.contains(selectedID) }),
++           cluster.services.count > 1 {
++            self.selectedID = nil
++        }
++        withAnimation(.spring(response: 0.3, dampingFraction: 0.85)) {
++            clusters = next
++        }
++    }
++
+     var body: some View {
+         Map(position: $position, selection: $selectedID) {
+             UserAnnotation()
+-            ForEach(services) { service in
+-                Annotation(service.title, coordinate: service.location.coordinate) {
+-                    pin(for: service)
++            ForEach(clusters) { cluster in
++                if cluster.services.count == 1 {
++                    Annotation(cluster.anchor.title,
++                               coordinate: cluster.coordinate) {
++                        pin(for: cluster.anchor)
++                    }
++                    .tag(cluster.anchor.id)
++                } else {
++                    Annotation(cluster.displayTitle,
++                               coordinate: cluster.coordinate) {
++                        Button {
++                            zoomInto(cluster)
++                        } label: {
++                            clusterPin(cluster)
++                        }
++                    }
+                 }
+-                .tag(service.id)
+             }
+         }
+         .mapControls {
+@@ -52,8 +92,18 @@ struct MapResultsView: View {
+             MapCompass()
+             MapScaleView()
+         }
++        .onMapCameraChange(frequency: .onEnd) { update in
++            rebuildClusters(for: update.region)
++        }
+         .onChange(of: userLocationKey) { _, _ in centerOnUserIfNeeded() }
+-        .onAppear { centerOnUserIfNeeded() }
++        .onAppear {
++            // Seed clusters for the initial (Riyadh) region before the first pan.
++            rebuildClusters(for: MKCoordinateRegion(
++                center: CLLocationCoordinate2D(latitude: 24.7136, longitude: 46.6753),
++                span: MKCoordinateSpan(latitudeDelta: 6, longitudeDelta: 6)
++            ))
++            centerOnUserIfNeeded()
++        }
+         .overlay(alignment: .bottom) {
+             if let service = selectedService {
+                 miniCard(service)
+@@ -65,6 +115,18 @@ struct MapResultsView: View {
+         .animation(.spring(response: 0.35, dampingFraction: 0.8), value: selectedID)
+     }
+ 
++    /// Zoom into a merged cluster so its members split apart.
++    private func zoomInto(_ cluster: ServiceCluster) {
++        Haptics.light()
++        withAnimation(.spring(response: 0.4, dampingFraction: 0.85)) {
++            let span = max(currentSpan * 0.4, 0.02)
++            position = .region(MKCoordinateRegion(
++                center: cluster.coordinate,
++                span: MKCoordinateSpan(latitudeDelta: span, longitudeDelta: span)
++            ))
++        }
++    }
++
+     private func pin(for service: Service) -> some View {
+         let isSelected = service.id == selectedID
+         return VStack(spacing: 2) {
+@@ -81,6 +143,27 @@ struct MapResultsView: View {
+         }
+     }
+ 
++    private func clusterPin(_ cluster: ServiceCluster) -> some View {
++        VStack(spacing: 2) {
++            Text("\(cluster.services.count)")
++                .font(.appFont(14, weight: .bold))
++                .foregroundStyle(.white)
++                .frame(width: 36, height: 36)
++                .background(Circle().fill(MYColor.primary))
++                .overlay(Circle().strokeBorder(.white.opacity(0.9), lineWidth: 2))
++                .myShadow()
++            Text(MYFormat.price(cluster.minPrice))
++                .font(.appFont(10, weight: .bold))
++                .foregroundStyle(MYColor.primary)
++                .padding(.horizontal, MYSpacing.sm)
++                .padding(.vertical, 2)
++                .background(MYColor.surface)
++                .clipShape(Capsule())
++                .overlay(Capsule().strokeBorder(MYColor.primary, lineWidth: 1))
++                .myShadow()
++        }
++    }
++
+     private func miniCard(_ service: Service) -> some View {
+         Button {
+             onOpen(service)
+@@ -111,3 +194,30 @@ struct MapResultsView: View {
+         .buttonStyle(PressableButtonStyle())
+     }
+ }
++
++// MARK: - Clustering
++
++/// A group of services whose markers share one grid cell at the current zoom.
++struct ServiceCluster: Identifiable, Equatable {
++    /// Stable per rebuild: anchored on the first member's id.
++    var id: UUID { services.first?.id ?? UUID() }
++    let services: [Service]
++
++    var anchor: Service { services[0] }
++    var coordinate: CLLocationCoordinate2D {
++        let lat = services.reduce(0.0) { $0 + $1.location.latitude } / Double(services.count)
++        let lon = services.reduce(0.0) { $0 + $1.location.longitude } / Double(services.count)
++        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
++    }
++    var minPrice: Double {
++        services.map(\.startingPrice).min() ?? 0
++    }
++    var displayTitle: String {
++        "\(services.count) خدمات"
++    }
++    func contains(_ serviceID: UUID) -> Bool {
++        services.contains { $0.id == serviceID }
++    }
++
++    static func == (lhs: ServiceCluster, rhs: ServiceCluster) -> Bool { lhs.id == rhs.id }
++}
+diff --git a/README.md b/README.md
+index 3b94b63..5b97b04 100644
+--- a/README.md
++++ b/README.md
+@@ -145,8 +145,15 @@ MYAIM/
+ - [x] **تسجيل الأكاديمية** (`RegisterAcademyView`) بنموذج وValidation وشاشة نجاح
+ - [x] كل المسارات موصولة في `RouteDestination` (لا شاشات وهمية متبقية)
+ 
++## المرحلة 7 (مكتملة) — Live Location + Clustering
++- `LocationService` يطلب صلاحية الموقع ويبثّ موقع المستخدم الحيّ للتطبيق كله.
++- `DiscoverView` يعيد حساب المسافات من الموقع الحيّ ويرتّب النتائج (الأقرب أولاً) عند توفر الموقع.
++- `MapResultsView`: نقطة زرقاء للمستخدم (`UserAnnotation` + `MapUserLocationButton`) مع تمركز تلقائي أول مرة.
++- **Clustering**: تجميع الشارات القريبة في شبكة تتكيف مع مستوى الزوم (`onMapCameraChange`) —
++  الشارة المجمّعة تعرض العدد + أرخص سعر، والنقر عليها يقرّب الكاميرا حتى تنفصل العلامات.
++- إسقاط تحديد البطاقة المصغّرة تلقائيًا إذا اندمجت خدمتها في عنقود.
++
+ ## المتبقّي
+-- **المرحلة 7:** ربط CoreLocation (موقع المستخدم الحيّ + المسافات + Clustering) — الخريطة تعمل حاليًا بعلامات ثابتة.
+ - **المرحلة 12–13:** لمسات حركة إضافية + اختبار شامل على Mac.
+ 
+ > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.
+-- 
+2.39.5
+

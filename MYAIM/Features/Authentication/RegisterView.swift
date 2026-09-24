@@ -63,7 +63,25 @@ struct RegisterView: View {
         .navigationTitle("إنشاء حساب")
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)
+        #if DEBUG
+        .onAppear { scheduleAutoRegister() }
+        #endif
     }
+
+    #if DEBUG
+        /// CI automation: launched with -autoRegister → fill demo values and
+        /// submit, navigating to OTP exactly like a real user would.
+        private func scheduleAutoRegister() {
+            guard ProcessInfo.processInfo.arguments.contains("-autoRegister") else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                vm.regName = "مستخدم تجربة"
+                vm.regEmail = "demo@myaim.app"
+                vm.regPhone = "0555555555"
+                vm.regPassword = "Demo1234!"
+                Task { if await vm.register() { path.append(.otp) } }
+            }
+        }
+        #endif
 }
 
 #Preview {

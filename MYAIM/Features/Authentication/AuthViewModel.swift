@@ -31,8 +31,18 @@ final class AuthViewModel {
     /// User created during register, pending OTP verification.
     private(set) var pendingUser: User?
 
-    init(repo: AuthRepository = FirebaseAuthRepository()) {
-        self.repo = repo
+    init(repo: AuthRepository? = nil) {
+        self.repo = repo ?? Self.defaultRepository()
+    }
+
+    /// Demo/preview builds (CI → Appetize) use the in-memory mock so the whole
+    /// app is explorable without a configured backend; production uses Firebase.
+    private static func defaultRepository() -> AuthRepository {
+        #if DEMO
+        MockAuthRepository()
+        #else
+        FirebaseAuthRepository()
+        #endif
     }
 
     // MARK: - Login

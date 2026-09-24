@@ -61,7 +61,23 @@ struct LoginView: View {
         .myScreenBackground()
         .navigationBarTitleDisplayMode(.inline)
         .scrollDismissesKeyboard(.interactively)
+        #if DEBUG
+        .onAppear { scheduleAutoLogin() }
+        #endif
     }
+
+    #if DEBUG
+        /// CI automation: launched with -autoLogin → fill demo credentials and
+        /// submit, so the build pipeline can exercise the login flow end-to-end.
+        private func scheduleAutoLogin() {
+            guard ProcessInfo.processInfo.arguments.contains("-autoLogin") else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                vm.loginEmail = "demo@myaim.app"
+                vm.loginPassword = "Demo1234!"
+                Task { await vm.login() }
+            }
+        }
+        #endif
 }
 
 /// Inline error banner shared by auth screens.

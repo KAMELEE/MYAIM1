@@ -47,6 +47,7 @@ jobs:
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS="DEBUG DEMO" \
             build 2>&1 | tee xcodebuild.log
           code=${PIPESTATUS[0]}
           echo "$code" > build.code
@@ -102,6 +103,16 @@ jobs:
           xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
           xcrun simctl launch "$DEVICE" com.myaim.app -authScreen 2>&1 | tee -a sim.log
           sleep 5; xcrun simctl io "$DEVICE" screenshot "shot-login.png" 2>&1 | tee -a sim.log
+          # Auth flows end-to-end (demo auth in DEMO builds):
+          # 1) login → main app      2) register → OTP screen      3) register + OTP → main app
+          for A in "autoLogin shot-auth-login" "autoRegister shot-auth-otp" "autoRegisterOtp shot-auth-done"; do
+            set -- $A; FLAG=$1; SHOT=$2
+            xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
+            ARGS="-authScreen -$FLAG"
+            [ "$FLAG" = "autoRegisterOtp" ] && ARGS="-authScreen -autoRegister -autoOTP"
+            xcrun simctl launch "$DEVICE" com.myaim.app $ARGS 2>&1 | tee -a sim.log
+            sleep 8; xcrun simctl io "$DEVICE" screenshot "$SHOT.png" 2>&1 | tee -a sim.log
+          done
 
           cp shot-home-top.png screenshot.png 2>/dev/null || true
           ls -la shot-*.png 2>&1 | tee -a sim.log

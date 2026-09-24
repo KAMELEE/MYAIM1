@@ -53,8 +53,25 @@ struct OTPView: View {
         .myScreenBackground()
         .navigationTitle("التحقق")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear { focused = true }
+        .onAppear {
+            focused = true
+            #if DEBUG
+            scheduleAutoOTP()
+            #endif
+        }
     }
+
+    #if DEBUG
+        /// CI automation: launched with -autoOTP → enter the demo code and verify,
+        /// completing the registration flow end-to-end.
+        private func scheduleAutoOTP() {
+            guard ProcessInfo.processInfo.arguments.contains("-autoOTP") else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                code = "1234"
+                Task { await vm.verifyOTP("1234") }
+            }
+        }
+        #endif
 
     private var destination: String {
         vm.regPhone.isEmpty ? "بريدك الإلكتروني" : vm.regPhone
