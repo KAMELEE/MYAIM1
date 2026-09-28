@@ -11,6 +11,7 @@ struct ChatView: View {
     // Voice recording
     @State private var recorder: AVAudioRecorder?
     @State private var isRecording = false
+    @State private var blink = false
     @State private var recordStart: Date?
     @State private var player: AVAudioPlayer?
     @State private var playingId: UUID?
@@ -134,9 +135,12 @@ struct ChatView: View {
         player = try? AVAudioPlayer(contentsOf: url)
         player?.play()
         playingId = msg.id
+        let expected = msg.id
+        let duration = msg.audioDuration ?? player?.duration ?? 3
         Task { @MainActor in
-            try? await Task.sleep(for: .seconds(msg.audioDuration ?? 1 + 2))
-            playingId = nil
+            try? await Task.sleep(for: .seconds(duration))
+            // Only clear if the user didn't start a different bubble meanwhile.
+            if playingId == expected { playingId = nil }
         }
     }
 
@@ -175,6 +179,7 @@ struct ChatView: View {
         recordStart = Date()
         Haptics.medium()
         withAnimation { isRecording = true }
+        blink = true
     }
 
     private func stopRecording() {
@@ -185,6 +190,7 @@ struct ChatView: View {
         recordStart = nil
         withAnimation { isRecording = false }
         guard duration > 0.6 else { return } // ignore accidental taps
+        blink = false
         Haptics.light()
         store.sendVoice(url: recorder.url, duration: duration, to: live.id)
     }
@@ -258,8 +264,8 @@ struct ChatView: View {
             if isRecording {
                 HStack(spacing: MYSpacing.xs) {
                     Circle().fill(MYColor.error).frame(width: 8, height: 8)
-                        .opacity(0.5)
-                        .animation(.easeInOut(duration: 0.6).repeatForever(), value: isRecording)
+                        .opacity(blink ? 0.25 : 1)
+                        .animation(.easeInOut(duration: 0.55).repeatForever(), value: blink)
                     Text("جارٍ التسجيل… تضغط مرة أخرى للإرسال")
                         .font(MYTypography.caption)
                         .foregroundStyle(MYColor.error)
