@@ -261,6 +261,7 @@ struct ChatView: View {
         .padding(MYSpacing.md)
         .background(.regularMaterial)
         .overlay(alignment: .top) { Divider() }
+        .myTabBarClearance()
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if isRecording {
                 HStack(spacing: MYSpacing.xs) {
