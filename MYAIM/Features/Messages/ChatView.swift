@@ -26,9 +26,9 @@ struct ChatView: View {
                         ForEach(live.messages) { msg in
                             if msg.isVoice {
                                 HStack {
-                                    if msg.fromMe { Spacer(minLength: 40) }
-                                    voiceBubble(msg)
                                     if !msg.fromMe { Spacer(minLength: 40) }
+                                    voiceBubble(msg)
+                                    if msg.fromMe { Spacer(minLength: 40) }
                                 }
                                 .id(msg.id)
                             } else {
@@ -64,7 +64,7 @@ struct ChatView: View {
 
     private func bubble(_ msg: Message) -> some View {
         HStack {
-            if msg.fromMe { Spacer(minLength: 40) }
+            if !msg.fromMe { Spacer(minLength: 40) }
             VStack(alignment: msg.fromMe ? .trailing : .leading, spacing: 3) {
                 Text(msg.text)
                     .font(MYTypography.body)
@@ -80,15 +80,16 @@ struct ChatView: View {
                 Text(MYFormat.time(msg.date))
                     .font(MYTypography.caption).foregroundStyle(MYColor.textTertiary)
             }
-            if !msg.fromMe { Spacer(minLength: 40) }
+            if msg.fromMe { Spacer(minLength: 40) }
         }
     }
 
     /// "The academy is typing…" animated dots bubble.
     private var typingBubble: some View {
+        // The academy is the "other side" — same rule as received bubbles: left.
         HStack {
-            TypingDots()
             Spacer(minLength: 40)
+            TypingDots()
         }
         .padding(.top, MYSpacing.xs)
     }
