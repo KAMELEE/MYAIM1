@@ -33,8 +33,10 @@ final class AppState {
             hasSeenOnboarding = true
             isAuthenticated = true
             currentUser = .preview
-        }
-        if ProcessInfo.processInfo.arguments.contains("-providerMode") {
+            // Explicitly set the interface each launch so a persisted value from an
+            // earlier launch (same simulator) can't leak into the wrong capture.
+            mode = ProcessInfo.processInfo.arguments.contains("-providerMode") ? .provider : .trainee
+        } else if ProcessInfo.processInfo.arguments.contains("-providerMode") {
             mode = .provider
         }
         // Show the auth (login) screen: onboarding done but not signed in.
