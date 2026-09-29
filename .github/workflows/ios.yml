@@ -176,3 +176,5 @@ jobs:
           test "$code" = "0"
 
 # trigger Appetize upload
+
+# rebuild for new Appetize token
