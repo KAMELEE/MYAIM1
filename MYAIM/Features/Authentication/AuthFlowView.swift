@@ -16,14 +16,11 @@ struct AuthFlowView: View {
         NavigationStack(path: $path) {
             LoginView(vm: vm, path: $path)
                 .navigationDestination(for: AuthRoute.self) { route in
-                    Group {
-                        switch route {
-                        case .register: RegisterView(vm: vm, path: $path)
-                        case .otp:      OTPView(vm: vm)
-                        case .forgot:   ForgotPasswordView(vm: vm)
-                        }
+                    switch route {
+                    case .register: RegisterView(vm: vm, path: $path)
+                    case .otp:      OTPView(vm: vm)
+                    case .forgot:   ForgotPasswordView(vm: vm)
                     }
-                    .navigationBarBackButtonDisplayMode(.minimal)
                 }
         }
         .tint(MYColor.primary)

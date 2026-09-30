@@ -1,10 +1,33 @@
 import SwiftUI
+import UIKit
 import FirebaseCore
 
 @main
 struct MYAIMApp: App {
     init() {
         FirebaseApp.configure()
+        Self.configureNavigationBarBackButton()
+    }
+
+    /// Hide the system back-button title (the English word "Back") app-wide,
+    /// leaving only the chevron — SwiftUI has no modifier for this, so we set
+    /// the UIKit appearance once. The chevron and bar background are untouched.
+    private static func configureNavigationBarBackButton() {
+        let hidden: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.clear]
+        let backItem = UIBarButtonItemAppearance(style: .plain)
+        backItem.normal.titleTextAttributes = hidden
+        backItem.highlighted.titleTextAttributes = hidden
+        backItem.focused.titleTextAttributes = hidden
+        backItem.disabled.titleTextAttributes = hidden
+
+        let bar = UINavigationBarAppearance()
+        bar.configureWithDefaultBackground()
+        bar.backButtonAppearance = backItem
+
+        let proxy = UINavigationBar.appearance()
+        proxy.standardAppearance = bar
+        proxy.scrollEdgeAppearance = bar
+        proxy.compactAppearance = bar
     }
 
     @State private var appState = AppState()
