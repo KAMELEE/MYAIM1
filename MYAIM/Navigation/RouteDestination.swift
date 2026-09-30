@@ -74,6 +74,8 @@ extension View {
     func withAppRoutes() -> some View {
         self.navigationDestination(for: AppRoute.self) { route in
             RouteDestination(route: route)
+                // Show only the chevron — avoids the English "Back" label in RTL.
+                .navigationBarBackButtonDisplayMode(.minimal)
         }
     }
 }
