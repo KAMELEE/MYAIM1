@@ -4,8 +4,32 @@ import SwiftUI
 struct RootCoordinatorView: View {
     @Environment(AppState.self) private var appState
     @Environment(GoalsStore.self) private var goalsStore
+    @State private var showSplash = !RootCoordinatorView.skipSplash
 
     var body: some View {
+        ZStack {
+            content
+            if showSplash {
+                SplashView { withAnimation(.easeInOut(duration: 0.35)) { showSplash = false } }
+                    .transition(.opacity)
+                    .zIndex(1)
+            }
+        }
+    }
+
+    /// Skip the intro in CI/demo captures so deep-linked screens render immediately.
+    private static var skipSplash: Bool {
+        #if DEBUG
+        return ProcessInfo.processInfo.arguments.contains("-demoMode")
+            || ProcessInfo.processInfo.arguments.contains("-onboarding")
+            || ProcessInfo.processInfo.arguments.contains("-authScreen")
+        #else
+        return false
+        #endif
+    }
+
+    @ViewBuilder
+    private var content: some View {
         Group {
             if !appState.hasSeenOnboarding {
                 OnboardingView()

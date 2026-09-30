@@ -48,11 +48,7 @@ struct AcademyStoriesRow: View {
             VStack(spacing: MYSpacing.xs) {
                 ZStack {
                     Circle()
-                        .stroke(
-                            LinearGradient(colors: [story.accent, story.accent.opacity(0.5), MYColor.primary],
-                                           startPoint: .topLeading, endPoint: .bottomTrailing),
-                            lineWidth: 2.5
-                        )
+                        .stroke(story.accent, lineWidth: 2.5)
                         .frame(width: 68, height: 68)
 
                     MYRemoteImage(assetName: story.avatarAsset, accent: story.accent)
@@ -140,8 +136,7 @@ struct StoryViewer: View {
                     .resizable()
                     .scaledToFill()
             } else {
-                LinearGradient(colors: [story.accent.opacity(0.7), .black],
-                              startPoint: .top, endPoint: .bottom)
+                story.accent
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -9,13 +9,6 @@ struct BookingView: View {
         _vm = State(initialValue: BookingViewModel(service: service))
     }
 
-    private let dayFmt: DateFormatter = {
-        let f = DateFormatter(); f.locale = MYFormat.arLocale; f.dateFormat = "EEE"; return f
-    }()
-    private let dayNumFmt: DateFormatter = {
-        let f = DateFormatter(); f.locale = MYFormat.arLocale; f.dateFormat = "d"; return f
-    }()
-
     var body: some View {
         Group {
             if vm.didConfirm {
@@ -47,12 +40,7 @@ struct BookingView: View {
                         .font(MYTypography.section)
                         .foregroundStyle(MYColor.textPrimary)
 
-                    switch vm.step {
-                    case 0: dateStep
-                    case 1: timeStep
-                    case 2: confirmStep
-                    default: paymentStep
-                    }
+                    if vm.step == 0 { reviewStep } else { paymentStep }
                 }
                 .padding(MYSpacing.screen)
             }
@@ -63,7 +51,7 @@ struct BookingView: View {
 
     private var stepIndicator: some View {
         HStack(spacing: MYSpacing.sm) {
-            ForEach(0..<4) { i in
+            ForEach(0...BookingViewModel.lastStep, id: \.self) { i in
                 Capsule()
                     .fill(i <= vm.step ? MYColor.primary : MYColor.border)
                     .frame(height: 5)
@@ -71,73 +59,53 @@ struct BookingView: View {
         }
     }
 
-    // MARK: Step 1 — date
-    private var dateStep: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: MYSpacing.sm) {
-                ForEach(vm.days, id: \.self) { day in
-                    let isOn = vm.selectedDate.map { Calendar.current.isDate($0, inSameDayAs: day) } ?? false
-                    Button {
-                        Haptics.selection()
-                        vm.selectedDate = day
-                    } label: {
-                        VStack(spacing: MYSpacing.xs) {
-                            Text(dayFmt.string(from: day))
-                                .font(MYTypography.caption)
-                            Text(dayNumFmt.string(from: day))
-                                .font(MYTypography.cardTitle)
-                        }
-                        .foregroundStyle(isOn ? .white : MYColor.textPrimary)
-                        .frame(width: 60, height: 72)
-                        .background(isOn ? MYColor.primary : MYColor.surface)
-                        .clipShape(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous))
-                        .overlay(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous)
-                            .strokeBorder(isOn ? .clear : MYColor.border, lineWidth: 1))
-                    }
+    // MARK: Step 1 — review + instructions
+    private var reviewStep: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.lg) {
+            // Service summary
+            VStack(spacing: MYSpacing.md) {
+                summaryRow("الخدمة", vm.service.title)
+                summaryRow("المقدّم", vm.service.providerName)
+                Divider().background(MYColor.border)
+                summaryRow("السعر", MYFormat.price(vm.service.startingPrice), emphasized: true)
+            }
+            .myCard()
+
+            // Instructions for the trainee
+            VStack(alignment: .leading, spacing: MYSpacing.md) {
+                HStack(spacing: MYSpacing.xs) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.system(size: 15)).foregroundStyle(MYColor.primary)
+                    Text("خطوات إتمام الحجز")
+                        .font(MYTypography.cardTitle).foregroundStyle(MYColor.textPrimary)
+                }
+                ForEach(Array(BookingInstructions.steps.enumerated()), id: \.offset) { idx, s in
+                    instructionRow(number: idx + 1, icon: s.icon, title: s.title, detail: s.detail)
                 }
             }
+            .myCard()
+
+            if let msg = vm.errorMessage { AuthErrorBanner(message: msg) }
         }
     }
 
-    // MARK: Step 2 — time
-    private var timeStep: some View {
-        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())],
-                  spacing: MYSpacing.sm) {
-            ForEach(vm.times, id: \.self) { time in
-                let isOn = vm.selectedTime == time
-                Button {
-                    Haptics.selection()
-                    vm.selectedTime = time
-                } label: {
-                    Text(time)
-                        .font(MYTypography.secondary)
-                        .foregroundStyle(isOn ? .white : MYColor.textPrimary)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, MYSpacing.md)
-                        .background(isOn ? MYColor.primary : MYColor.surface)
-                        .clipShape(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous))
-                        .overlay(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous)
-                            .strokeBorder(isOn ? .clear : MYColor.border, lineWidth: 1))
-                }
+    private func instructionRow(number: Int, icon: String, title: String, detail: String) -> some View {
+        HStack(alignment: .top, spacing: MYSpacing.md) {
+            Text("\(number)")
+                .font(.appFont(13, weight: .bold))
+                .foregroundStyle(.white)
+                .frame(width: 26, height: 26)
+                .background(MYColor.primary)
+                .clipShape(Circle())
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(MYTypography.secondary).foregroundStyle(MYColor.textPrimary)
+                Text(detail)
+                    .font(MYTypography.caption).foregroundStyle(MYColor.textSecondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+            Spacer(minLength: 0)
         }
-    }
-
-    // MARK: Step 3 — confirm
-    private var confirmStep: some View {
-        VStack(spacing: MYSpacing.md) {
-            summaryRow("الخدمة", vm.service.title)
-            summaryRow("المقدّم", vm.service.providerName)
-            summaryRow("التاريخ", vm.selectedDate.map { MYFormat.longDate($0) } ?? "-")
-            summaryRow("الوقت", vm.selectedTime ?? "-")
-            Divider().background(MYColor.border)
-            summaryRow("السعر", MYFormat.price(vm.service.startingPrice), emphasized: true)
-
-            if let msg = vm.errorMessage {
-                AuthErrorBanner(message: msg)
-            }
-        }
-        .myCard()
     }
 
     private func summaryRow(_ label: String, _ value: String, emphasized: Bool = false) -> some View {
@@ -158,9 +126,8 @@ struct BookingView: View {
             if vm.step > 0 {
                 MYButton(title: "السابق", style: .outline, fullWidth: false) { vm.back() }
             }
-            if vm.step < 3 {
-                MYButton(title: vm.step == 2 ? "المتابعة للدفع" : "التالي",
-                         isEnabled: vm.canProceed) { vm.next() }
+            if vm.step < BookingViewModel.lastStep {
+                MYButton(title: "المتابعة للدفع") { vm.next() }
             } else {
                 MYButton(title: "أرسل الطلب", icon: "paperplane.fill", isLoading: vm.isSubmitting) {
                     Task { await vm.submitRequest() }
@@ -180,16 +147,16 @@ struct BookingView: View {
             Image(systemName: "clock.badge.checkmark")
                 .font(.system(size: 80))
                 .foregroundStyle(MYColor.warning)
-            Text("تم إرسال طلبك ✅")
+            Text("تم إرسال طلبك")
                 .font(MYTypography.pageTitle)
                 .foregroundStyle(MYColor.textPrimary)
-            Text("طلبك قيد المراجعة — سيتم تأكيد الحجز بعد التحقق من التحويل من قِبل الإدارة، وستصلك رسالة عند التأكيد.")
+            Text("طلبك قيد المراجعة — سيتم تأكيد الحجز بعد التحقق من التحويل من قِبل الإدارة، وستصلك رسالة عند التأكيد لتحديد الموعد.")
                 .font(MYTypography.body)
                 .foregroundStyle(MYColor.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, MYSpacing.xl)
             MYTag(text: "الرقم المرجعي: \(vm.reference)", style: .brand)
-            Text("\(vm.service.title) · \(vm.selectedDate.map { MYFormat.longDate($0) } ?? "") · \(vm.selectedTime ?? "")")
+            Text(vm.service.title)
                 .font(MYTypography.caption)
                 .foregroundStyle(MYColor.textTertiary)
                 .multilineTextAlignment(.center)
@@ -201,7 +168,7 @@ struct BookingView: View {
         .toolbar(.hidden, for: .navigationBar)
     }
 
-    // MARK: Step 4 — payment (bank transfer / QR)
+    // MARK: Step 2 — payment (bank transfer / QR)
     private var paymentStep: some View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
             // Amount

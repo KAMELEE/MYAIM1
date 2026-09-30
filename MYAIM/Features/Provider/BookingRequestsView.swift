@@ -75,8 +75,7 @@ struct BookingRequestsView: View {
             }
 
             HStack(spacing: MYSpacing.lg) {
-                info("calendar", MYFormat.longDate(b.date))
-                info("clock", b.time)
+                info("calendar", "طلب بتاريخ \(MYFormat.longDate(b.date))")
             }
 
             Divider().background(MYColor.border)

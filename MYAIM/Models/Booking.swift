@@ -49,8 +49,22 @@ enum PaymentInfo {
 struct Booking: Identifiable, Hashable {
     var id = UUID()
     let service: Service
+    /// Date the request was submitted (scheduling is arranged after approval).
     let date: Date
-    let time: String
     var status: BookingStatus
     var paymentMethod: PaymentMethod = .bankTransfer
+}
+
+/// Steps the trainee follows to complete a booking request. Shown as guidance.
+enum BookingInstructions {
+    static let steps: [(icon: String, title: String, detail: String)] = [
+        ("creditcard", "اختر طريقة الدفع",
+         "تحويل بنكي إلى حساب مصرف الراجحي أو الدفع عبر رمز QR."),
+        ("arrow.up.circle", "حوّل المبلغ",
+         "حوّل قيمة الخدمة كاملة، وأضف الرقم المرجعي في ملاحظة التحويل."),
+        ("paperplane", "أرسل الطلب",
+         "بعد إتمام التحويل اضغط «أرسل الطلب» ليصل إلى الأكاديمية."),
+        ("checkmark.seal", "تأكيد الحجز",
+         "تتحقق الإدارة من التحويل ثم تؤكد الحجز وتتواصل معك لتحديد الموعد.")
+    ]
 }

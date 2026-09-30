@@ -30,24 +30,25 @@ final class FirestoreBookingRepository: BookingRepository {
 
     func upcoming() async throws -> [Booking] {
         let all = try await fetchAll()
-        return all.filter { $0.date >= Date() && $0.status != .cancelled }
+        // Active requests: awaiting approval or confirmed (not yet completed).
+        return all.filter { $0.status == .pending || $0.status == .confirmed }
     }
 
     func past() async throws -> [Booking] {
         let all = try await fetchAll()
-        return all.filter { $0.date < Date() || $0.status == .cancelled }
+        return all.filter { $0.status == .completed || $0.status == .cancelled }
     }
 
     @discardableResult
-    func create(service: Service, date: Date, time: String, payment: PaymentMethod) async throws -> Booking {
+    func create(service: Service, payment: PaymentMethod) async throws -> Booking {
         let uid = try requireUser()
         // Requests start as pending until the provider/admin approves.
-        let booking = Booking(service: service, date: date, time: time,
+        let booking = Booking(service: service, date: Date(),
                               status: .pending, paymentMethod: payment)
         try await db.collection(Self.collection)
             .document(booking.id.uuidString)
             .setData(FirestoreMappers.bookingData(userId: uid, service: service,
-                                                  date: date, time: time,
+                                                  date: booking.date,
                                                   status: .pending, payment: payment))
         return booking
     }

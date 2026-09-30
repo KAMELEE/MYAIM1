@@ -178,28 +178,28 @@ enum SampleData {
     // MARK: - Bookings
     static let upcomingBookings: [Booking] = [
         Booking(service: services[0],
-                date: Date().addingTimeInterval(86400 * 2),
-                time: "10:30 ص", status: .confirmed),
+                date: Date().addingTimeInterval(-86400 * 1),
+                status: .confirmed),
         Booking(service: services[2],
-                date: Date().addingTimeInterval(86400 * 5),
-                time: "05:00 م", status: .pending)
+                date: Date().addingTimeInterval(-3600 * 5),
+                status: .pending)
     ]
     static let pastBookings: [Booking] = [
         Booking(service: services[1],
                 date: Date().addingTimeInterval(-86400 * 10),
-                time: "12:00 م", status: .completed),
+                status: .completed),
         Booking(service: services[3],
                 date: Date().addingTimeInterval(-86400 * 20),
-                time: "07:00 م", status: .cancelled)
+                status: .cancelled)
     ]
     /// Requests awaiting the provider/admin's approval.
     static let pendingBookings: [Booking] = [
         Booking(service: services[0],
-                date: Date().addingTimeInterval(86400 * 3),
-                time: "04:00 م", status: .pending, paymentMethod: .bankTransfer),
+                date: Date().addingTimeInterval(-3600 * 2),
+                status: .pending, paymentMethod: .bankTransfer),
         Booking(service: services[1],
-                date: Date().addingTimeInterval(86400 * 4),
-                time: "06:00 م", status: .pending, paymentMethod: .qr)
+                date: Date().addingTimeInterval(-3600 * 8),
+                status: .pending, paymentMethod: .qr)
     ]
 
     // MARK: - Reviews

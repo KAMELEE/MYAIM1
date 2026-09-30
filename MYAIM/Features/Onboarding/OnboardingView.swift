@@ -283,9 +283,7 @@ private struct IconBadge: View {
             .frame(width: 48, height: 48)
             .background(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(LinearGradient(colors: [MYColor.primary,
-                                                  MYColor.primary.opacity(0.72)],
-                                         startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .fill(MYColor.primary)
             )
             .myShadow(MYShadow.raised)
             .scaleEffect(pulse ? 1.06 : 1.0)

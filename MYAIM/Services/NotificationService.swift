@@ -12,11 +12,11 @@ final class NotificationService {
             .requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
     }
 
-    /// Fires shortly after a booking is confirmed (demo of a local notification).
-    func scheduleBookingConfirmed(serviceTitle: String, date: Date, time: String) {
+    /// Fires shortly after a booking request is approved (local notification).
+    func scheduleBookingConfirmed(serviceTitle: String) {
         let content = UNMutableNotificationContent()
-        content.title = "تم تأكيد حجزك ✅"
-        content.body = "\(serviceTitle) — \(MYFormat.longDate(date)) · \(time)"
+        content.title = "تم تأكيد حجزك"
+        content.body = "\(serviceTitle) — سنتواصل معك لتحديد الموعد المناسب."
         content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)

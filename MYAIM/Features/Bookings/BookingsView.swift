@@ -101,10 +101,9 @@ struct BookingsView: View {
                 Divider().background(MYColor.border)
 
                 HStack(spacing: MYSpacing.lg) {
-                    infoItem("calendar", MYFormat.longDate(booking.date))
-                    infoItem("clock", booking.time)
+                    infoItem("calendar", "طلب بتاريخ \(MYFormat.longDate(booking.date))")
+                    infoItem("mappin.and.ellipse", booking.service.location.city)
                 }
-                infoItem("mappin.and.ellipse", booking.service.location.city)
             }
             .myCard()
         }

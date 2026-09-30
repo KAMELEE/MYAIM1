@@ -6,7 +6,7 @@ protocol BookingRepository {
     func past() async throws -> [Booking]
     /// Creates a booking request (status .pending) after the transfer.
     @discardableResult
-    func create(service: Service, date: Date, time: String, payment: PaymentMethod) async throws -> Booking
+    func create(service: Service, payment: PaymentMethod) async throws -> Booking
     /// Admin side: pending requests awaiting approval.
     func pendingRequests() async throws -> [Booking]
     /// Admin approves a request → status becomes .confirmed.
@@ -37,10 +37,10 @@ final class MockBookingRepository: BookingRepository {
     }
 
     @discardableResult
-    func create(service: Service, date: Date, time: String, payment: PaymentMethod) async throws -> Booking {
+    func create(service: Service, payment: PaymentMethod) async throws -> Booking {
         try await delay(0.9)
         // New requests await admin approval.
-        let booking = Booking(service: service, date: date, time: time,
+        let booking = Booking(service: service, date: Date(),
                               status: .pending, paymentMethod: payment)
         created.insert(booking, at: 0)
         return booking
