@@ -39,13 +39,35 @@ final class FirestoreBookingRepository: BookingRepository {
     }
 
     @discardableResult
-    func create(service: Service, date: Date, time: String) async throws -> Booking {
+    func create(service: Service, date: Date, time: String, payment: PaymentMethod) async throws -> Booking {
         let uid = try requireUser()
-        let booking = Booking(service: service, date: date, time: time, status: .confirmed)
+        // Requests start as pending until the provider/admin approves.
+        let booking = Booking(service: service, date: date, time: time,
+                              status: .pending, paymentMethod: payment)
         try await db.collection(Self.collection)
             .document(booking.id.uuidString)
             .setData(FirestoreMappers.bookingData(userId: uid, service: service,
-                                                  date: date, time: time, status: .confirmed))
+                                                  date: date, time: time,
+                                                  status: .pending, payment: payment))
         return booking
+    }
+
+    func pendingRequests() async throws -> [Booking] {
+        let all = try await fetchAll()
+        return all.filter { $0.status == .pending }
+    }
+
+    func approve(_ booking: Booking) async throws {
+        try await setStatus(.confirmed, id: booking.id)
+    }
+
+    func reject(_ booking: Booking) async throws {
+        try await setStatus(.cancelled, id: booking.id)
+    }
+
+    private func setStatus(_ status: BookingStatus, id: UUID) async throws {
+        try await db.collection(Self.collection)
+            .document(id.uuidString)
+            .updateData(["status": status.rawValue])
     }
 }

@@ -9,6 +9,8 @@ enum DemoLaunch {
         return nil
     }
     static var route: String? { arg("-demoRoute") }
+    /// When set, BookingView opens pre-filled at this step so CI can capture it.
+    static var bookingStep: Int? { arg("-demoBookingStep").flatMap(Int.init) }
 }
 
 /// DEBUG-only helper: when launched with `-scrollTo <fraction 0...1>`, scrolls the

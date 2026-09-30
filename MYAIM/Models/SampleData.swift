@@ -192,6 +192,15 @@ enum SampleData {
                 date: Date().addingTimeInterval(-86400 * 20),
                 time: "07:00 م", status: .cancelled)
     ]
+    /// Requests awaiting the provider/admin's approval.
+    static let pendingBookings: [Booking] = [
+        Booking(service: services[0],
+                date: Date().addingTimeInterval(86400 * 3),
+                time: "04:00 م", status: .pending, paymentMethod: .bankTransfer),
+        Booking(service: services[1],
+                date: Date().addingTimeInterval(86400 * 4),
+                time: "06:00 م", status: .pending, paymentMethod: .qr)
+    ]
 
     // MARK: - Reviews
     static let reviews: [Review] = [

@@ -70,7 +70,8 @@ enum FirestoreMappers {
     // MARK: - Booking
 
     static func bookingData(userId: String, service: Service,
-                            date: Date, time: String, status: BookingStatus) -> [String: Any] {
+                            date: Date, time: String, status: BookingStatus,
+                            payment: PaymentMethod = .bankTransfer) -> [String: Any] {
         [
             "userId": userId,
             "serviceId": service.id.uuidString,
@@ -78,6 +79,7 @@ enum FirestoreMappers {
             "date": Timestamp(date: date),
             "time": time,
             "status": status.rawValue,
+            "paymentMethod": payment.rawValue,
             "createdAt": FieldValue.serverTimestamp()
         ]
     }
@@ -92,11 +94,13 @@ enum FirestoreMappers {
         guard let service = service(from: serviceSnapshot,
                                     id: (data["serviceId"] as? String) ?? id)
         else { return nil }
+        let payment = PaymentMethod(rawValue: (data["paymentMethod"] as? String) ?? "") ?? .bankTransfer
         return Booking(id: UUID(uuidString: id) ?? UUID(),
                        service: service,
                        date: dateTs.dateValue(),
                        time: time,
-                       status: status)
+                       status: status,
+                       paymentMethod: payment)
     }
 
     // MARK: - Goal

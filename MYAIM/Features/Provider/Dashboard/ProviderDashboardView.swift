@@ -32,6 +32,7 @@ struct ProviderDashboardView: View {
             if r == "publishStory" { router.push(.publishStory) }
             if r == "publishAd" { router.push(.publishAd) }
             if r == "courseDetail", let c = store.courses.first { router.push(.courseDetail(c)) }
+            if r == "bookingRequests" { router.push(.bookingRequests) }
             #endif
         }
     }
@@ -89,7 +90,7 @@ struct ProviderDashboardView: View {
                 action("plus.circle.fill", "إضافة دورة") { router.push(.addCourse) }
                 action("megaphone.fill", "نشر منشور") { router.push(.publishPost) }
                 action("flame.fill", "نشر ستوري") { router.push(.publishStory) }
-                action("banner.fill", "نشر إعلان") { router.push(.publishAd) }
+                action("calendar.badge.clock", "طلبات الحجز") { router.push(.bookingRequests) }
             }
         }
     }

@@ -62,6 +62,9 @@ struct RouteDestination: View {
 
         case .courseDetail(let course):
             CourseDetailView(course: course)
+
+        case .bookingRequests:
+            BookingRequestsView()
         }
     }
 }

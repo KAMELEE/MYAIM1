@@ -50,7 +50,8 @@ struct BookingView: View {
                     switch vm.step {
                     case 0: dateStep
                     case 1: timeStep
-                    default: confirmStep
+                    case 2: confirmStep
+                    default: paymentStep
                     }
                 }
                 .padding(MYSpacing.screen)
@@ -62,7 +63,7 @@ struct BookingView: View {
 
     private var stepIndicator: some View {
         HStack(spacing: MYSpacing.sm) {
-            ForEach(0..<3) { i in
+            ForEach(0..<4) { i in
                 Capsule()
                     .fill(i <= vm.step ? MYColor.primary : MYColor.border)
                     .frame(height: 5)
@@ -157,17 +158,12 @@ struct BookingView: View {
             if vm.step > 0 {
                 MYButton(title: "السابق", style: .outline, fullWidth: false) { vm.back() }
             }
-            if vm.step < 2 {
-                MYButton(title: "التالي", isEnabled: vm.canProceed) { vm.next() }
+            if vm.step < 3 {
+                MYButton(title: vm.step == 2 ? "المتابعة للدفع" : "التالي",
+                         isEnabled: vm.canProceed) { vm.next() }
             } else {
-                MYButton(title: "تأكيد الحجز", icon: "checkmark", isLoading: vm.isSubmitting) {
-                    Task {
-                        await vm.confirm()
-                        if vm.didConfirm, let date = vm.selectedDate, let time = vm.selectedTime {
-                            notifications.scheduleBookingConfirmed(
-                                serviceTitle: vm.service.title, date: date, time: time)
-                        }
-                    }
+                MYButton(title: "أرسل الطلب", icon: "paperplane.fill", isLoading: vm.isSubmitting) {
+                    Task { await vm.submitRequest() }
                 }
             }
         }
@@ -181,22 +177,110 @@ struct BookingView: View {
     private var successView: some View {
         VStack(spacing: MYSpacing.lg) {
             Spacer()
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 84))
-                .foregroundStyle(MYColor.success)
-            Text("تم تأكيد حجزك!")
+            Image(systemName: "clock.badge.checkmark")
+                .font(.system(size: 80))
+                .foregroundStyle(MYColor.warning)
+            Text("تم إرسال طلبك ✅")
                 .font(MYTypography.pageTitle)
                 .foregroundStyle(MYColor.textPrimary)
-            Text("\(vm.service.title)\n\(vm.selectedDate.map { MYFormat.longDate($0) } ?? "") · \(vm.selectedTime ?? "")")
+            Text("طلبك قيد المراجعة — سيتم تأكيد الحجز بعد التحقق من التحويل من قِبل الإدارة، وستصلك رسالة عند التأكيد.")
                 .font(MYTypography.body)
                 .foregroundStyle(MYColor.textSecondary)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, MYSpacing.xl)
+            MYTag(text: "الرقم المرجعي: \(vm.reference)", style: .brand)
+            Text("\(vm.service.title) · \(vm.selectedDate.map { MYFormat.longDate($0) } ?? "") · \(vm.selectedTime ?? "")")
+                .font(MYTypography.caption)
+                .foregroundStyle(MYColor.textTertiary)
+                .multilineTextAlignment(.center)
             Spacer()
-            MYButton(title: "العودة للرئيسية") { router.popToRoot() }
+            MYButton(title: "متابعة حجوزاتي", icon: "calendar") { router.popToRoot() }
                 .padding(.horizontal, MYSpacing.screen)
         }
         .padding(.bottom, MYSpacing.xxxl)
         .toolbar(.hidden, for: .navigationBar)
+    }
+
+    // MARK: Step 4 — payment (bank transfer / QR)
+    private var paymentStep: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            // Amount
+            HStack {
+                Text("المبلغ المطلوب").font(MYTypography.secondary).foregroundStyle(MYColor.textSecondary)
+                Spacer()
+                Text(MYFormat.price(vm.service.startingPrice))
+                    .font(MYTypography.section).foregroundStyle(MYColor.primary)
+            }
+            .myCard(padding: MYSpacing.md)
+
+            // Method switch
+            HStack(spacing: 0) {
+                ForEach(PaymentMethod.allCases) { m in
+                    let on = vm.paymentMethod == m
+                    Button {
+                        Haptics.selection(); withAnimation { vm.paymentMethod = m }
+                    } label: {
+                        HStack(spacing: MYSpacing.xs) {
+                            Image(systemName: m.icon).font(.system(size: 14, weight: .semibold))
+                            Text(m.title).font(MYTypography.secondary)
+                        }
+                        .foregroundStyle(on ? .white : MYColor.textSecondary)
+                        .frame(maxWidth: .infinity).padding(.vertical, MYSpacing.sm)
+                        .background(on ? MYColor.primary : .clear)
+                        .clipShape(Capsule())
+                    }
+                }
+            }
+            .padding(3).background(MYColor.surfaceSecondary).clipShape(Capsule())
+
+            if vm.paymentMethod == .bankTransfer { bankDetails } else { qrDetails }
+
+            Text("بعد إتمام التحويل اضغط «أرسل الطلب». تتحقق الإدارة من التحويل ثم تؤكّد الحجز.")
+                .font(MYTypography.caption).foregroundStyle(MYColor.textTertiary)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let msg = vm.errorMessage { AuthErrorBanner(message: msg) }
+        }
+    }
+
+    private var bankDetails: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.sm) {
+            copyRow("المصرف", PaymentInfo.bankName, copyable: false)
+            copyRow("اسم الحساب", PaymentInfo.accountName, copyable: false)
+            copyRow("رقم الحساب", PaymentInfo.accountNumber)
+            copyRow("الآيبان", PaymentInfo.iban)
+            copyRow("الرقم المرجعي", vm.reference)
+        }
+        .myCard()
+    }
+
+    private var qrDetails: some View {
+        VStack(spacing: MYSpacing.sm) {
+            MYQRCode(value: PaymentInfo.qrPayload(amount: vm.service.startingPrice, ref: vm.reference))
+            Text("امسح الرمز عبر تطبيق مصرفك لإتمام التحويل")
+                .font(MYTypography.caption).foregroundStyle(MYColor.textSecondary)
+            copyRow("الرقم المرجعي", vm.reference)
+        }
+        .frame(maxWidth: .infinity)
+        .myCard()
+    }
+
+    private func copyRow(_ label: String, _ value: String, copyable: Bool = true) -> some View {
+        HStack {
+            Text(label).font(MYTypography.caption).foregroundStyle(MYColor.textSecondary)
+            Spacer()
+            Text(value).font(MYTypography.secondary).foregroundStyle(MYColor.textPrimary)
+                .lineLimit(1).truncationMode(.middle)
+            if copyable {
+                Button {
+                    UIPasteboard.general.string = value
+                    Haptics.success()
+                } label: {
+                    Image(systemName: "doc.on.doc").font(.system(size: 13)).foregroundStyle(MYColor.primary)
+                }
+            }
+        }
+        .padding(.vertical, MYSpacing.xxs)
     }
 }
 

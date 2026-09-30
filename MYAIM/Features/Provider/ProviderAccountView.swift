@@ -13,7 +13,7 @@ struct ProviderAccountView: View {
                 VStack(spacing: 0) {
                     row("building.2", "معلومات الأكاديمية")
                     row("photo.on.rectangle", "الصور والغلاف")
-                    row("calendar", "الحجوزات والطلاب")
+                    row("calendar.badge.clock", "طلبات الحجز") { router.push(.bookingRequests) }
                     row("bubble.left.and.bubble.right", "الرسائل") { router.push(.messages) }
                     row("chart.bar", "الإحصائيات")
                     row("gearshape", "الإعدادات") { router.push(.settings) }
