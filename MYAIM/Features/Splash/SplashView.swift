@@ -29,14 +29,19 @@ struct SplashView: View {
                     .scaleEffect(tileIn ? 1 : 0.72)
                     .opacity(tileIn ? 1 : 0)
 
-                VStack(spacing: MYSpacing.xs) {
+                VStack(spacing: MYSpacing.sm) {
                     Text("MY AIM")
                         .font(.appFont(30, weight: .bold))
                         .foregroundStyle(.white)
                         .tracking(2)
-                    Text("رحلتك نحو تطوير ذاتك تبدأ من هنا")
+                    Text("حدّد هدفك… ونكمّل الطريق معك")
+                        .font(.appFont(17, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                    Text("أكاديميات ومدرّبون لكل مهارة تطمح لها")
                         .font(MYTypography.secondary)
-                        .foregroundStyle(.white.opacity(0.85))
+                        .foregroundStyle(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
                 }
                 .opacity(textIn ? 1 : 0)
                 .offset(y: textIn ? 0 : 12)
