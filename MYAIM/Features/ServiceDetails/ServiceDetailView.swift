@@ -50,7 +50,7 @@ struct ServiceDetailView: View {
     // MARK: Floating back / favorite / share
     private var topControls: some View {
         HStack {
-            circleButton("chevron.forward") { dismiss() }
+            circleButton("chevron.backward") { dismiss() }
             Spacer()
             HStack(spacing: MYSpacing.sm) {
                 circleButton("square.and.arrow.up") {}

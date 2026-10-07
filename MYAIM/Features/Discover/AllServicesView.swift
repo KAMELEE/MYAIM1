@@ -34,6 +34,7 @@ struct AllServicesView: View {
                             onFavorite: { favorites.toggle(service.id) },
                             onTap: { router.push(.serviceDetail(service)) }
                         )
+                        .myAppear(item: service, in: services)
                     }
                 }
                 .padding(MYSpacing.screen)

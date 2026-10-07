@@ -21,16 +21,22 @@ struct HomeView: View {
                              onNotificationsTap: { router.push(.notifications) })
 
                 storiesSection
+                    .myAppear()
 
                 searchRow
+                    .myAppear(delay: 0.05)
 
                 HomeHero(onCTA: { router.push(.allServices(title: "الأكاديميات")) })
+                    .myAppear(delay: 0.1)
 
                 featuredAdsSection
+                    .myAppear(delay: 0.15)
 
                 categoriesSection
+                    .myAppear(delay: 0.2)
 
                 dynamicContent
+                    .myAppear(delay: 0.25)
 
                 MYAcademyCTA(onRegister: { router.push(.registerAcademy) })
                     .padding(.top, MYSpacing.xs)
@@ -40,6 +46,7 @@ struct HomeView: View {
         }
         .myTabBarInset()
         .myScreenBackground()
+        .myStatusBarScrim()
         .toolbar(.hidden, for: .navigationBar)
         .task { await vm.load() }
         .refreshable { await vm.reload() }

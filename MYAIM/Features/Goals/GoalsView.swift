@@ -26,6 +26,7 @@ struct GoalsView: View {
                             MYGoalCard(goal: goal,
                                        showsNextStep: !goal.isCompleted,
                                        onContinue: { router.push(.goalDetail(goal)) })
+                                .myAppear(item: goal, in: goals)
                         }
                     }
                     .padding(MYSpacing.screen)

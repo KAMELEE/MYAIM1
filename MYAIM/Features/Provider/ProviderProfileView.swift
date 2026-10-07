@@ -27,7 +27,7 @@ struct ProviderProfileView: View {
         .toolbar(.hidden, for: .navigationBar)
         .overlay(alignment: .topLeading) {
             Button { dismiss() } label: {
-                Image(systemName: "chevron.forward")
+                Image(systemName: "chevron.backward")
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundStyle(MYColor.textPrimary)
                     .frame(width: 40, height: 40)

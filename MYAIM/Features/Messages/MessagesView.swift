@@ -16,6 +16,7 @@ struct MessagesView: View {
                     LazyVStack(spacing: MYSpacing.sm) {
                         ForEach(store.conversations) { convo in
                             row(convo)
+                                .myAppear(item: convo, in: store.conversations)
                         }
                     }
                     .padding(MYSpacing.screen)

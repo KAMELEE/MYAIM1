@@ -108,7 +108,7 @@ struct OnboardingView: View {
     private var controls: some View {
         HStack(spacing: MYSpacing.md) {
             if index > 0 {
-                circleButton(icon: "chevron.forward", style: .outline) {
+                circleButton(icon: "chevron.backward", style: .outline) {
                     Haptics.selection()
                     withAnimation { index -= 1 }
                 }
@@ -116,10 +116,10 @@ struct OnboardingView: View {
             }
 
             if isLast {
-                MYButton(title: "ابدأ الآن", icon: "chevron.backward") { finish() }
+                MYButton(title: "ابدأ الآن", icon: "chevron.forward") { finish() }
             } else {
                 Spacer(minLength: 0)
-                circleButton(icon: "chevron.backward", style: .primary) {
+                circleButton(icon: "chevron.forward", style: .primary) {
                     Haptics.selection()
                     withAnimation { index += 1 }
                 }

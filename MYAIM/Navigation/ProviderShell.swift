@@ -4,6 +4,8 @@ import SwiftUI
 /// with Dashboard / Courses / Posts / Subscription / Account.
 struct ProviderShell: View {
     @State private var selection: ProviderTab
+    /// Navigation depth per tab — the floating bar hides on pushed screens.
+    @State private var depths: [ProviderTab: Int] = [:]
 
     init() {
         var initial: ProviderTab = .dashboard
@@ -25,15 +27,20 @@ struct ProviderShell: View {
     var body: some View {
         TabView(selection: $selection) {
             ForEach(ProviderTab.allCases) { tab in
-                ProviderNavStack {
+                ProviderNavStack(onDepthChange: { depths[tab] = $0 }) {
                     content(for: tab)
                 }
                 .tag(tab)
             }
         }
         .overlay(alignment: .bottom) {
-            MYTabBar(items: ProviderTab.allCases, selection: $selection)
+            if (depths[selection] ?? 0) == 0 {
+                MYTabBar(items: ProviderTab.allCases, selection: $selection)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85),
+                   value: depths[selection] ?? 0)
     }
 
     @ViewBuilder
@@ -49,6 +56,7 @@ struct ProviderShell: View {
 }
 
 private struct ProviderNavStack<Content: View>: View {
+    var onDepthChange: (Int) -> Void = { _ in }
     @State private var router = Router()
     @ViewBuilder let content: Content
 
@@ -58,6 +66,7 @@ private struct ProviderNavStack<Content: View>: View {
         }
         .environment(router)
         .toolbar(.hidden, for: .tabBar)
+        .onChange(of: router.path.count, initial: true) { _, n in onDepthChange(n) }
     }
 }
 

@@ -53,6 +53,7 @@ struct BookingsView: View {
                 LazyVStack(spacing: MYSpacing.md) {
                     ForEach(bookings) { booking in
                         card(booking)
+                            .myAppear(item: booking, in: bookings)
                     }
                 }
                 .padding(MYSpacing.screen)

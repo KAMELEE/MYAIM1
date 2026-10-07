@@ -74,6 +74,8 @@ extension View {
     func withAppRoutes() -> some View {
         self.navigationDestination(for: AppRoute.self) { route in
             RouteDestination(route: route)
+                // Pushed screens hide the floating tab bar (see RootTabView).
+                .environment(\.myTabBarVisible, false)
         }
     }
 }

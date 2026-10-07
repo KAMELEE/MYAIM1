@@ -14,6 +14,7 @@ struct NotificationsView: View {
                     LazyVStack(spacing: MYSpacing.sm) {
                         ForEach(items) { item in
                             row(item)
+                                .myAppear(item: item, in: items)
                         }
                     }
                     .padding(MYSpacing.screen)

@@ -4,6 +4,8 @@ import SwiftUI
 /// Each tab owns a `Router` + NavigationStack and registers app routes.
 struct RootTabView: View {
     @State private var selection: AppTab
+    /// Navigation depth per tab — the floating bar hides on pushed screens.
+    @State private var depths: [AppTab: Int] = [:]
 
     init() {
         var initial: AppTab = .home
@@ -25,15 +27,20 @@ struct RootTabView: View {
     var body: some View {
         TabView(selection: $selection) {
             ForEach(AppTab.allCases) { tab in
-                TabNavigationStack {
+                TabNavigationStack(onDepthChange: { depths[tab] = $0 }) {
                     tabContent(for: tab)
                 }
                 .tag(tab)
             }
         }
         .overlay(alignment: .bottom) {
-            MYTabBar(items: AppTab.allCases, selection: $selection)
+            if (depths[selection] ?? 0) == 0 {
+                MYTabBar(items: AppTab.allCases, selection: $selection)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
         }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85),
+                   value: depths[selection] ?? 0)
     }
 
     @ViewBuilder
@@ -51,6 +58,7 @@ struct RootTabView: View {
 /// A per-tab NavigationStack bound to its own Router, with routes registered
 /// and the native tab bar hidden (the custom MYTabBar is drawn by RootTabView).
 private struct TabNavigationStack<Content: View>: View {
+    var onDepthChange: (Int) -> Void = { _ in }
     @State private var router = Router()
     @ViewBuilder let content: Content
 
@@ -61,6 +69,7 @@ private struct TabNavigationStack<Content: View>: View {
         }
         .environment(router)
         .toolbar(.hidden, for: .tabBar)
+        .onChange(of: router.path.count, initial: true) { _, n in onDepthChange(n) }
     }
 }
 
