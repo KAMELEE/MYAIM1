@@ -4,6 +4,8 @@ import SwiftUI
 struct RootCoordinatorView: View {
     @Environment(AppState.self) private var appState
     @Environment(GoalsStore.self) private var goalsStore
+    @Environment(ProviderStore.self) private var providerStore
+    @Environment(MessagesStore.self) private var messagesStore
     @State private var showSplash = !RootCoordinatorView.skipSplash
 
     var body: some View {
@@ -53,9 +55,14 @@ struct RootCoordinatorView: View {
             DemoScroll.applyIfNeeded()
             #endif
         }
-        // After login, pull the signed-in user's real goals from Firestore.
+        // After login, pull the signed-in user's real data from Firestore.
         .onChange(of: appState.isAuthenticated) { _, signedIn in
-            if signedIn { Task { await goalsStore.reload() } }
+            guard signedIn else { return }
+            Task {
+                await goalsStore.reload()
+                await messagesStore.reload()
+                await providerStore.reload()
+            }
         }
     }
 }

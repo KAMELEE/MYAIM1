@@ -2,7 +2,12 @@ import SwiftUI
 import Observation
 
 /// App-wide store for the provider (academy) interface: courses, posts,
-/// subscription and stats. Seeded with sample data; in-memory for now.
+/// subscription and stats.
+///
+/// - DEMO/preview builds: seeded with sample data, purely in-memory.
+/// - Production builds: loads the signed-in academy from Firestore
+///   (`providers/{uid}`) and writes every change through.
+@MainActor
 @Observable
 final class ProviderStore {
     var academyName = "أكاديمية النخبة الرياضية"
@@ -14,7 +19,10 @@ final class ProviderStore {
     let plans: [SubscriptionPlan]
     var currentPlanID: UUID
 
-    init() {
+    private let repo: ProviderRepository?
+
+    init(repo: ProviderRepository? = AppRepositories.provider()) {
+        self.repo = repo
         courses = [
             Course(title: "برنامج اللياقة الشامل", category: .sports, price: 450,
                    students: 128, rating: 4.8, isPublished: true,
@@ -42,6 +50,48 @@ final class ProviderStore {
         ]
         plans = plansList
         currentPlanID = plansList[0].id   // start on free plan
+
+        if repo != nil {
+            // Real accounts start empty — never show sample courses as theirs.
+            courses = []
+            posts = []
+            Task { await reload() }
+        }
+    }
+
+    // MARK: Persistence
+
+    private var profile: ProviderProfile {
+        ProviderProfile(academyName: academyName, academyTagline: academyTagline,
+                        category: category, planName: currentPlan.name,
+                        courses: courses, posts: posts)
+    }
+
+    /// Pulls the signed-in academy's data (call after login / mode switch).
+    /// First sign-in: creates the academy document from the defaults.
+    func reload() async {
+        guard let repo else { return }
+        do {
+            if let saved = try await repo.load() {
+                if !saved.academyName.isEmpty { academyName = saved.academyName }
+                if !saved.academyTagline.isEmpty { academyTagline = saved.academyTagline }
+                category = saved.category
+                if let plan = plans.first(where: { $0.name == saved.planName }) {
+                    currentPlanID = plan.id
+                }
+                courses = saved.courses
+                posts = saved.posts
+            } else {
+                try await repo.saveProfile(profile)
+            }
+        } catch {
+            // Keep what we have; the dashboard stays usable offline.
+        }
+    }
+
+    private func persist(_ work: @escaping (ProviderRepository) async throws -> Void) {
+        guard let repo else { return }
+        Task { try? await work(repo) }
     }
 
     var currentPlan: SubscriptionPlan { plans.first { $0.id == currentPlanID } ?? plans[0] }
@@ -57,11 +107,23 @@ final class ProviderStore {
     var monthlyRevenue: Double { courses.reduce(0) { $0 + $1.price * Double($1.students) } * 0.15 }
 
     // MARK: Mutations
-    func addCourse(_ course: Course) { courses.insert(course, at: 0) }
+    func addCourse(_ course: Course) {
+        courses.insert(course, at: 0)
+        persist { try await $0.saveCourse(course) }
+    }
     func togglePublish(_ course: Course) {
         guard let i = courses.firstIndex(where: { $0.id == course.id }) else { return }
         courses[i].isPublished.toggle()
+        let updated = courses[i]
+        persist { try await $0.saveCourse(updated) }
     }
-    func addPost(_ post: Post) { posts.insert(post, at: 0) }
-    func selectPlan(_ plan: SubscriptionPlan) { currentPlanID = plan.id }
+    func addPost(_ post: Post) {
+        posts.insert(post, at: 0)
+        persist { try await $0.savePost(post) }
+    }
+    func selectPlan(_ plan: SubscriptionPlan) {
+        currentPlanID = plan.id
+        let snapshot = profile
+        persist { try await $0.saveProfile(snapshot) }
+    }
 }

@@ -305,7 +305,7 @@ private struct TypingDots: View {
 }
 
 #Preview {
-    NavigationStack { ChatView(conversation: MessagesStore().conversations[0]) }
+    NavigationStack { ChatView(conversation: MessagesStore(repo: nil).conversations[0]) }
         .environment(MessagesStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))

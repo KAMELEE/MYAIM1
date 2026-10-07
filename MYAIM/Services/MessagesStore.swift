@@ -1,12 +1,27 @@
 import SwiftUI
 import Observation
 
-/// App-wide chat store (trainee ↔ provider). Seeded, in-memory.
+/// App-wide chat store (trainee ↔ provider).
+///
+/// - DEMO/preview builds: seeded threads, in-memory, with simulated academy
+///   replies so the demo never goes silent.
+/// - Production builds: the signed-in user's threads live in Firestore
+///   (`conversations`); every sent message is written through. No fake
+///   replies are generated — answers come from the academy.
+@MainActor
 @Observable
 final class MessagesStore {
     var conversations: [Conversation]
 
-    init() {
+    private let repo: MessagesRepository?
+
+    init(repo: MessagesRepository? = AppRepositories.messages()) {
+        self.repo = repo
+        guard repo == nil else {
+            conversations = []
+            Task { await reload() }
+            return
+        }
         conversations = [
             Conversation(
                 name: "أكاديمية النخبة الرياضية", avatarAsset: "photo_sports",
@@ -36,6 +51,21 @@ final class MessagesStore {
         ]
     }
 
+    /// Re-fetches the signed-in user's threads (call after login).
+    func reload() async {
+        guard let repo else { return }
+        do {
+            conversations = try await repo.conversations()
+        } catch {
+            // Keep what we have; errors don't block the chat screen.
+        }
+    }
+
+    private func persist(_ work: @escaping (MessagesRepository) async throws -> Void) {
+        guard let repo else { return }
+        Task { try? await work(repo) }
+    }
+
     var totalUnread: Int { conversations.reduce(0) { $0 + $1.unread } }
 
     /// Conversations where the academy is "typing…" (auto-reply inbound).
@@ -45,23 +75,27 @@ final class MessagesStore {
         guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
         let t = text.trimmingCharacters(in: .whitespaces)
         guard !t.isEmpty else { return }
-        conversations[i].messages.append(Message(text: t, fromMe: true, date: Date()))
+        let message = Message(text: t, fromMe: true, date: Date())
+        conversations[i].messages.append(message)
+        persist { try await $0.append(message, to: id) }
         queueAutoReply(to: id)
     }
 
     /// Sends a locally recorded voice note into the thread.
     func sendVoice(url: URL, duration: Double, to id: UUID) {
         guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
-        conversations[i].messages.append(
-            Message(text: "", fromMe: true, date: Date(),
-                    audioURL: url, audioDuration: duration)
-        )
+        let message = Message(text: "", fromMe: true, date: Date(),
+                              audioURL: url, audioDuration: duration)
+        conversations[i].messages.append(message)
+        persist { try await $0.append(message, to: id) }
         queueAutoReply(to: id)
     }
 
     /// Simulates the academy replying shortly after your message, so the
     /// thread stays alive instead of going silent.
     private func queueAutoReply(to id: UUID) {
+        // Real accounts: no simulated academy replies.
+        guard repo == nil else { return }
         typingIn.insert(id)
         Task { @MainActor in
             try? await Task.sleep(for: .seconds(2.2))
@@ -84,7 +118,10 @@ final class MessagesStore {
 
     func markRead(_ id: UUID) {
         guard let i = conversations.firstIndex(where: { $0.id == id }) else { return }
+        guard conversations[i].unread != 0 else { return }
         conversations[i].unread = 0
+        let convo = conversations[i]
+        persist { try await $0.saveConversation(convo) }
     }
 
     func conversation(_ id: UUID) -> Conversation? { conversations.first { $0.id == id } }
@@ -107,6 +144,12 @@ final class MessagesStore {
             ]
         )
         conversations.insert(conversation, at: 0)
+        if let welcome = conversation.messages.first {
+            persist { repo in
+                try await repo.saveConversation(conversation)
+                try await repo.append(welcome, to: conversation.id)
+            }
+        }
         return conversation
     }
 }

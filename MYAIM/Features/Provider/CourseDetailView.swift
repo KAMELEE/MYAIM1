@@ -100,7 +100,7 @@ struct CourseDetailView: View {
 }
 
 #Preview {
-    NavigationStack { CourseDetailView(course: ProviderStore().courses[0]) }
+    NavigationStack { CourseDetailView(course: ProviderStore(repo: nil).courses[0]) }
         .environment(ProviderStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))

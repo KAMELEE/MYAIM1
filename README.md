@@ -196,8 +196,14 @@ MYAIM/
     البيانات الحية دائمًا.
   - **`bookings`** — حجوزات المستخدم (`userId` + لقطة الخدمة لحظة الحجز + التاريخ/الوقت/الحالة).
   - **`goals`** — أهداف المستخدم وخطواتها؛ الإضافة وتأشير الخطوات تُكتب فورًا إلى Firestore.
-- `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks، غير ذلك → Firestore.
-- ملاحظة: لوحة الأكاديمية (Provider) والدردشة ما زالتا في الذاكرة (عرض تجريبي).
+  - **`providers/{uid}`** — لوحة الأكاديمية: الاسم/الوصف/الفئة/الباقة، ومعها
+    `courses` و`posts` كمجموعات فرعية. أول دخول ينشئ المستند، وكل إضافة دورة أو منشور أو
+    تغيير نشر/باقة يُكتب فورًا. الحساب الحقيقي يبدأ فارغًا (بلا دورات تجريبية).
+  - **`conversations`** — محادثات المستخدم مع الأكاديميات، والرسائل في مجموعة فرعية `messages`.
+    الرسائل الصوتية تُسجَّل محليًا ويُزامَن عنها نص «🎤 رسالة صوتية» + المدة فقط (رفع الصوت
+    يحتاج Firebase Storage لاحقًا). **لا ردود آلية في الإنتاج** — الردود الوهمية في نسخة DEMO فقط.
+- `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks/ذاكرة، غير ذلك → Firestore.
+- بعد تسجيل الدخول تُعاد تعبئة الأهداف والمحادثات ولوحة الأكاديمية من Firestore.
 
 ### قواعد الحماية المقترحة (Firestore ▸ Rules)
 ```
@@ -221,6 +227,20 @@ service cloud.firestore {
         && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null
         && request.auth.uid == request.resource.data.userId;
+    }
+    // لوحة الأكاديمية: كل حساب يملك مستنده ومجموعاته الفرعية فقط
+    match /providers/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    match /conversations/{id} {
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+      match /messages/{msg} {
+        allow read, write: if request.auth != null
+          && request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.userId;
+      }
     }
   }
 }
@@ -248,6 +268,8 @@ service cloud.firestore {
   و«ابدأ الآن» في الـOnboarding صُحّح اتجاهها.
 
 ## المتبقّي
-- **المرحلة 13:** اختبار شامل على جهاز حقيقي + ربط لوحة الأكاديمية والدردشة بـFirestore.
+- [x] ربط لوحة الأكاديمية والدردشة بـFirestore (المرحلة 13 — الجزء الأول).
+- **المرحلة 13:** اختبار شامل على جهاز حقيقي، ورفع الرسائل الصوتية إلى Firebase Storage،
+  وواجهة رد للأكاديمية على محادثات المتدربين.
 
 > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.

@@ -28,4 +28,22 @@ enum AppRepositories {
         FirestoreGoalRepository()
         #endif
     }
+
+    /// Academy dashboard persistence — nil in DEMO (in-memory store).
+    static func provider() -> ProviderRepository? {
+        #if DEMO
+        nil
+        #else
+        FirestoreProviderRepository()
+        #endif
+    }
+
+    /// Chat persistence — nil in DEMO (seeded store + simulated replies).
+    static func messages() -> MessagesRepository? {
+        #if DEMO
+        nil
+        #else
+        FirestoreMessagesRepository()
+        #endif
+    }
 }
