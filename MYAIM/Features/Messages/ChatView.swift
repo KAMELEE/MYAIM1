@@ -13,8 +13,7 @@ struct ChatView: View {
     @State private var isRecording = false
     @State private var blink = false
     @State private var recordStart: Date?
-    @State private var player: AVAudioPlayer?
-    @State private var playingId: UUID?
+    @State private var voice = VoiceNotePlayer()
 
     private var live: Conversation { store.conversation(conversation.id) ?? conversation }
 
@@ -58,6 +57,7 @@ struct ChatView: View {
             inputBar
         }
         .myScreenBackground()
+        .onDisappear { voice.stop() }
         .navigationTitle(live.name)
         .navigationBarTitleDisplayMode(.inline)
         // Production: pick up academy replies while the thread is open
@@ -104,14 +104,21 @@ struct ChatView: View {
 
     /// Voice-note bubble with play/pause + duration.
     private func voiceBubble(_ msg: Message) -> some View {
-        let isPlaying = playingId == msg.id
+        let isPlaying = voice.playingId == msg.id
         return Button {
-            togglePlay(msg)
+            voice.toggle(msg)
         } label: {
             HStack(spacing: MYSpacing.sm) {
-                Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                    .font(.system(size: 26, weight: .semibold))
-                    .foregroundStyle(msg.fromMe ? .white : MYColor.primary)
+                Group {
+                    if voice.loadingId == msg.id {
+                        ProgressView().tint(msg.fromMe ? .white : MYColor.primary)
+                    } else {
+                        Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                            .font(.system(size: 26, weight: .semibold))
+                    }
+                }
+                .frame(width: 28, height: 28)
+                .foregroundStyle(msg.fromMe ? .white : MYColor.primary)
                 Text(MYFormat.duration(msg.audioDuration ?? 0))
                     .font(MYTypography.caption)
                     .foregroundStyle(msg.fromMe ? .white : MYColor.textSecondary)
@@ -130,27 +137,6 @@ struct ChatView: View {
         }
         .buttonStyle(.plain)
         .accessibilityLabel("رسالة صوتية")
-    }
-
-    private func togglePlay(_ msg: Message) {
-        guard let url = msg.audioURL else { return }
-        if playingId == msg.id {
-            player?.stop()
-            playingId = nil
-            return
-        }
-        try? AVAudioSession.sharedInstance().setCategory(.playback)
-        try? AVAudioSession.sharedInstance().setActive(true)
-        player = try? AVAudioPlayer(contentsOf: url)
-        player?.play()
-        playingId = msg.id
-        let expected = msg.id
-        let duration = msg.audioDuration ?? player?.duration ?? 3
-        Task { @MainActor in
-            try? await Task.sleep(for: .seconds(duration))
-            // Only clear if the user didn't start a different bubble meanwhile.
-            if playingId == expected { playingId = nil }
-        }
     }
 
     // MARK: Recording

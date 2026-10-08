@@ -200,8 +200,9 @@ MYAIM/
     `courses` و`posts` كمجموعات فرعية. أول دخول ينشئ المستند، وكل إضافة دورة أو منشور أو
     تغيير نشر/باقة يُكتب فورًا. الحساب الحقيقي يبدأ فارغًا (بلا دورات تجريبية).
   - **`conversations`** — محادثات المستخدم مع الأكاديميات، والرسائل في مجموعة فرعية `messages`.
-    الرسائل الصوتية تُسجَّل محليًا ويُزامَن عنها نص «🎤 رسالة صوتية» + المدة فقط (رفع الصوت
-    يحتاج Firebase Storage لاحقًا). **لا ردود آلية في الإنتاج** — الردود الوهمية في نسخة DEMO فقط.
+    الرسائل الصوتية تُرفع إلى **Firebase Storage** (`voice/{conversationId}/{messageId}.m4a`)
+    ويُحفظ رابطها ومدتها في الرسالة، فتُشغَّل عند الطرف الآخر (المتدرب أو الأكاديمية).
+    **لا ردود آلية في الإنتاج** — الردود الوهمية في نسخة DEMO فقط.
 - `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks/ذاكرة، غير ذلك → Firestore.
 - بعد تسجيل الدخول تُعاد تعبئة الأهداف والمحادثات ولوحة الأكاديمية من Firestore.
 
@@ -253,6 +254,31 @@ service cloud.firestore {
   }
 }
 ```
+### قواعد Firebase Storage (الرسائل الصوتية)
+فعّل **Storage** من Console، ثم Storage ▸ Rules:
+```
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // الصوتية يقرأها ويرفعها طرفا المحادثة فقط، حتى ٥ م.ب وبصيغة صوت
+    match /voice/{conversationId}/{file} {
+      function convo() {
+        return firestore.get(/databases/(default)/documents/conversations/$(conversationId)).data;
+      }
+      function isParty() {
+        return request.auth != null
+          && (request.auth.uid == convo().userId
+              || request.auth.uid == convo().get('providerUid', ''));
+      }
+      allow read: if isParty();
+      allow write: if isParty()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('audio/.*');
+    }
+  }
+}
+```
+
 > الإنتاج يحتاج أيضًا تفعيل **Email/Password** و**Phone** في Authentication
 > (Console ▸ Sign-in method)، وإضافة أرقام تجريبية للجوال عند الرغبة بتجربة OTP بدون SMS.
 
@@ -284,6 +310,8 @@ service cloud.firestore {
   - لوحة الأكاديمية ← «رسائل المتدربين» (مع عدّاد غير المقروء) ← محادثة + ردود سريعة جاهزة.
   - ردّ الأكاديمية يظهر عند المتدرب (تحديث كل ٥ ثوانٍ أثناء فتح المحادثة، وسحب للتحديث في القائمة).
   - دورات الكتالوج التجريبي (بلا مالك) لا تصل رسائلها لأي أكاديمية.
-- **المرحلة 13 (المتبقي):** اختبار شامل على جهاز حقيقي، ورفع الرسائل الصوتية إلى Firebase Storage.
+- [x] **الرسائل الصوتية عبر Firebase Storage**: رفع عند الإرسال، وتشغيل عند الطرفين
+  (`VoiceNotePlayer` يحمّل الصوت مرة واحدة ويخزّنه مؤقتًا، مع مؤشر تحميل).
+- **المرحلة 13 (المتبقي):** اختبار شامل على جهاز حقيقي.
 
 > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.

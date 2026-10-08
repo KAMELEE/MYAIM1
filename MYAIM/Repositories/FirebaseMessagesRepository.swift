@@ -1,6 +1,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 /// Firestore-backed chat:
 ///
@@ -10,8 +11,9 @@ import FirebaseFirestore
 ///     conversations/{id}/messages/{id}
 ///         text · fromMe (= sent by the trainee) · date · audioDuration?
 ///
-/// Voice notes are recorded locally; only a placeholder + duration is synced
-/// (uploading audio needs Firebase Storage, not yet part of the project).
+/// Voice notes are uploaded to Firebase Storage
+/// (`voice/{conversationId}/{messageId}.m4a`); the message stores the
+/// download URL + duration, plus a text placeholder for list previews.
 final class FirestoreMessagesRepository: MessagesRepository {
 
     private let db = Firestore.firestore()
@@ -50,6 +52,11 @@ final class FirestoreMessagesRepository: MessagesRepository {
 
     func append(_ message: Message, to conversationID: UUID) async throws {
         guard userId != nil else { return }
+        var message = message
+        if let local = message.audioURL, local.isFileURL {
+            message.audioURL = try await uploadVoice(local, message: message.id,
+                                                     conversation: conversationID)
+        }
         try await thread(conversationID).collection("messages")
             .document(message.id.uuidString)
             .setData(FirestoreMappers.messageData(message))
@@ -58,6 +65,16 @@ final class FirestoreMessagesRepository: MessagesRepository {
         // auto greeting that opens a thread).
         if message.fromMe { update["academyUnread"] = FieldValue.increment(Int64(1)) }
         try await thread(conversationID).updateData(update)
+    }
+
+    /// Uploads a recorded voice note and returns its download URL.
+    private func uploadVoice(_ file: URL, message: UUID, conversation: UUID) async throws -> URL {
+        let ref = Storage.storage().reference()
+            .child("voice/\(conversation.uuidString)/\(message.uuidString).m4a")
+        let metadata = StorageMetadata()
+        metadata.contentType = "audio/mp4"
+        _ = try await ref.putFileAsync(from: file, metadata: metadata)
+        return try await ref.downloadURL()
     }
 
     // MARK: - Academy side
@@ -136,16 +153,18 @@ extension FirestoreMappers {
             "date": Timestamp(date: m.date)
         ]
         if let d = m.audioDuration { data["audioDuration"] = d }
+        // Only a synced (remote) URL is useful to the other device.
+        if let url = m.audioURL, !url.isFileURL { data["audioURL"] = url.absoluteString }
         return data
     }
 
     static func message(from data: [String: Any], id: String) -> Message? {
         guard let text = data["text"] as? String else { return nil }
-        // Audio files are device-local, so a synced voice note comes back as
-        // its text placeholder (audioURL stays nil).
         return Message(id: UUID(uuidString: id) ?? UUID(),
                        text: text,
                        fromMe: data["fromMe"] as? Bool ?? true,
-                       date: (data["date"] as? Timestamp)?.dateValue() ?? Date())
+                       date: (data["date"] as? Timestamp)?.dateValue() ?? Date(),
+                       audioURL: (data["audioURL"] as? String).flatMap(URL.init(string:)),
+                       audioDuration: (data["audioDuration"] as? NSNumber)?.doubleValue)
     }
 }

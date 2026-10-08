@@ -76,6 +76,7 @@ struct AcademyChatView: View {
 
     @State private var draft = ""
     @FocusState private var focused: Bool
+    @State private var voice = VoiceNotePlayer()
 
     private var live: Conversation { store.conversation(conversation.id) ?? conversation }
     private var canSend: Bool { !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
@@ -91,7 +92,10 @@ struct AcademyChatView: View {
                 ScrollView {
                     LazyVStack(spacing: MYSpacing.sm) {
                         ForEach(live.messages) { msg in
-                            bubble(msg).id(msg.id)
+                            Group {
+                                if msg.isVoice { voiceBubble(msg) } else { bubble(msg) }
+                            }
+                            .id(msg.id)
                         }
                     }
                     .padding(MYSpacing.screen)
@@ -110,6 +114,7 @@ struct AcademyChatView: View {
             inputBar
         }
         .myScreenBackground()
+        .onDisappear { voice.stop() }
         .navigationTitle(live.traineeName ?? "متدرب")
         .navigationBarTitleDisplayMode(.inline)
         // Production: pick up new trainee messages while the thread is open.
@@ -139,6 +144,45 @@ struct AcademyChatView: View {
                 Text(MYFormat.time(msg.date))
                     .font(MYTypography.caption).foregroundStyle(MYColor.textTertiary)
             }
+            if msg.fromMe { Spacer(minLength: 40) }
+        }
+    }
+
+    /// Trainee voice note: tap to play (downloaded from Storage on demand).
+    private func voiceBubble(_ msg: Message) -> some View {
+        HStack {
+            if !msg.fromMe { Spacer(minLength: 40) }
+            Button { voice.toggle(msg) } label: {
+                HStack(spacing: MYSpacing.sm) {
+                    Group {
+                        if voice.loadingId == msg.id {
+                            ProgressView().tint(MYColor.primary)
+                        } else {
+                            Image(systemName: voice.playingId == msg.id
+                                  ? "pause.circle.fill" : "play.circle.fill")
+                                .font(.system(size: 26, weight: .semibold))
+                        }
+                    }
+                    .frame(width: 28, height: 28)
+                    .foregroundStyle(msg.fromMe ? .white : MYColor.primary)
+                    Text(MYFormat.duration(msg.audioDuration ?? 0))
+                        .font(MYTypography.caption)
+                        .foregroundStyle(msg.fromMe ? .white : MYColor.textSecondary)
+                    Image(systemName: "waveform")
+                        .font(.system(size: 15))
+                        .foregroundStyle(msg.fromMe ? .white.opacity(0.8) : MYColor.textTertiary)
+                }
+                .padding(.horizontal, MYSpacing.md)
+                .padding(.vertical, MYSpacing.sm)
+                .background(msg.fromMe ? MYColor.primary : MYColor.surface)
+                .clipShape(RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous)
+                        .strokeBorder(msg.fromMe ? .clear : MYColor.border, lineWidth: 0.5)
+                )
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("رسالة صوتية")
             if msg.fromMe { Spacer(minLength: 40) }
         }
     }

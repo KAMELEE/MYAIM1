@@ -6,7 +6,8 @@ struct Message: Identifiable, Hashable {
     var text: String
     var fromMe: Bool
     var date: Date
-    /// Voice note file URL (local .m4a) — nil for text messages.
+    /// Voice note URL — a local .m4a file right after recording, or the
+    /// Firebase Storage download URL once synced. nil for text messages.
     var audioURL: URL? = nil
     /// Voice note length in seconds, nil for text messages.
     var audioDuration: Double? = nil
