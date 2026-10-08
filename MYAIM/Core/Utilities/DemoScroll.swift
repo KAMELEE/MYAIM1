@@ -44,8 +44,14 @@ enum DemoScroll {
         walk(window)
 
         if let sv = best {
-            let maxY = max(0, sv.contentSize.height - sv.bounds.height)
-            sv.setContentOffset(CGPoint(x: 0, y: maxY * CGFloat(fraction)), animated: false)
+            // Respect the safe-area insets: the resting (top) offset is
+            // -inset.top, not 0 — otherwise "top" captures are pre-scrolled
+            // under the status bar.
+            let inset = sv.adjustedContentInset
+            let minY = -inset.top
+            let maxY = max(minY, sv.contentSize.height - sv.bounds.height + inset.bottom)
+            sv.setContentOffset(CGPoint(x: 0, y: minY + (maxY - minY) * CGFloat(fraction)),
+                                animated: false)
         }
     }
 }

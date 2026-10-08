@@ -113,15 +113,14 @@ extension View {
     /// clock / Dynamic Island.
     func myStatusBarScrim() -> some View {
         overlay(alignment: .top) {
-            // The reader ignores the safe area so its proxy reports the real
-            // top inset; the strip covers exactly the status-bar height.
+            // The reader respects the safe area, so its proxy reports the real
+            // top inset; the strip is then lifted up into the status-bar area.
             GeometryReader { proxy in
                 MYColor.background
                     .opacity(0.97)
                     .frame(height: proxy.safeAreaInsets.top)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .offset(y: -proxy.safeAreaInsets.top)
             }
-            .ignoresSafeArea()
             .allowsHitTesting(false)
         }
     }
