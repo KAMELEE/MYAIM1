@@ -22,6 +22,13 @@ struct Conversation: Identifiable, Hashable {
     var category: ServiceCategory
     var unread: Int
     var messages: [Message]
+    /// Academy account (Firebase uid) this thread is addressed to — nil when
+    /// the service has no owner (sample catalog).
+    var providerUid: String? = nil
+    /// Trainee display name, shown in the academy inbox.
+    var traineeName: String? = nil
+    /// Unread count on the academy side.
+    var academyUnread: Int = 0
 
     var lastMessage: Message? { messages.last }
 }

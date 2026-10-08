@@ -15,6 +15,9 @@ struct Service: Identifiable, Hashable, Codable {
     var location: MYLocation
     var startingPrice: Double        // in SAR
     var imageURL: String?
+    /// Firebase uid of the academy account that published this service.
+    /// nil for the bundled sample catalog (no owner to message).
+    var ownerUid: String? = nil
 
     /// Distance in meters from the user (nil if unknown). Set at load time.
     var distanceMeters: Double?

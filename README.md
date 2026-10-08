@@ -212,9 +212,12 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /services/{doc} {
       allow read: if true;
-      // بذر الكتالوج أول مرة فقط (المجموعة الفارغة)
-      allow create: if true;
-      allow update, delete: if false;
+      // بذر الكتالوج (بلا مالك) أو دورة تنشرها أكاديمية باسم حسابها
+      allow create: if !('ownerUid' in request.resource.data)
+        || (request.auth != null && request.resource.data.ownerUid == request.auth.uid);
+      // الأكاديمية تعدّل/تحذف دوراتها فقط
+      allow update, delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
     }
     match /bookings/{doc} {
       allow read, update, delete: if request.auth != null
@@ -232,14 +235,19 @@ service cloud.firestore {
     match /providers/{uid}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
+    // المحادثة يراها طرفاها فقط: المتدرب (userId) والأكاديمية (providerUid)
     match /conversations/{id} {
-      allow read, update, delete: if request.auth != null
+      allow read, update: if request.auth != null
+        && (request.auth.uid == resource.data.userId
+            || request.auth.uid == resource.data.get('providerUid', ''));
+      allow delete: if request.auth != null
         && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null
         && request.auth.uid == request.resource.data.userId;
       match /messages/{msg} {
         allow read, write: if request.auth != null
-          && request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.userId;
+          && (request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.userId
+              || request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.get('providerUid', ''));
       }
     }
   }
@@ -269,7 +277,13 @@ service cloud.firestore {
 
 ## المتبقّي
 - [x] ربط لوحة الأكاديمية والدردشة بـFirestore (المرحلة 13 — الجزء الأول).
-- **المرحلة 13:** اختبار شامل على جهاز حقيقي، ورفع الرسائل الصوتية إلى Firebase Storage،
-  وواجهة رد للأكاديمية على محادثات المتدربين.
+- [x] **صندوق رسائل الأكاديمية** (المرحلة 13 — الجزء الثاني):
+  - الدورة المنشورة من لوحة الأكاديمية تُضاف للكتالوج (`services`) ومعها `ownerUid` = حساب الأكاديمية،
+    وإلغاء النشر يحذفها من الكتالوج.
+  - «تواصل» من صفحة دورة كهذه يُنشئ محادثة فيها `providerUid`، فتصل للأكاديمية صاحبة الحساب فقط.
+  - لوحة الأكاديمية ← «رسائل المتدربين» (مع عدّاد غير المقروء) ← محادثة + ردود سريعة جاهزة.
+  - ردّ الأكاديمية يظهر عند المتدرب (تحديث كل ٥ ثوانٍ أثناء فتح المحادثة، وسحب للتحديث في القائمة).
+  - دورات الكتالوج التجريبي (بلا مالك) لا تصل رسائلها لأي أكاديمية.
+- **المرحلة 13 (المتبقي):** اختبار شامل على جهاز حقيقي، ورفع الرسائل الصوتية إلى Firebase Storage.
 
 > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.

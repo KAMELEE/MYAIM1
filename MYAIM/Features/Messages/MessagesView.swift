@@ -27,6 +27,8 @@ struct MessagesView: View {
         .myScreenBackground()
         .navigationTitle("الرسائل")
         .navigationBarTitleDisplayMode(.inline)
+        .task { await store.reload() }
+        .refreshable { await store.reload() }
     }
 
     private func row(_ convo: Conversation) -> some View {

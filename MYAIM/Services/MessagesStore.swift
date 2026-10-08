@@ -129,8 +129,13 @@ final class MessagesStore {
     /// Opens (or creates) a conversation with a service's academy — the
     /// "تواصل" entry point. Reuses the existing thread when present.
     @discardableResult
-    func openConversation(with service: Service) -> Conversation {
-        if let existing = conversations.first(where: { $0.name == service.providerName }) {
+    func openConversation(with service: Service, traineeName: String? = nil) -> Conversation {
+        // Same academy → same thread. Owned services match by account,
+        // sample-catalog ones by name.
+        if let existing = conversations.first(where: {
+            if let owner = service.ownerUid { return $0.providerUid == owner }
+            return $0.providerUid == nil && $0.name == service.providerName
+        }) {
             return existing
         }
         let conversation = Conversation(
@@ -141,7 +146,9 @@ final class MessagesStore {
             messages: [
                 Message(text: "أهلاً بك في \(service.providerName)! اسألنا عن \(service.title) وسنرد عليك بسرعة.",
                         fromMe: false, date: Date())
-            ]
+            ],
+            providerUid: service.ownerUid,
+            traineeName: traineeName
         )
         conversations.insert(conversation, at: 0)
         if let welcome = conversation.messages.first {

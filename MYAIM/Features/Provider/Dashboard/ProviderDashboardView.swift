@@ -3,6 +3,7 @@ import SwiftUI
 struct ProviderDashboardView: View {
     @Environment(Router.self) private var router
     @Environment(ProviderStore.self) private var store
+    @Environment(AcademyInboxStore.self) private var inbox
     @State private var demoPushed = false
 
     private let cols = [GridItem(.flexible(), spacing: MYSpacing.md),
@@ -13,6 +14,7 @@ struct ProviderDashboardView: View {
             VStack(alignment: .leading, spacing: MYSpacing.lg) {
                 header
                 statsGrid
+                inboxCard
                 quickActions
                 latestCourses
             }
@@ -33,6 +35,8 @@ struct ProviderDashboardView: View {
             if r == "publishAd" { router.push(.publishAd) }
             if r == "courseDetail", let c = store.courses.first { router.push(.courseDetail(c)) }
             if r == "bookingRequests" { router.push(.bookingRequests) }
+            if r == "academyInbox" { router.push(.academyInbox) }
+            if r == "academyChat", let c = inbox.conversations.first { router.push(.academyChat(c)) }
             #endif
         }
     }
@@ -81,6 +85,43 @@ struct ProviderDashboardView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .myCard(padding: MYSpacing.md)
+    }
+
+    /// Trainees' messages — entry to the academy inbox, with unread count.
+    private var inboxCard: some View {
+        Button {
+            Haptics.light()
+            router.push(.academyInbox)
+        } label: {
+            HStack(spacing: MYSpacing.md) {
+                Image(systemName: "bubble.left.and.text.bubble.right.fill")
+                    .font(.system(size: 20))
+                    .foregroundStyle(MYColor.primary)
+                    .frame(width: 44, height: 44)
+                    .background(MYColor.primaryTint)
+                    .clipShape(RoundedRectangle(cornerRadius: MYRadius.sm, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("رسائل المتدربين")
+                        .font(MYTypography.cardTitle).foregroundStyle(MYColor.textPrimary)
+                    Text(inbox.totalUnread > 0
+                         ? "\(inbox.totalUnread) رسالة جديدة بانتظار ردك"
+                         : "لا رسائل جديدة")
+                        .font(MYTypography.caption).foregroundStyle(MYColor.textSecondary)
+                }
+                Spacer(minLength: 0)
+                if inbox.totalUnread > 0 {
+                    Text("\(inbox.totalUnread)")
+                        .font(.appFont(12, weight: .bold)).foregroundStyle(.white)
+                        .frame(minWidth: 24, minHeight: 24)
+                        .background(MYColor.primary).clipShape(Circle())
+                }
+                Image(systemName: "chevron.forward")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(MYColor.textTertiary)
+            }
+            .myCard(padding: MYSpacing.md)
+        }
+        .buttonStyle(PressableButtonStyle())
     }
 
     private var quickActions: some View {
@@ -155,7 +196,8 @@ struct CourseRow: View {
 #Preview {
     NavigationStack { ProviderDashboardView() }
         .environment(Router())
-        .environment(ProviderStore())
+        .environment(ProviderStore(repo: nil))
+        .environment(AcademyInboxStore(repo: nil))
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

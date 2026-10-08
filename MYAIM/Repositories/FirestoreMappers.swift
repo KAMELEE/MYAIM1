@@ -26,6 +26,7 @@ enum FirestoreMappers {
             "createdAt": FieldValue.serverTimestamp()
         ]
         if let url = s.imageURL { data["imageURL"] = url }
+        if let owner = s.ownerUid { data["ownerUid"] = owner }
         return data
     }
 
@@ -64,6 +65,7 @@ enum FirestoreMappers {
                                             latitude: latitude, longitude: longitude),
                        startingPrice: startingPrice,
                        imageURL: imageURL,
+                       ownerUid: data["ownerUid"] as? String,
                        distanceMeters: distance)
     }
 

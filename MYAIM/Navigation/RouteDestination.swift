@@ -65,6 +65,12 @@ struct RouteDestination: View {
 
         case .bookingRequests:
             BookingRequestsView()
+
+        case .academyInbox:
+            AcademyInboxView()
+
+        case .academyChat(let conversation):
+            AcademyChatView(conversation: conversation)
         }
     }
 }

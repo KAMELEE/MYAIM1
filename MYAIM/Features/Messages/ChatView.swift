@@ -60,6 +60,14 @@ struct ChatView: View {
         .myScreenBackground()
         .navigationTitle(live.name)
         .navigationBarTitleDisplayMode(.inline)
+        // Production: pick up academy replies while the thread is open
+        // (no-op in DEMO, where replies are simulated locally).
+        .task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(5))
+                await store.reload()
+            }
+        }
     }
 
     private func bubble(_ msg: Message) -> some View {

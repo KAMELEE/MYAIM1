@@ -23,4 +23,6 @@ enum AppRoute: Hashable {
     case publishAd
     case courseDetail(Course)
     case bookingRequests
+    case academyInbox
+    case academyChat(Conversation)
 }

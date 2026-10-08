@@ -8,6 +8,7 @@ struct ServiceDetailView: View {
     @Environment(Router.self) private var router
     @Environment(FavoritesStore.self) private var favorites
     @Environment(MessagesStore.self) private var messages
+    @Environment(AppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
 
     private var isFavorite: Bool { favorites.contains(service.id) }
@@ -262,7 +263,8 @@ struct ServiceDetailView: View {
     private var contactButton: some View {
         Button {
             Haptics.light()
-            let conversation = messages.openConversation(with: service)
+            let conversation = messages.openConversation(with: service,
+                                                         traineeName: appState.currentUser?.name)
             router.push(.chat(conversation))
         } label: {
             Image(systemName: "bubble.left.and.exclamationmark.bubble.right.fill")
@@ -284,6 +286,7 @@ struct ServiceDetailView: View {
             .environment(Router())
             .environment(FavoritesStore())
             .environment(MessagesStore())
+            .environment(AppState())
     }
     .environment(\.layoutDirection, .rightToLeft)
     .environment(\.locale, Locale(identifier: "ar"))

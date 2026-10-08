@@ -36,6 +36,7 @@ struct MYAIMApp: App {
     @State private var provider = ProviderStore()
     @State private var location = LocationService()
     @State private var messages = MessagesStore()
+    @State private var academyInbox = AcademyInboxStore()
     @State private var notifications = NotificationService()
     @State private var featured = FeaturedStore()
 
@@ -48,6 +49,7 @@ struct MYAIMApp: App {
                 .environment(provider)
                 .environment(location)
                 .environment(messages)
+                .environment(academyInbox)
                 .environment(notifications)
                 .environment(featured)
                 // Arabic-first: force RTL layout and Arabic locale app-wide.

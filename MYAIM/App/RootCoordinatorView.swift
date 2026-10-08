@@ -6,6 +6,7 @@ struct RootCoordinatorView: View {
     @Environment(GoalsStore.self) private var goalsStore
     @Environment(ProviderStore.self) private var providerStore
     @Environment(MessagesStore.self) private var messagesStore
+    @Environment(AcademyInboxStore.self) private var academyInbox
     @State private var showSplash = !RootCoordinatorView.skipSplash
 
     var body: some View {
@@ -62,6 +63,7 @@ struct RootCoordinatorView: View {
                 await goalsStore.reload()
                 await messagesStore.reload()
                 await providerStore.reload()
+                await academyInbox.reload()
             }
         }
     }
@@ -75,6 +77,7 @@ struct RootCoordinatorView: View {
         .environment(ProviderStore())
         .environment(LocationService())
         .environment(MessagesStore())
+        .environment(AcademyInboxStore(repo: nil))
         .environment(NotificationService())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))

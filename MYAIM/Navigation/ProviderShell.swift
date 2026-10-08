@@ -74,6 +74,7 @@ private struct ProviderNavStack<Content: View>: View {
     ProviderShell()
         .environment(AppState())
         .environment(ProviderStore())
+        .environment(AcademyInboxStore(repo: nil))
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

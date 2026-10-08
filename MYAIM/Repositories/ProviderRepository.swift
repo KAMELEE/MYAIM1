@@ -21,4 +21,10 @@ protocol ProviderRepository {
     func saveProfile(_ profile: ProviderProfile) async throws
     func saveCourse(_ course: Course) async throws
     func savePost(_ post: Post) async throws
+
+    /// Lists a published course in the public catalog (`services`), owned by
+    /// this account — so trainees' messages about it reach this academy.
+    func publishToCatalog(_ course: Course, academyName: String) async throws
+    /// Removes a course from the public catalog (unpublished / draft).
+    func removeFromCatalog(_ courseID: UUID) async throws
 }

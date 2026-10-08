@@ -63,6 +63,33 @@ final class FirestoreProviderRepository: ProviderRepository {
             .setData(FirestoreMappers.courseData(course), merge: true)
     }
 
+    func publishToCatalog(_ course: Course, academyName: String) async throws {
+        guard let uid = userId else { return }
+        let service = Service(id: course.id,
+                              title: course.title,
+                              summary: course.summary,
+                              category: course.category,
+                              providerName: academyName,
+                              providerId: course.id,
+                              isVerified: false,
+                              rating: course.rating,
+                              reviewsCount: 0,
+                              // Default: Riyadh until academies set their branch location.
+                              location: MYLocation(city: "الرياض", district: nil,
+                                                   latitude: 24.7136, longitude: 46.6753),
+                              startingPrice: course.price,
+                              imageURL: nil,
+                              ownerUid: uid)
+        try await db.collection("services")
+            .document(course.id.uuidString)
+            .setData(FirestoreMappers.serviceData(service), merge: true)
+    }
+
+    func removeFromCatalog(_ courseID: UUID) async throws {
+        guard userId != nil else { return }
+        try await db.collection("services").document(courseID.uuidString).delete()
+    }
+
     func savePost(_ post: Post) async throws {
         guard let uid = userId else { return }
         try await root(uid).collection("posts")

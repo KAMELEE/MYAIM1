@@ -109,13 +109,25 @@ final class ProviderStore {
     // MARK: Mutations
     func addCourse(_ course: Course) {
         courses.insert(course, at: 0)
-        persist { try await $0.saveCourse(course) }
+        let name = academyName
+        persist { repo in
+            try await repo.saveCourse(course)
+            if course.isPublished { try await repo.publishToCatalog(course, academyName: name) }
+        }
     }
     func togglePublish(_ course: Course) {
         guard let i = courses.firstIndex(where: { $0.id == course.id }) else { return }
         courses[i].isPublished.toggle()
         let updated = courses[i]
-        persist { try await $0.saveCourse(updated) }
+        let name = academyName
+        persist { repo in
+            try await repo.saveCourse(updated)
+            if updated.isPublished {
+                try await repo.publishToCatalog(updated, academyName: name)
+            } else {
+                try await repo.removeFromCatalog(updated.id)
+            }
+        }
     }
     func addPost(_ post: Post) {
         posts.insert(post, at: 0)
