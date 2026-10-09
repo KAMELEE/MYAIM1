@@ -1,0 +1,20 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // الصوتية يقرأها ويرفعها طرفا المحادثة فقط، حتى ٥ م.ب وبصيغة صوت
+    match /voice/{conversationId}/{file} {
+      function convo() {
+        return firestore.get(/databases/(default)/documents/conversations/$(conversationId)).data;
+      }
+      function isParty() {
+        return request.auth != null
+          && (request.auth.uid == convo().userId
+              || request.auth.uid == convo().get('providerUid', ''));
+      }
+      allow read: if isParty();
+      allow write: if isParty()
+        && request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('audio/.*');
+    }
+  }
+}

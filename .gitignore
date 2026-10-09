@@ -14,3 +14,9 @@ xcuserdata/
 
 # Misc
 *.log
+
+# Firebase rules tests
+node_modules/
+firebase-debug.log
+firestore-debug.log
+firebase-tests/package-lock.json

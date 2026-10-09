@@ -151,6 +151,21 @@ jobs:
             echo "فشل رفع Appetize — الاستجابة في appetize-raw.json" > ci-logs/appetize.txt
           fi
 
+      - name: Java for Firebase emulators
+        if: always()
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Security rules tests (Firestore + Storage emulator)
+        if: always()
+        continue-on-error: true
+        run: |
+          cd firebase-tests
+          npm install --no-audit --no-fund > ../rules.log 2>&1
+          npm test >> ../rules.log 2>&1; echo "rules tests exit code: $?" >> ../rules.log
+
       - name: Publish CI log + screenshot to repo (readable without sign-in)
         if: always()
         run: |
@@ -168,6 +183,7 @@ jobs:
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
           cp shot-*.png ci-logs/ 2>/dev/null || true
           cp sim.log ci-logs/sim.txt 2>/dev/null || true
+          grep -vE "^⚠|EAFNOSUPPORT" rules.log > ci-logs/rules.txt 2>/dev/null || true
           # capture last crash report if any
           find ~/Library/Logs/DiagnosticReports -name 'MYAIM*' -newermt '-10 minutes' 2>/dev/null \
             -exec sh -c 'echo "=== $1 ==="; tail -80 "$1"' _ {} \; > ci-logs/crash.txt 2>/dev/null || true

@@ -206,7 +206,11 @@ MYAIM/
 - `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks/ذاكرة، غير ذلك → Firestore.
 - بعد تسجيل الدخول تُعاد تعبئة الأهداف والمحادثات ولوحة الأكاديمية من Firestore.
 
-### قواعد الحماية المقترحة (Firestore ▸ Rules)
+### قواعد الحماية (Firestore ▸ Rules)
+> المصدر الرسمي: الملفان `firestore.rules` و`storage.rules` في جذر المستودع.
+> النشر: `firebase deploy --only firestore:rules,storage` (أو انسخهما يدويًا من Console).
+> **مُختبرة آليًا**: `firebase-tests/rules.test.mjs` يشغّلها الـCI على المحاكي (Emulator) في كل رفع،
+> والنتيجة في `ci-logs/rules.txt`.
 ```
 rules_version = '2';
 service cloud.firestore {
@@ -238,9 +242,15 @@ service cloud.firestore {
     }
     // المحادثة يراها طرفاها فقط: المتدرب (userId) والأكاديمية (providerUid)
     match /conversations/{id} {
-      allow read, update: if request.auth != null
+      allow read: if request.auth != null
         && (request.auth.uid == resource.data.userId
             || request.auth.uid == resource.data.get('providerUid', ''));
+      // تحديث العدّادات/الوقت فقط — لا يمكن لأي طرف تغيير أطراف المحادثة
+      allow update: if request.auth != null
+        && (request.auth.uid == resource.data.userId
+            || request.auth.uid == resource.data.get('providerUid', ''))
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.get('providerUid', '') == resource.data.get('providerUid', '');
       allow delete: if request.auth != null
         && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null

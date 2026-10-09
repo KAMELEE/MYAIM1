@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /services/{doc} {
+      allow read: if true;
+      // بذر الكتالوج (بلا مالك) أو دورة تنشرها أكاديمية باسم حسابها
+      allow create: if !('ownerUid' in request.resource.data)
+        || (request.auth != null && request.resource.data.ownerUid == request.auth.uid);
+      // الأكاديمية تعدّل/تحذف دوراتها فقط
+      allow update, delete: if request.auth != null
+        && resource.data.ownerUid == request.auth.uid;
+    }
+    match /bookings/{doc} {
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+    }
+    match /goals/{doc} {
+      allow read, update, delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+    }
+    // لوحة الأكاديمية: كل حساب يملك مستنده ومجموعاته الفرعية فقط
+    match /providers/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+    // المحادثة يراها طرفاها فقط: المتدرب (userId) والأكاديمية (providerUid)
+    match /conversations/{id} {
+      allow read: if request.auth != null
+        && (request.auth.uid == resource.data.userId
+            || request.auth.uid == resource.data.get('providerUid', ''));
+      // تحديث العدّادات/الوقت فقط — لا يمكن لأي طرف تغيير أطراف المحادثة
+      allow update: if request.auth != null
+        && (request.auth.uid == resource.data.userId
+            || request.auth.uid == resource.data.get('providerUid', ''))
+        && request.resource.data.userId == resource.data.userId
+        && request.resource.data.get('providerUid', '') == resource.data.get('providerUid', '');
+      allow delete: if request.auth != null
+        && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null
+        && request.auth.uid == request.resource.data.userId;
+      match /messages/{msg} {
+        allow read, write: if request.auth != null
+          && (request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.userId
+              || request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.get('providerUid', ''));
+      }
+    }
+  }
+}
