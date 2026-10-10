@@ -11,10 +11,17 @@ struct SponsoredAdCard: View {
             Haptics.light()
             onTap()
         } label: {
-            ZStack(alignment: .bottomLeading) {
-                background
-                LinearGradient(colors: [.black.opacity(0.0), .black.opacity(0.72)],
-                               startPoint: .top, endPoint: .bottom)
+            // Fixed-size canvas: the photo fills it without growing the card,
+            // so the text block always sits inside the visible bottom edge.
+            Color.clear
+                .frame(height: 176)
+                .frame(maxWidth: .infinity)
+                .background { background }
+                .overlay {
+                    LinearGradient(colors: [.black.opacity(0.0), .black.opacity(0.72)],
+                                   startPoint: .top, endPoint: .bottom)
+                }
+                .overlay(alignment: .bottomLeading) {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(ad.providerName)
                         .font(MYTypography.caption.weight(.semibold))
@@ -31,9 +38,7 @@ struct SponsoredAdCard: View {
                         .multilineTextAlignment(.leading)
                 }
                 .padding(MYSpacing.lg)
-            }
-            .frame(height: 176)
-            .frame(maxWidth: .infinity)
+                }
             .clipShape(RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous))
             .overlay(alignment: .topLeading) {
                 HStack(spacing: 4) {
