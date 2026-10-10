@@ -5,7 +5,7 @@ npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For E
 npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
-added 786 packages in 59s
+added 786 packages in 43s
 
 > test
 > cd .. && firebase-tests/node_modules/.bin/firebase emulators:exec --only firestore,storage --project demo-myaim "node --test firebase-tests/rules.test.mjs"
@@ -25,136 +25,164 @@ TAP version 13
 # Subtest: services: anyone can read the catalog
 ok 1 - services: anyone can read the catalog
   ---
-  duration_ms: 3247.259083
+  duration_ms: 3267.707042
   type: 'test'
   ...
 # Subtest: services: seeding an unowned catalog item is allowed
 ok 2 - services: seeding an unowned catalog item is allowed
   ---
-  duration_ms: 618.803292
+  duration_ms: 209.687833
   type: 'test'
   ...
 # Subtest: services: academy publishes a course it owns
 ok 3 - services: academy publishes a course it owns
   ---
-  duration_ms: 215.585584
+  duration_ms: 102.063959
   type: 'test'
   ...
-# [2026-10-09T18:28:19.046Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4abfa error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:12.659Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe35 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L7:24 for 'create' @ L7, evaluation error at L10:32 for 'update' @ L10, false for 'create' @ L7
 # Subtest: services: cannot publish under someone else's account
 ok 4 - services: cannot publish under someone else's account
   ---
-  duration_ms: 110.355833
+  duration_ms: 64.081708
   type: 'test'
   ...
-# [2026-10-09T18:28:19.213Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4abfc error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:12.917Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe37 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L10:32 for 'update' @ L10, false for 'update' @ L10
-# [2026-10-09T18:28:19.265Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4abfd error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:12.991Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe38 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L10:32 for 'delete' @ L10, false for 'delete' @ L10
 # Subtest: services: only the owner can update/delete its course
 ok 5 - services: only the owner can update/delete its course
   ---
-  duration_ms: 302.771834
+  duration_ms: 477.60925
   type: 'test'
   ...
-# [2026-10-09T18:28:19.448Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac01 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:13.438Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe3c error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L10:32 for 'update' @ L10, Property ownerUid is undefined on object. for 'update' @ L10
 # Subtest: services: nobody can edit the unowned sample catalog
 ok 6 - services: nobody can edit the unowned sample catalog
   ---
-  duration_ms: 96.4485
+  duration_ms: 298.081167
   type: 'test'
   ...
-# [2026-10-09T18:28:19.512Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac03 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:13.584Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe3e error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # false for 'create' @ L16, evaluation error at L14:38 for 'update' @ L14, false for 'create' @ L16
 # Subtest: bookings: owner-only
 ok 7 - bookings: owner-only
   ---
-  duration_ms: 241.954125
+  duration_ms: 510.966333
   type: 'test'
   ...
-# [2026-10-09T18:28:19.779Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac08 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:14.082Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe43 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # false for 'create' @ L22, evaluation error at L20:38 for 'update' @ L20, false for 'create' @ L22
 # Subtest: goals: owner-only
 ok 8 - goals: owner-only
   ---
-  duration_ms: 167.760875
+  duration_ms: 330.176375
   type: 'test'
   ...
-# [2026-10-09T18:28:19.982Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac0f error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:14.442Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe4a error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # false for 'create' @ L27, false for 'update' @ L27
 # Subtest: providers: academy owns its document and subcollections
 ok 9 - providers: academy owns its document and subcollections
   ---
-  duration_ms: 123.468292
+  duration_ms: 163.594875
   type: 'test'
   ...
-# [2026-10-09T18:28:20.049Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac11 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:14.557Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe4c error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # false for 'create' @ L42, evaluation error at L35:24 for 'update' @ L35, false for 'create' @ L42
 # Subtest: conversations: trainee opens a thread addressed to an academy
 ok 10 - conversations: trainee opens a thread addressed to an academy
   ---
-  duration_ms: 67.136625
+  duration_ms: 113.816583
   type: 'test'
   ...
 # Subtest: conversations: both parties read, stranger cannot
 ok 11 - conversations: both parties read, stranger cannot
   ---
-  duration_ms: 132.591833
+  duration_ms: 115.486708
   type: 'test'
   ...
 # Subtest: conversations: list queries used by the app are allowed
 ok 12 - conversations: list queries used by the app are allowed
   ---
-  duration_ms: 184.105875
+  duration_ms: 125.548292
   type: 'test'
   ...
-# [2026-10-09T18:28:20.618Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac1f error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:15.089Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe5a error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L45:31 for 'create' @ L45, evaluation error at L45:31 for 'update' @ L45, false for 'create' @ L45
 # Subtest: conversations: messages — both parties write/read, stranger cannot
 ok 13 - conversations: messages — both parties write/read, stranger cannot
   ---
-  duration_ms: 252.0565
+  duration_ms: 290.190042
   type: 'test'
   ...
 # Subtest: conversations: counters the app updates are allowed
 ok 14 - conversations: counters the app updates are allowed
   ---
-  duration_ms: 125.851917
+  duration_ms: 144.245666
   type: 'test'
   ...
-# [2026-10-09T18:28:20.828Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac25 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:15.287Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe60 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L35:24 for 'update' @ L35, false for 'update' @ L35
-# [2026-10-09T18:28:20.875Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x26b4ac26 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# [2026-10-10T15:32:15.314Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe61 error. Code: 7 Message: 7 PERMISSION_DENIED: 
 # evaluation error at L35:24 for 'update' @ L35, false for 'update' @ L35
 # Subtest: conversations: academy cannot rewrite thread ownership
 ok 15 - conversations: academy cannot rewrite thread ownership
   ---
-  duration_ms: 130.070958
+  duration_ms: 81.444
+  type: 'test'
+  ...
+# Subtest: ads: academy buys an ad awaiting payment confirmation
+ok 16 - ads: academy buys an ad awaiting payment confirmation
+  ---
+  duration_ms: 61.092667
+  type: 'test'
+  ...
+# [2026-10-10T15:32:15.449Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe63 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# evaluation error at L55:24 for 'create' @ L55, false for 'update' @ L62, false for 'create' @ L55
+# [2026-10-10T15:32:15.474Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe64 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# evaluation error at L55:24 for 'create' @ L55, false for 'update' @ L62, false for 'create' @ L55
+# [2026-10-10T15:32:15.526Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe65 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# evaluation error at L55:24 for 'create' @ L55, false for 'update' @ L62, false for 'create' @ L55
+# [2026-10-10T15:32:15.552Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe66 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# evaluation error at L55:24 for 'create' @ L55, false for 'update' @ L62, false for 'create' @ L55
+# [2026-10-10T15:32:15.591Z]  @firebase/firestore: Firestore (11.10.0): GrpcConnection RPC 'Write' stream 0x782bfe68 error. Code: 7 Message: 7 PERMISSION_DENIED: 
+# false for 'update' @ L62
+# Subtest: ads: cannot self-activate, fake the price, or post for another academy
+ok 17 - ads: cannot self-activate, fake the price, or post for another academy
+  ---
+  duration_ms: 214.905625
+  type: 'test'
+  ...
+# Subtest: ads: trainees (even signed out) see active ads; pending ones stay private
+ok 18 - ads: trainees (even signed out) see active ads; pending ones stay private
+  ---
+  duration_ms: 122.75325
   type: 'test'
   ...
 # Subtest: storage: parties upload/read voice notes; stranger cannot
-ok 16 - storage: parties upload/read voice notes; stranger cannot
+ok 19 - storage: parties upload/read voice notes; stranger cannot
   ---
-  duration_ms: 606.717583
+  duration_ms: 527.646916
   type: 'test'
   ...
 # Subtest: storage: only audio, max 5MB
-ok 17 - storage: only audio, max 5MB
+ok 20 - storage: only audio, max 5MB
   ---
-  duration_ms: 236.36125
+  duration_ms: 288.887167
   type: 'test'
   ...
-1..17
-# tests 17
+1..20
+# tests 20
 # suites 0
-# pass 17
+# pass 20
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 8054.393875
+# duration_ms 8531.815875
 [32m[1m✔ [22m[39m Script exited successfully (code 0)
 [36m[1mi  emulators:[22m[39m Shutting down emulators.
 [36m[1mi  firestore:[22m[39m Stopping Firestore Emulator
