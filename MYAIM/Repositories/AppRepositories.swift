@@ -46,4 +46,13 @@ enum AppRepositories {
         FirestoreMessagesRepository()
         #endif
     }
+
+    /// Paid academy ads — nil in DEMO (seeded store, instant activation).
+    static func ads() -> AdsRepository? {
+        #if DEMO
+        nil
+        #else
+        FirestoreAdsRepository()
+        #endif
+    }
 }

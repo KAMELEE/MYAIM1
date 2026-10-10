@@ -129,7 +129,7 @@ struct ProviderDashboardView: View {
             MYSectionHeader(title: "إجراءات سريعة", actionTitle: nil)
             LazyVGrid(columns: cols, spacing: MYSpacing.md) {
                 action("plus.circle.fill", "إضافة دورة") { router.push(.addCourse) }
-                action("megaphone.fill", "نشر منشور") { router.push(.publishPost) }
+                action("megaphone.fill", "إعلان مدفوع") { router.push(.publishAd) }
                 action("flame.fill", "نشر ستوري") { router.push(.publishStory) }
                 action("calendar.badge.clock", "طلبات الحجز") { router.push(.bookingRequests) }
             }

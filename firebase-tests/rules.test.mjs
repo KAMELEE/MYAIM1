@@ -135,6 +135,34 @@ test('conversations: academy cannot rewrite thread ownership', async () => {
   await assertFails(updateDoc(doc(db(TRAINEE), 'conversations/t1'), { userId: STRANGER }));
 });
 
+// ---------- ads ----------
+const ad = (extra = {}) => ({ ownerUid: ACADEMY, providerName: 'أكاديمية', title: 'خصم',
+  subtitle: 's', accentHex: '#E0533D', package: 'week', price: 99, status: 'pendingReview',
+  paymentMethod: 'bankTransfer', reference: 'AD-1', createdAt: serverTimestamp(), ...extra });
+
+test('ads: academy buys an ad awaiting payment confirmation', async () => {
+  await assertSucceeds(setDoc(doc(db(ACADEMY), 'ads/a1'), ad()));
+});
+
+test('ads: cannot self-activate, fake the price, or post for another academy', async () => {
+  await assertFails(setDoc(doc(db(ACADEMY), 'ads/a1'), ad({ status: 'active' })));
+  await assertFails(setDoc(doc(db(ACADEMY), 'ads/a2'), ad({ price: 1 })));
+  await assertFails(setDoc(doc(db(ACADEMY), 'ads/a3'), ad({ endsAt: new Date(2099, 0, 1) })));
+  await assertFails(setDoc(doc(db(STRANGER), 'ads/a4'), ad()));
+  await seed((d) => setDoc(doc(d, 'ads/a5'), ad()));
+  await assertFails(updateDoc(doc(db(ACADEMY), 'ads/a5'), { status: 'active' }));
+});
+
+test('ads: trainees (even signed out) see active ads; pending ones stay private', async () => {
+  await seed(async (d) => {
+    await setDoc(doc(d, 'ads/live'), ad({ status: 'active', endsAt: new Date(2099, 0, 1) }));
+    await setDoc(doc(d, 'ads/pending'), ad());
+  });
+  await assertSucceeds(getDocs(query(collection(db(null), 'ads'), where('status', '==', 'active'))));
+  await assertFails(getDoc(doc(db(STRANGER), 'ads/pending')));
+  await assertSucceeds(getDocs(query(collection(db(ACADEMY), 'ads'), where('ownerUid', '==', ACADEMY))));
+});
+
 // ---------- storage: voice notes ----------
 const audio = new Uint8Array([0, 1, 2, 3]);
 

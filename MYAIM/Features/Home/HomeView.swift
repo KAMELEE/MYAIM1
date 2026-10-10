@@ -20,6 +20,12 @@ struct HomeView: View {
                 MYHomeHeader(onLocationTap: {},
                              onNotificationsTap: { router.push(.notifications) })
 
+                // Paid academy ads — the first thing trainees see.
+                SponsoredAdsCarousel(ads: featured.liveAds) { ad in
+                    router.push(.allServices(title: ad.providerName))
+                }
+                .myAppear()
+
                 storiesSection
                     .myAppear()
 
@@ -28,9 +34,6 @@ struct HomeView: View {
 
                 HomeHero(onCTA: { router.push(.allServices(title: "الأكاديميات")) })
                     .myAppear(delay: 0.1)
-
-                featuredAdsSection
-                    .myAppear(delay: 0.15)
 
                 categoriesSection
                     .myAppear(delay: 0.2)
@@ -92,25 +95,6 @@ struct HomeView: View {
                 seenStoryIds: $seenStoryIds,
                 onClose: { activeStory = nil }
             )
-        }
-    }
-
-    // MARK: Featured academy ads — «أكاديميات مميزة»
-    private var featuredAdsSection: some View {
-        VStack(alignment: .leading, spacing: MYSpacing.md) {
-            MYSectionHeader(title: "أكاديميات مميزة",
-                            onAction: { router.push(.allServices(title: "أكاديميات مميزة")) })
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: MYSpacing.md) {
-                    ForEach(featured.ads) { ad in
-                        FeaturedAdCard(ad: ad) {
-                            router.push(.allServices(title: "أكاديميات مميزة"))
-                        }
-                    }
-                }
-                .padding(.horizontal, MYSpacing.screen)
-            }
-            .padding(.horizontal, -MYSpacing.screen)
         }
     }
 

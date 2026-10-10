@@ -14,7 +14,7 @@ struct ProviderShell: View {
         if let i = args.firstIndex(of: "-demoTab"), i + 1 < args.count {
             switch args[i + 1] {
             case "courses":      initial = .courses
-            case "posts":        initial = .posts
+            case "posts", "ads": initial = .ads
             case "subscription": initial = .subscription
             case "account":      initial = .account
             default:             initial = .dashboard
@@ -48,7 +48,7 @@ struct ProviderShell: View {
         switch tab {
         case .dashboard:    ProviderDashboardView()
         case .courses:      ProviderCoursesView()
-        case .posts:        ProviderPostsView()
+        case .ads:          ProviderAdsView()
         case .subscription: SubscriptionView()
         case .account:      ProviderAccountView()
         }
@@ -75,6 +75,7 @@ private struct ProviderNavStack<Content: View>: View {
         .environment(AppState())
         .environment(ProviderStore())
         .environment(AcademyInboxStore(repo: nil))
+        .environment(FeaturedStore(repo: nil))
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

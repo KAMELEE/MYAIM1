@@ -261,6 +261,21 @@ service cloud.firestore {
               || request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.get('providerUid', ''));
       }
     }
+    // إعلانات مدفوعة: الأكاديمية تنشئ إعلانها «بانتظار تأكيد الدفع» بسعر الباقة الصحيح،
+    // والإدارة وحدها (Console) تفعّله وتحدد endsAt. يراه الجميع بعد التفعيل.
+    match /ads/{id} {
+      allow read: if resource.data.status == 'active'
+        || (request.auth != null && resource.data.ownerUid == request.auth.uid);
+      allow create: if request.auth != null
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == 'pendingReview'
+        && !('endsAt' in request.resource.data)
+        && request.resource.data.package in ['week', 'twoWeeks', 'month']
+        && request.resource.data.price
+           == {'week': 99, 'twoWeeks': 179, 'month': 299}[request.resource.data.package];
+      allow update: if false;
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
   }
 }
 ```
@@ -322,6 +337,14 @@ service firebase.storage {
   - دورات الكتالوج التجريبي (بلا مالك) لا تصل رسائلها لأي أكاديمية.
 - [x] **الرسائل الصوتية عبر Firebase Storage**: رفع عند الإرسال، وتشغيل عند الطرفين
   (`VoiceNotePlayer` يحمّل الصوت مرة واحدة ويخزّنه مؤقتًا، مع مؤشر تحميل).
+- [x] **الإعلانات المدفوعة** (بدل صفحة المنشورات في واجهة الأكاديمية):
+  - تبويب «الإعلانات»: الأكاديمية تكتب إعلانها، تختار الباقة (أسبوع ٩٩ · أسبوعان ١٧٩ · شهر ٢٩٩ ر.س)،
+    وتدفع بتحويل بنكي/QR برقم مرجعي — نفس آلية دفع الحجوزات.
+  - الإعلان يُحفظ في `ads` بحالة «بانتظار تأكيد الدفع»؛ بعد التحقق من التحويل تفعّله الإدارة من
+    Console (`status = active` + `endsAt`). القواعد تمنع الأكاديمية من تفعيل إعلانها أو تغيير السعر.
+  - **أول شيء في رئيسية المتدربين**: سلايدر إعلانات بعرض الشاشة يتنقّل تلقائيًا (يحترم «تقليل الحركة»)،
+    ويختفي الإعلان تلقائيًا بعد انتهاء مدته.
+  - في نسخة DEMO يُفعَّل الإعلان فورًا (دفع محاكى) ليظهر مباشرة.
 - **المرحلة 13 (المتبقي):** اختبار شامل على جهاز حقيقي.
 
 > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.

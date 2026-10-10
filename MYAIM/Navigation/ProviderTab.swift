@@ -4,7 +4,7 @@ import Foundation
 enum ProviderTab: Int, CaseIterable, Identifiable, TabBarItem {
     case dashboard
     case courses
-    case posts
+    case ads
     case subscription
     case account
 
@@ -14,7 +14,7 @@ enum ProviderTab: Int, CaseIterable, Identifiable, TabBarItem {
         switch self {
         case .dashboard:    return "لوحتي"
         case .courses:      return "دوراتي"
-        case .posts:        return "المنشورات"
+        case .ads:          return "الإعلانات"
         case .subscription: return "الاشتراك"
         case .account:      return "الأكاديمية"
         }
@@ -24,7 +24,7 @@ enum ProviderTab: Int, CaseIterable, Identifiable, TabBarItem {
         switch self {
         case .dashboard:    return "square.grid.2x2"
         case .courses:      return "book"
-        case .posts:        return "megaphone"
+        case .ads:          return "megaphone"
         case .subscription: return "creditcard"
         case .account:      return "building.2"
         }
@@ -34,7 +34,7 @@ enum ProviderTab: Int, CaseIterable, Identifiable, TabBarItem {
         switch self {
         case .dashboard:    return "square.grid.2x2.fill"
         case .courses:      return "book.fill"
-        case .posts:        return "megaphone.fill"
+        case .ads:          return "megaphone.fill"
         case .subscription: return "creditcard.fill"
         case .account:      return "building.2.fill"
         }

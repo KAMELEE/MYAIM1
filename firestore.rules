@@ -47,5 +47,20 @@ service cloud.firestore {
               || request.auth.uid == get(/databases/$(database)/documents/conversations/$(id)).data.get('providerUid', ''));
       }
     }
+    // إعلانات مدفوعة: الأكاديمية تنشئ إعلانها «بانتظار تأكيد الدفع» بسعر الباقة الصحيح،
+    // والإدارة وحدها (Console) تفعّله وتحدد endsAt. يراه الجميع بعد التفعيل.
+    match /ads/{id} {
+      allow read: if resource.data.status == 'active'
+        || (request.auth != null && resource.data.ownerUid == request.auth.uid);
+      allow create: if request.auth != null
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == 'pendingReview'
+        && !('endsAt' in request.resource.data)
+        && request.resource.data.package in ['week', 'twoWeeks', 'month']
+        && request.resource.data.price
+           == {'week': 99, 'twoWeeks': 179, 'month': 299}[request.resource.data.package];
+      allow update: if false;
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+    }
   }
 }
