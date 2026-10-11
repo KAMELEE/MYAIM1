@@ -148,7 +148,7 @@ extension FirestoreMappers {
 
     static func messageData(_ m: Message) -> [String: Any] {
         var data: [String: Any] = [
-            "text": m.isVoice ? "🎤 رسالة صوتية" : m.text,
+            "text": m.isVoice ? "رسالة صوتية" : m.text,
             "fromMe": m.fromMe,
             "date": Timestamp(date: m.date)
         ]

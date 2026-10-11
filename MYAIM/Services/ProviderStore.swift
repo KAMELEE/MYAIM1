@@ -37,7 +37,7 @@ final class ProviderStore {
         posts = [
             Post(text: "افتتحنا التسجيل في دفعة برنامج اللياقة الشامل الجديدة! الأماكن محدودة.",
                  date: Date().addingTimeInterval(-3600 * 5), likes: 86, comments: 12, imageName: "photo_sports"),
-            Post(text: "نصيحة اليوم: الإحماء ٥ دقائق قبل التمرين يقلّل الإصابات ويحسّن الأداء 💪",
+            Post(text: "نصيحة اليوم: الإحماء ٥ دقائق قبل التمرين يقلّل الإصابات ويحسّن الأداء",
                  date: Date().addingTimeInterval(-86400 * 2), likes: 143, comments: 21, imageName: nil)
         ]
         let plansList = [

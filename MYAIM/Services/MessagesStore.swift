@@ -30,7 +30,7 @@ final class MessagesStore {
                     Message(text: "أهلاً بك! كيف يمكننا مساعدتك؟", fromMe: false, date: Date().addingTimeInterval(-3600 * 3)),
                     Message(text: "أريد الاستفسار عن برنامج اللياقة الشامل", fromMe: true, date: Date().addingTimeInterval(-3600 * 2.8)),
                     Message(text: "بالتأكيد، البرنامج ٨ أسابيع ويشمل خطة تغذية ومتابعة أسبوعية.", fromMe: false, date: Date().addingTimeInterval(-3600 * 2.5)),
-                    Message(text: "نتطلع لرؤيتك في أول حصة 💪", fromMe: false, date: Date().addingTimeInterval(-3600))
+                    Message(text: "نتطلع لرؤيتك في أول حصة.", fromMe: false, date: Date().addingTimeInterval(-3600))
                 ]
             ),
             Conversation(
@@ -38,7 +38,7 @@ final class MessagesStore {
                 category: .selfDevelopment, unread: 0,
                 messages: [
                     Message(text: "شكرًا لحجزك برنامج القيادة والإنتاجية!", fromMe: false, date: Date().addingTimeInterval(-86400)),
-                    Message(text: "متشوّق للبدء 🙌", fromMe: true, date: Date().addingTimeInterval(-86400 + 600))
+                    Message(text: "متشوّق للبدء.", fromMe: true, date: Date().addingTimeInterval(-86400 + 600))
                 ]
             ),
             Conversation(
@@ -109,10 +109,10 @@ final class MessagesStore {
     }
 
     private static let replies: [String] = [
-        "وصلتنا رسالتك، نرد عليك بالتفاصيل بعد قليل 🙏",
+        "وصلتنا رسالتك، نرد عليك بالتفاصيل بعد قليل.",
         "شكراً لتواصلك! كيف نقدر نساعدك أكثر؟",
-        "سؤال جيد — نأكد لك المواعيد المتاحة ونعود إليك.",
-        "أبشر، نسويها لك 🌟",
+        "سؤال جيد — نؤكد لك المواعيد المتاحة ونعود إليك.",
+        "تم استلام طلبك، وسنعود إليك في أقرب وقت.",
         "نراسل الجهة المسؤولة ونرد عليك بأسرع وقت."
     ]
 
@@ -125,6 +125,35 @@ final class MessagesStore {
     }
 
     func conversation(_ id: UUID) -> Conversation? { conversations.first { $0.id == id } }
+
+    /// Opens (or reuses) a conversation with an academy from its profile.
+    @discardableResult
+    func openConversation(with provider: Provider, traineeName: String? = nil) -> Conversation {
+        if let existing = conversations.first(where: {
+            $0.providerUid == nil && $0.name == provider.name
+        }) {
+            return existing
+        }
+        let conversation = Conversation(
+            name: provider.name,
+            avatarAsset: provider.category.imageName,
+            category: provider.category,
+            unread: 0,
+            messages: [
+                Message(text: "أهلاً بك في \(provider.name)! كيف يمكننا مساعدتك؟",
+                        fromMe: false, date: Date())
+            ],
+            traineeName: traineeName
+        )
+        conversations.insert(conversation, at: 0)
+        if let welcome = conversation.messages.first {
+            persist { repo in
+                try await repo.saveConversation(conversation)
+                try await repo.append(welcome, to: conversation.id)
+            }
+        }
+        return conversation
+    }
 
     /// Opens (or creates) a conversation with a service's academy — the
     /// "تواصل" entry point. Reuses the existing thread when present.

@@ -32,4 +32,10 @@ struct Conversation: Identifiable, Hashable {
     var academyUnread: Int = 0
 
     var lastMessage: Message? { messages.last }
+
+    /// One-line preview for the conversation list (handles voice notes).
+    var preview: String {
+        guard let last = lastMessage else { return "" }
+        return last.isVoice ? "رسالة صوتية" : last.text
+    }
 }

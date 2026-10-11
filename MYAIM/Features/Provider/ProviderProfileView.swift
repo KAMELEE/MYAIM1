@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ProviderProfileView: View {
     @Environment(Router.self) private var router
+    @Environment(MessagesStore.self) private var messages
     @Environment(\.dismiss) private var dismiss
     let provider: Provider
 
@@ -15,6 +16,8 @@ struct ProviderProfileView: View {
             VStack(alignment: .leading, spacing: MYSpacing.lg) {
                 cover
                 infoBlock
+                statsRow
+                ctaBar
                 Divider().background(MYColor.border).padding(.horizontal, MYSpacing.screen)
                 aboutSection
                 servicesSection
@@ -90,6 +93,36 @@ struct ProviderProfileView: View {
         .padding(.horizontal, MYSpacing.screen)
     }
 
+    /// Quick stats: services offered, rating, reviews.
+    private var statsRow: some View {
+        HStack(spacing: MYSpacing.sm) {
+            stat("\(services.count)", "خدمة", "square.grid.2x2")
+            stat(MYFormat.rating(provider.rating), "التقييم", "star.fill")
+            stat("\(provider.reviewsCount)", "تقييم", "text.bubble")
+        }
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
+    private func stat(_ value: String, _ label: String, _ icon: String) -> some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon).font(.system(size: 15)).foregroundStyle(MYColor.primary)
+            Text(value).font(MYTypography.cardTitle).foregroundStyle(MYColor.textPrimary)
+            Text(label).font(MYTypography.caption).foregroundStyle(MYColor.textSecondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, MYSpacing.md)
+        .myCard(padding: MYSpacing.sm)
+    }
+
+    /// Primary contact action — message the academy.
+    private var ctaBar: some View {
+        MYButton(title: "مراسلة الأكاديمية", icon: "bubble.left.and.bubble.right.fill") {
+            let convo = messages.openConversation(with: provider)
+            router.push(.chat(convo))
+        }
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
     private var aboutSection: some View {
         VStack(alignment: .leading, spacing: MYSpacing.sm) {
             Text("نبذة").font(MYTypography.section).foregroundStyle(MYColor.textPrimary)
@@ -147,6 +180,7 @@ struct ProviderProfileView: View {
 #Preview {
     NavigationStack { ProviderProfileView(provider: SampleData.providers[0]) }
         .environment(Router())
+        .environment(MessagesStore())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

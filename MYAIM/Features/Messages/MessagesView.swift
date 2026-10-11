@@ -42,8 +42,14 @@ struct MessagesView: View {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(convo.name)
                         .font(MYTypography.cardTitle).foregroundStyle(MYColor.textPrimary).lineLimit(1)
-                    Text(convo.lastMessage?.text ?? "")
-                        .font(MYTypography.secondary).foregroundStyle(MYColor.textSecondary).lineLimit(1)
+                    HStack(spacing: MYSpacing.xxs) {
+                        if convo.lastMessage?.isVoice == true {
+                            Image(systemName: "mic.fill")
+                                .font(.system(size: 11)).foregroundStyle(MYColor.textTertiary)
+                        }
+                        Text(convo.preview)
+                            .font(MYTypography.secondary).foregroundStyle(MYColor.textSecondary).lineLimit(1)
+                    }
                 }
                 Spacer(minLength: MYSpacing.sm)
                 VStack(alignment: .trailing, spacing: 6) {

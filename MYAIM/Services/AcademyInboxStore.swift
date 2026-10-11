@@ -41,7 +41,7 @@ final class AcademyInboxStore {
                 messages: [
                     Message(text: "هل البرنامج مناسب للمبتدئين؟",
                             fromMe: false, date: Date().addingTimeInterval(-86400)),
-                    Message(text: "نعم، نبدأ معك حسب مستواك 💪",
+                    Message(text: "نعم، نبدأ معك حسب مستواك",
                             fromMe: true, date: Date().addingTimeInterval(-86400 + 900))
                 ],
                 traineeName: "سارة", academyUnread: 0
