@@ -128,6 +128,48 @@ jobs:
           cp shot-home-top.png screenshot.png 2>/dev/null || true
           ls -la shot-*.png 2>&1 | tee -a sim.log
 
+      - name: App Store screenshots (iPhone 16 Pro Max, 6.9" = 1320x2868)
+        continue-on-error: true
+        run: |
+          set -x
+          [ "$(cat build.code)" = "0" ] || { echo "build failed; skipping store shots"; exit 0; }
+          APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
+          # Find an iPhone 16 Pro Max (6.9"); create one if the runner has none booted.
+          STORE=$(xcrun simctl list devices available | grep -i "iPhone 16 Pro Max" \
+                  | grep -ioE '[0-9A-F]{8}-([0-9A-F]{4}-){3}[0-9A-F]{12}' | head -1)
+          if [ -z "$STORE" ]; then
+            RT=$(xcrun simctl list runtimes | grep -ioE 'com.apple.CoreSimulator.SimRuntime.iOS-[0-9-]+' | tail -1)
+            STORE=$(xcrun simctl create "StoreMax" "iPhone 16 Pro Max" "$RT" 2>/dev/null)
+          fi
+          echo "STORE=$STORE" | tee -a sim.log
+          [ -z "$STORE" ] && { echo "no 6.9in device; skipping store shots" | tee -a sim.log; exit 0; }
+          xcrun simctl boot "$STORE" 2>&1 | tee -a sim.log || true
+          xcrun simctl bootstatus "$STORE" 2>&1 | tee -a sim.log || true
+          xcrun simctl install "$STORE" "$APP" 2>&1 | tee -a sim.log
+          mkdir -p store
+          # Curated marketing set (demo data). Each: launch args → filename.
+          cap() { # $1 = filename, rest = launch args
+            local out="$1"; shift
+            xcrun simctl terminate "$STORE" com.myaim.app 2>/dev/null || true
+            xcrun simctl launch "$STORE" com.myaim.app "$@" 2>&1 | tee -a sim.log
+            sleep 5
+            xcrun simctl io "$STORE" screenshot "store/$out" 2>&1 | tee -a sim.log
+          }
+          cap 01-home.png      -demoMode -demoTab home -scrollTo 0.0
+          cap 02-discover.png  -demoMode -demoTab discover -scrollTo 0.0
+          cap 03-service.png   -demoMode -demoRoute serviceDetail
+          cap 04-payment.png   -demoMode -demoRoute booking -demoBookingStep 1
+          cap 05-requests.png  -demoMode -providerMode -demoRoute bookingRequests
+          cap 06-chat.png      -demoMode -demoRoute chat
+          cap 07-dashboard.png -demoMode -providerMode -demoTab dashboard -scrollTo 0.0
+          # Splash (brand) — capture mid-reveal.
+          xcrun simctl terminate "$STORE" com.myaim.app 2>/dev/null || true
+          xcrun simctl launch "$STORE" com.myaim.app 2>&1 | tee -a sim.log
+          sleep 1; xcrun simctl io "$STORE" screenshot "store/08-splash.png" 2>&1 | tee -a sim.log
+          echo "=== store screenshot dimensions ===" | tee -a sim.log
+          (cd store && sips -g pixelWidth -g pixelHeight *.png 2>/dev/null | tee -a ../sim.log) || true
+          ls -la store/ 2>&1 | tee -a sim.log
+
       - name: Upload to Appetize (interactive simulator in the browser)
         if: always()
         env:
@@ -182,6 +224,7 @@ jobs:
           } > ci-logs/latest.txt
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
           cp shot-*.png ci-logs/ 2>/dev/null || true
+          mkdir -p ci-logs/store && cp store/*.png ci-logs/store/ 2>/dev/null || true
           cp sim.log ci-logs/sim.txt 2>/dev/null || true
           grep -vE "^⚠|EAFNOSUPPORT" rules.log > ci-logs/rules.txt 2>/dev/null || true
           # capture last crash report if any
