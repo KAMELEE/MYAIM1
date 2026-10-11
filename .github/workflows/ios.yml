@@ -170,6 +170,15 @@ jobs:
           (cd store && sips -g pixelWidth -g pixelHeight *.png 2>/dev/null | tee -a ../sim.log) || true
           ls -la store/ 2>&1 | tee -a sim.log
 
+      - name: Marketing frames (Arabic captions)
+        continue-on-error: true
+        run: |
+          set -x
+          [ -d store ] || { echo "no store/ screenshots; skipping frames"; exit 0; }
+          command -v magick >/dev/null 2>&1 || brew install imagemagick 2>&1 | tail -3 || true
+          bash scripts/marketing_frames.sh store store-framed 2>&1 | tee -a sim.log
+          cat frames.log 2>/dev/null | tail -5 || true
+
       - name: Upload to Appetize (interactive simulator in the browser)
         if: always()
         env:
@@ -225,6 +234,7 @@ jobs:
           [ -f screenshot.png ] && cp screenshot.png ci-logs/screenshot.png || true
           cp shot-*.png ci-logs/ 2>/dev/null || true
           mkdir -p ci-logs/store && cp store/*.png ci-logs/store/ 2>/dev/null || true
+          mkdir -p ci-logs/store-framed && cp store-framed/*.png ci-logs/store-framed/ 2>/dev/null || true
           cp sim.log ci-logs/sim.txt 2>/dev/null || true
           grep -vE "^⚠|EAFNOSUPPORT" rules.log > ci-logs/rules.txt 2>/dev/null || true
           # capture last crash report if any
