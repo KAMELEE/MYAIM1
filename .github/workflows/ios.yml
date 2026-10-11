@@ -66,7 +66,7 @@ jobs:
           APP=$(find build/Build/Products -name "MYAIM.app" -type d | head -1)
           echo "APP=$APP" | tee -a sim.log
           xcrun simctl install "$DEVICE" "$APP" 2>&1 | tee -a sim.log
-          for T in home discover goals bookings profile; do
+          for T in home discover bookings profile; do
             for KV in "top 0.0" "mid 0.5" "bot 1.0"; do
               set -- $KV; K=$1; V=$2
               xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
@@ -83,7 +83,7 @@ jobs:
             xcrun simctl io "$DEVICE" screenshot "shot-prov-$T.png" 2>&1 | tee -a sim.log
           done
           # Trainee pushed pages
-          for R in serviceDetail booking search favorites notifications goalDetail registerAcademy providerProfile settings messages chat; do
+          for R in serviceDetail booking search favorites notifications registerAcademy providerProfile settings messages chat; do
             xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
             xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -demoRoute "$R" 2>&1 | tee -a sim.log
             sleep 5

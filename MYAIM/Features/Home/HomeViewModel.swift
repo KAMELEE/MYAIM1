@@ -5,22 +5,18 @@ import Observation
 @Observable
 final class HomeViewModel {
     struct Content: Equatable {
-        var currentGoal: Goal?
         var popular: [Service]
         var nearby: [Service]
         var recommended: [Service]
     }
 
     private let services: ServiceRepository
-    private let goals: GoalRepository
 
     var state: LoadingState<Content> = .idle
     var favorites: Set<UUID> = []
 
-    init(services: ServiceRepository = AppRepositories.services(),
-         goals: GoalRepository = AppRepositories.goals()) {
+    init(services: ServiceRepository = AppRepositories.services()) {
         self.services = services
-        self.goals = goals
     }
 
     func load() async {
@@ -30,10 +26,8 @@ final class HomeViewModel {
             async let popular = services.popular()
             async let nearby = services.nearby()
             async let recommended = services.recommended()
-            async let current = goals.currentGoals()
 
             let content = Content(
-                currentGoal: try await current.first,
                 popular: try await popular,
                 nearby: try await nearby,
                 recommended: try await recommended

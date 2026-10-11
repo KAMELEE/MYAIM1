@@ -63,7 +63,6 @@ struct HomeView: View {
             case "search":          router.push(.search)
             case "favorites":       router.push(.favorites)
             case "notifications":   router.push(.notifications)
-            case "goalDetail":      router.push(.goalDetail(SampleData.goals[0]))
             case "registerAcademy": router.push(.registerAcademy)
             case "providerProfile": router.push(.providerProfile(SampleData.providers[0]))
             case "settings":        router.push(.settings)
@@ -158,12 +157,6 @@ struct HomeView: View {
         case .idle, .loading:
             skeletonSection
         case .loaded(let content):
-            if let goal = content.currentGoal {
-                VStack(alignment: .leading, spacing: MYSpacing.md) {
-                    MYSectionHeader(title: "هدفك الحالي", actionTitle: nil)
-                    MYGoalCard(goal: goal, onContinue: { router.push(.goalDetail(goal)) })
-                }
-            }
             serviceRow("الأكثر حجزاً", content.popular)
             serviceRow("قريب منك", content.nearby)
             serviceRow("موصى لك", content.recommended)

@@ -14,7 +14,6 @@ struct RootTabView: View {
         if let i = args.firstIndex(of: "-demoTab"), i + 1 < args.count {
             switch args[i + 1] {
             case "discover": initial = .discover
-            case "goals":    initial = .goals
             case "bookings": initial = .bookings
             case "profile":  initial = .profile
             default:         initial = .home
@@ -48,7 +47,6 @@ struct RootTabView: View {
         switch tab {
         case .home:     HomeView()
         case .discover: DiscoverView()
-        case .goals:    GoalsView()
         case .bookings: BookingsView()
         case .profile:  ProfileView()
         }
