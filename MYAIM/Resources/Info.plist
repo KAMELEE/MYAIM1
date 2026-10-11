@@ -63,5 +63,9 @@
 	<string>نحتاج الوصول إلى الصور لتحديث صورتك الشخصية.</string>
 
 	<!-- No UIUserInterfaceStyle key => app follows the system (Light/Dark). -->
+
+	<!-- Export compliance: app uses only standard HTTPS/OS crypto (exempt). -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
