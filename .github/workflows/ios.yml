@@ -177,7 +177,6 @@ jobs:
           [ -d store ] || { echo "no store/ screenshots; skipping frames"; exit 0; }
           command -v magick >/dev/null 2>&1 || brew install imagemagick 2>&1 | tail -3 || true
           bash scripts/marketing_frames.sh store store-framed 2>&1 | tee -a sim.log
-          cat frames.log 2>/dev/null | tail -5 || true
 
       - name: Upload to Appetize (interactive simulator in the browser)
         if: always()

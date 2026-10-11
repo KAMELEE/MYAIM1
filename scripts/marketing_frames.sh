@@ -4,7 +4,11 @@
 #
 # Arabic shaping is done by Pango (HarfBuzz) via ImageMagick, using the repo's
 # bundled IBM Plex Sans Arabic font so rendering doesn't depend on system fonts.
+# The caption markup is passed through a FILE (pango:@file) so UTF-8 Arabic is
+# never mangled by argv/locale handling on the CI runner.
 set -u
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 SRC_DIR="${1:-store}"
 OUT_DIR="${2:-store-framed}"
@@ -14,6 +18,7 @@ CANVAS_W=1320
 CANVAS_H=2868
 SHOT_W=1000
 RADIUS=44
+CAP_MAXW=1150
 
 mkdir -p "$OUT_DIR"
 
@@ -48,6 +53,7 @@ for f in "$SRC_DIR"/*.png; do
   echo "framing $name :: $cap"
 
   tmp=$(mktemp -d)
+
   # 1) Resize screenshot and round its corners.
   magick "$f" -resize ${SHOT_W}x "$tmp/shot.png"
   W=$(magick identify -format '%w' "$tmp/shot.png")
@@ -56,17 +62,21 @@ for f in "$SRC_DIR"/*.png; do
     -draw "roundrectangle 0,0,$((W-1)),$((H-1)),$RADIUS,$RADIUS" "$tmp/mask.png"
   magick "$tmp/shot.png" "$tmp/mask.png" -alpha off -compose CopyOpacity -composite "$tmp/rounded.png"
 
-  # 2) Arabic caption via Pango (auto-shaped, RTL), wrapped to 1120px.
-  magick -background none -define pango:align=center \
-    -size 1120x \
-    pango:"<span font_desc='IBM Plex Sans Arabic Bold 46' foreground='#FFFFFF'>${cap}</span>" \
-    "$tmp/caption.png" 2>>frames.log
+  # 2) Arabic caption via Pango — markup read from a file (robust UTF-8).
+  printf '%s' "<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>${cap}</span>" > "$tmp/cap.txt"
+  magick -background none "pango:@$tmp/cap.txt" \
+    -trim +repage -resize ${CAP_MAXW}x\> "$tmp/caption.png"
+
+  if [ ! -f "$tmp/caption.png" ]; then
+    echo "  !! caption render failed for $name; using plain canvas"
+  fi
 
   # 3) Compose onto the brand canvas.
-  magick -size ${CANVAS_W}x${CANVAS_H} "xc:${BRAND}" \
-    "$tmp/caption.png" -gravity north -geometry +0+175 -composite \
-    "$tmp/rounded.png"  -gravity south -geometry +0+110 -composite \
-    "$OUT_DIR/$name"
+  magick -size ${CANVAS_W}x${CANVAS_H} "xc:${BRAND}" "$tmp/base.png"
+  if [ -f "$tmp/caption.png" ]; then
+    magick "$tmp/base.png" "$tmp/caption.png" -gravity north -geometry +0+185 -composite "$tmp/base.png"
+  fi
+  magick "$tmp/base.png" "$tmp/rounded.png" -gravity south -geometry +0+110 -composite "$OUT_DIR/$name"
 
   rm -rf "$tmp"
 done
