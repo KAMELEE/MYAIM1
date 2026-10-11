@@ -25,4 +25,5 @@ enum AppRoute: Hashable {
     case bookingRequests
     case academyInbox
     case academyChat(Conversation)
+    case legal(LegalDoc)
 }

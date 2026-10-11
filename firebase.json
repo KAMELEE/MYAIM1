@@ -5,6 +5,11 @@
   "storage": {
     "rules": "storage.rules"
   },
+  "hosting": {
+    "public": "hosting",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true
+  },
   "emulators": {
     "firestore": {
       "host": "127.0.0.1",

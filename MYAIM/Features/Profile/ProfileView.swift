@@ -17,7 +17,8 @@ struct ProfileView: View {
                     row("building.2", "سجّل أكاديميتك") { router.push(.registerAcademy) }
                     row("gearshape", "الإعدادات") { router.push(.settings) }
                     row("questionmark.circle", "المساعدة")
-                    row("doc.text", "الشروط والأحكام")
+                    row("doc.text", "الشروط والأحكام") { router.push(.legal(.terms)) }
+                    row("hand.raised", "سياسة الخصوصية") { router.push(.legal(.privacy)) }
                 }
                 .myCard(padding: MYSpacing.xs)
 

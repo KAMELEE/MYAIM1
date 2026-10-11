@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(AppState.self) private var appState
+    @Environment(Router.self) private var router
     @AppStorage("myaim.notifications") private var notificationsEnabled = true
 
     var body: some View {
@@ -79,9 +80,15 @@ struct SettingsView: View {
             VStack(spacing: 0) {
                 row("info.circle", "الإصدار", value: "1.0.0")
                 Divider().background(MYColor.border)
-                row("doc.text", "الشروط والأحكام")
+                Button { Haptics.light(); router.push(.legal(.terms)) } label: {
+                    row("doc.text", "الشروط والأحكام")
+                }
+                .buttonStyle(.plain)
                 Divider().background(MYColor.border)
-                row("hand.raised", "سياسة الخصوصية")
+                Button { Haptics.light(); router.push(.legal(.privacy)) } label: {
+                    row("hand.raised", "سياسة الخصوصية")
+                }
+                .buttonStyle(.plain)
             }
             .myCard(padding: 0)
         }
@@ -103,12 +110,14 @@ struct SettingsView: View {
             }
         }
         .padding(MYSpacing.md)
+        .contentShape(Rectangle())
     }
 }
 
 #Preview {
     NavigationStack { SettingsView() }
         .environment(AppState())
+        .environment(Router())
         .environment(\.layoutDirection, .rightToLeft)
         .environment(\.locale, Locale(identifier: "ar"))
 }

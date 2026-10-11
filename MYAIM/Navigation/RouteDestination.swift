@@ -71,6 +71,9 @@ struct RouteDestination: View {
 
         case .academyChat(let conversation):
             AcademyChatView(conversation: conversation)
+
+        case .legal(let doc):
+            LegalView(document: doc)
         }
     }
 }
