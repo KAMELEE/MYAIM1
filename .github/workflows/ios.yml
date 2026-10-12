@@ -148,11 +148,14 @@ jobs:
           xcrun simctl install "$STORE" "$APP" 2>&1 | tee -a sim.log
           mkdir -p store
           # Curated marketing set (demo data). Each: launch args → filename.
+          # Warm up once so the first real capture isn't a cold-start blank.
+          xcrun simctl launch "$STORE" com.myaim.app -demoMode -demoTab home 2>&1 | tee -a sim.log
+          sleep 6; xcrun simctl terminate "$STORE" com.myaim.app 2>/dev/null || true
           cap() { # $1 = filename, rest = launch args
             local out="$1"; shift
             xcrun simctl terminate "$STORE" com.myaim.app 2>/dev/null || true
             xcrun simctl launch "$STORE" com.myaim.app "$@" 2>&1 | tee -a sim.log
-            sleep 5
+            sleep 8
             xcrun simctl io "$STORE" screenshot "store/$out" 2>&1 | tee -a sim.log
           }
           cap 01-home.png      -demoMode -demoTab home -scrollTo 0.0
