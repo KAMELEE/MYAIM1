@@ -22,9 +22,13 @@ mkdir -p "$HOME/.fonts"
 cp "$FONTS_DIR"/*.ttf "$HOME/.fonts/" 2>/dev/null || true
 fc-cache -f "$HOME/.fonts" >/dev/null 2>&1 || true
 
-echo "=== ImageMagick / Pango check ==="
+# librsvg renders the Arabic caption (shaped via HarfBuzz); IM composites.
+command -v rsvg-convert >/dev/null 2>&1 || brew install librsvg >/dev/null 2>&1 || true
+
+echo "=== tools ==="
 magick -version | head -1 || true
-magick -list format 2>/dev/null | grep -i pango || echo "WARNING: no pango delegate"
+rsvg-convert --version 2>/dev/null || echo "WARNING: rsvg-convert missing"
+fc-list 2>/dev/null | grep -i "Plex Sans Arabic" | head -1 || echo "WARNING: font missing"
 
 caption_for() {
   case "$1" in
@@ -47,10 +51,17 @@ for f in "$SRC_DIR"/*.png; do
   echo "=== framing $name :: $cap ==="
   tmp=$(mktemp -d)
 
-  # Caption: inline Pango markup (UTF-8 locale set above), trimmed and fit to width.
-  magick -background none \
-    pango:"<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>${cap}</span>" \
-    -trim +repage -resize ${CAP_MAXW}x\> "$tmp/cap.png" || echo "  caption FAILED"
+  # Caption via librsvg → PNG (Arabic shaped by HarfBuzz), then trim + fit.
+  cat > "$tmp/cap.svg" <<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="260">
+<text x="1100" y="165" font-family="IBM Plex Sans Arabic" font-weight="600" font-size="56" fill="#FFFFFF" text-anchor="middle" direction="rtl" xml:lang="ar">${cap}</text>
+</svg>
+SVG
+  if rsvg-convert "$tmp/cap.svg" -o "$tmp/cap_raw.png" 2>/dev/null; then
+    magick "$tmp/cap_raw.png" -trim +repage -resize ${CAP_MAXW}x\> "$tmp/cap.png" || echo "  caption trim FAILED"
+  else
+    echo "  caption render FAILED"
+  fi
 
   # Screenshot resized.
   magick "$f" -resize ${SHOT_W}x "$tmp/shot.png" || echo "  shot resize FAILED"
