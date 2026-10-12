@@ -77,6 +77,12 @@ struct RouteDestination: View {
 
         case .providerStats:
             ProviderStatsView()
+
+        case .academyInfo:
+            AcademyInfoView()
+
+        case .help:
+            HelpView()
         }
     }
 }

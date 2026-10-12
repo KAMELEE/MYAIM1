@@ -37,6 +37,7 @@ struct ProviderDashboardView: View {
             if r == "bookingRequests" { router.push(.bookingRequests) }
             if r == "academyInbox" { router.push(.academyInbox) }
             if r == "providerStats" { router.push(.providerStats) }
+            if r == "academyInfo" { router.push(.academyInfo) }
             if r == "academyChat", let c = inbox.conversations.first { router.push(.academyChat(c)) }
             #endif
         }

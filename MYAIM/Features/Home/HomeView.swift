@@ -64,6 +64,7 @@ struct HomeView: View {
             case "favorites":       router.push(.favorites)
             case "notifications":   router.push(.notifications)
             case "registerAcademy": router.push(.registerAcademy)
+            case "help":            router.push(.help)
             case "providerProfile": router.push(.providerProfile(SampleData.providers[0]))
             case "settings":        router.push(.settings)
             case "messages":        router.push(.messages)

@@ -24,7 +24,7 @@ struct LegalView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: MYSpacing.lg) {
-                Text("آخر تحديث: ٣٠ سبتمبر ٢٠٢٥")
+                Text("آخر تحديث: أكتوبر ٢٠٢٦")
                     .font(MYTypography.caption)
                     .foregroundStyle(MYColor.textTertiary)
 

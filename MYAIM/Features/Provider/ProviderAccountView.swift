@@ -11,8 +11,7 @@ struct ProviderAccountView: View {
                 header
 
                 VStack(spacing: 0) {
-                    row("building.2", "معلومات الأكاديمية")
-                    row("photo.on.rectangle", "الصور والغلاف")
+                    row("building.2", "معلومات الأكاديمية") { router.push(.academyInfo) }
                     row("calendar.badge.clock", "طلبات الحجز") { router.push(.bookingRequests) }
                     row("bubble.left.and.bubble.right", "الرسائل") { router.push(.messages) }
                     row("chart.bar", "الإحصائيات") { router.push(.providerStats) }

@@ -27,4 +27,6 @@ enum AppRoute: Hashable {
     case academyChat(Conversation)
     case legal(LegalDoc)
     case providerStats
+    case academyInfo
+    case help
 }

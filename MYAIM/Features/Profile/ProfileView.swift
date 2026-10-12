@@ -16,7 +16,7 @@ struct ProfileView: View {
                     row("bell", "الإشعارات") { router.push(.notifications) }
                     row("building.2", "سجّل أكاديميتك") { router.push(.registerAcademy) }
                     row("gearshape", "الإعدادات") { router.push(.settings) }
-                    row("questionmark.circle", "المساعدة")
+                    row("questionmark.circle", "المساعدة") { router.push(.help) }
                     row("doc.text", "الشروط والأحكام") { router.push(.legal(.terms)) }
                     row("hand.raised", "سياسة الخصوصية") { router.push(.legal(.privacy)) }
                 }

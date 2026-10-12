@@ -83,7 +83,7 @@ jobs:
             xcrun simctl io "$DEVICE" screenshot "shot-prov-$T.png" 2>&1 | tee -a sim.log
           done
           # Trainee pushed pages
-          for R in serviceDetail booking search favorites notifications registerAcademy providerProfile settings messages chat; do
+          for R in serviceDetail booking search favorites notifications registerAcademy providerProfile settings messages chat help; do
             xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
             xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -demoRoute "$R" 2>&1 | tee -a sim.log
             sleep 5
@@ -95,7 +95,7 @@ jobs:
           sleep 5
           xcrun simctl io "$DEVICE" screenshot "shot-page-bookingPayment.png" 2>&1 | tee -a sim.log
           # Provider pushed pages
-          for R in addCourse publishAd courseDetail bookingRequests academyInbox academyChat providerStats; do
+          for R in addCourse publishAd courseDetail bookingRequests academyInbox academyChat providerStats academyInfo; do
             xcrun simctl terminate "$DEVICE" com.myaim.app 2>/dev/null || true
             xcrun simctl launch "$DEVICE" com.myaim.app -demoMode -providerMode -demoRoute "$R" 2>&1 | tee -a sim.log
             sleep 5

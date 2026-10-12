@@ -96,6 +96,15 @@ final class ProviderStore {
 
     var currentPlan: SubscriptionPlan { plans.first { $0.id == currentPlanID } ?? plans[0] }
 
+    /// Updates the academy's identity (name / tagline / category) and persists it.
+    func updateIdentity(name: String, tagline: String, category: ServiceCategory) {
+        academyName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        academyTagline = tagline.trimmingCharacters(in: .whitespacesAndNewlines)
+        self.category = category
+        let snapshot = profile
+        persist { try await $0.saveProfile(snapshot) }
+    }
+
     // MARK: Stats
     var totalStudents: Int { courses.reduce(0) { $0 + $1.students } }
     var publishedCount: Int { courses.filter(\.isPublished).count }
