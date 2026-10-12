@@ -1,0 +1,52 @@
+=== ImageMagick / Pango check ===
+Version: ImageMagick 7.1.2-31 Q16-HDRI aarch64 8309dc92a:20260903 https://imagemagick.org
+    PANGO* PANGO     ---   Pango Markup Language
+=== framing 01-home.png :: كل الأكاديميات والمدرّبين في مكان واحد ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>كل الأكاديميات والمدرّبين في مكان واحد</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=1557500 
+  OUT size: 1407789 bytes
+=== framing 02-discover.png :: اكتشف الأقرب إليك وقارن بسهولة ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>اكتشف الأقرب إليك وقارن بسهولة</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=1324174 
+  OUT size: 1222138 bytes
+=== framing 03-service.png :: تفاصيل واضحة وأسعار شفافة ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تفاصيل واضحة وأسعار شفافة</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=1002742 
+  OUT size: 922095 bytes
+=== framing 04-payment.png :: ادفع بأمان عبر التحويل أو رمز QR ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>ادفع بأمان عبر التحويل أو رمز QR</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=352230 
+  OUT size: 348886 bytes
+=== framing 05-requests.png :: تأكيد الحجوزات بضغطة واحدة ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تأكيد الحجوزات بضغطة واحدة</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=330116 
+  OUT size: 320647 bytes
+=== framing 06-chat.png :: تواصل مباشر مع الأكاديمية — نصاً وصوتاً ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تواصل مباشر مع الأكاديمية — نصاً وصوتاً</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=235206 
+  OUT size: 232180 bytes
+=== framing 07-dashboard.png :: لوحة متكاملة لإدارة أكاديميتك ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>لوحة متكاملة لإدارة أكاديميتك</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=523518 
+  OUT size: 509567 bytes
+=== framing 08-splash.png :: حدّد هدفك… ونكمّل الطريق معك ===
+magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>حدّد هدفك… ونكمّل الطريق معك</span>' @ error/constitute.c/ReadImage/739.
+  caption FAILED
+  files: ..=3968 shot.png=150559 
+  OUT size: 144581 bytes
+=== framed output ===
+01-home.png 1320x2868 1.40779MB
+02-discover.png 1320x2868 1.22214MB
+03-service.png 1320x2868 922095B
+04-payment.png 1320x2868 348886B
+05-requests.png 1320x2868 320647B
+06-chat.png 1320x2868 232180B
+07-dashboard.png 1320x2868 509567B
+08-splash.png 1320x2868 144581B
