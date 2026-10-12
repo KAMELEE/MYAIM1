@@ -74,6 +74,9 @@ struct RouteDestination: View {
 
         case .legal(let doc):
             LegalView(document: doc)
+
+        case .providerStats:
+            ProviderStatsView()
         }
     }
 }

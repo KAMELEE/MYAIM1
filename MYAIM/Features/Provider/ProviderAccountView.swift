@@ -15,7 +15,7 @@ struct ProviderAccountView: View {
                     row("photo.on.rectangle", "الصور والغلاف")
                     row("calendar.badge.clock", "طلبات الحجز") { router.push(.bookingRequests) }
                     row("bubble.left.and.bubble.right", "الرسائل") { router.push(.messages) }
-                    row("chart.bar", "الإحصائيات")
+                    row("chart.bar", "الإحصائيات") { router.push(.providerStats) }
                     row("gearshape", "الإعدادات") { router.push(.settings) }
                 }
                 .myCard(padding: MYSpacing.xs)
