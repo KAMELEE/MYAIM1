@@ -39,6 +39,62 @@ enum SampleData {
             about: "نصمّم ونطوّر حلولًا تقنية ونقدّم دورات في البرمجة والتصميم وريادة الأعمال الرقمية.",
             category: .tech, isVerified: true, rating: 4.6, reviewsCount: 76,
             location: khobar, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "نادي الصقور لكرة القدم",
+            tagline: "أكاديمية كرة قدم للناشئين",
+            about: "نطوّر مهارات اللاعبين الناشئين عبر مناهج تدريبية احترافية وملاعب مجهّزة ومدربين حاصلين على رخص تدريب معتمدة.",
+            category: .sports, isVerified: true, rating: 4.7, reviewsCount: 143,
+            location: riyadh, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "أكاديمية أمواج للسباحة",
+            tagline: "تعليم السباحة لكل الأعمار",
+            about: "دروس سباحة للمبتدئين والمتقدمين في مسابح آمنة ومدفّأة، بإشراف مدربين معتمدين ومنقذين محترفين.",
+            category: .sports, isVerified: true, rating: 4.8, reviewsCount: 97,
+            location: jeddah, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "أكاديمية لغتي للّغات",
+            tagline: "إتقان الإنجليزية بثقة",
+            about: "برامج لغة إنجليزية بمستويات متدرّجة ومحادثة مع معلّمين أصليين، ومسارات للأطفال والكبار وإعداد الآيلتس.",
+            category: .education, isVerified: true, rating: 4.6, reviewsCount: 185,
+            location: riyadh, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "مركز تفوّق للقدرات والتحصيلي",
+            tagline: "إعداد متكامل لاختبارات القياس",
+            about: "دورات مكثّفة للقدرات العامة والتحصيلي مع اختبارات محاكية وتحليل أداء وخطط مراجعة فردية.",
+            category: .education, isVerified: false, rating: 4.9, reviewsCount: 264,
+            location: dammam, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "دار اليقين لتحفيظ القرآن",
+            tagline: "تحفيظ وتجويد بإتقان",
+            about: "حلقات تحفيظ وتجويد للقرآن الكريم للأطفال والكبار، حضورياً وعن بُعد، بإشراف معلّمين مجازين.",
+            category: .education, isVerified: true, rating: 5.0, reviewsCount: 58,
+            location: khobar, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "أكاديمية رؤية للكوتشينغ",
+            tagline: "كوتشينغ واستشارات مهنية",
+            about: "جلسات كوتشينغ فردية ومؤسسية لتحديد الأهداف وبناء الخطط وتطوير المسار المهني مع مدربين معتمدين دولياً.",
+            category: .selfDevelopment, isVerified: true, rating: 4.9, reviewsCount: 176,
+            location: jeddah, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "بيكسل للتصميم والإبداع",
+            tagline: "تصميم واجهات وهوية بصرية",
+            about: "نُعلّم تصميم تجربة وواجهة المستخدم والهوية البصرية بأدوات احترافية ومشاريع تطبيقية حقيقية.",
+            category: .tech, isVerified: true, rating: 4.7, reviewsCount: 112,
+            location: riyadh, logoURL: nil, coverURL: nil
+        ),
+        Provider(
+            name: "داتا بوينت لتحليل البيانات",
+            tagline: "علم البيانات وتحليلها",
+            about: "مسارات في تحليل البيانات وعلم البيانات باستخدام Python وأدوات التحليل، مع مشاريع من واقع السوق السعودي.",
+            category: .tech, isVerified: false, rating: 4.5, reviewsCount: 69,
+            location: khobar, logoURL: nil, coverURL: nil
         )
     ]
 
@@ -71,6 +127,104 @@ enum SampleData {
             category: .tech, providerName: providers[3].name, providerId: providers[3].id,
             isVerified: true, rating: 4.6, reviewsCount: 76, location: khobar,
             startingPrice: 1200, imageURL: "https://loremflickr.com/600/400/coding,developer?lock=24", distanceMeters: 3400
+        ),
+        Service(
+            title: "تدريب كرة قدم للناشئين",
+            summary: "برنامج تدريبي أسبوعي للفئات العمرية 6–14 سنة يطوّر المهارات واللياقة والروح الرياضية.",
+            category: .sports, providerName: providers[4].name, providerId: providers[4].id,
+            isVerified: true, rating: 4.7, reviewsCount: 143, location: riyadh,
+            startingPrice: 350, imageURL: "https://loremflickr.com/600/400/football,kids?lock=31", distanceMeters: 1800
+        ),
+        Service(
+            title: "دروس سباحة للمبتدئين",
+            summary: "تعلّم السباحة بأمان خطوة بخطوة في مسابح مجهّزة مع متابعة فردية.",
+            category: .sports, providerName: providers[5].name, providerId: providers[5].id,
+            isVerified: true, rating: 4.8, reviewsCount: 97, location: jeddah,
+            startingPrice: 400, imageURL: "https://loremflickr.com/600/400/swimming,pool?lock=32", distanceMeters: 2100
+        ),
+        Service(
+            title: "لياقة نسائية – جلسات خاصة",
+            summary: "برنامج لياقة مخصّص للسيدات مع مدرّبة معتمدة وخطة تغذية داعمة.",
+            category: .sports, providerName: providers[0].name, providerId: providers[0].id,
+            isVerified: true, rating: 4.9, reviewsCount: 64, location: riyadh,
+            startingPrice: 500, imageURL: "https://loremflickr.com/600/400/fitness,women?lock=33", distanceMeters: 1300
+        ),
+        Service(
+            title: "دورة إنجليزي محادثة",
+            summary: "طوّر طلاقتك في المحادثة الإنجليزية عبر جلسات تفاعلية مع معلّمين أصليين.",
+            category: .education, providerName: providers[6].name, providerId: providers[6].id,
+            isVerified: true, rating: 4.6, reviewsCount: 185, location: riyadh,
+            startingPrice: 550, imageURL: "https://loremflickr.com/600/400/english,class?lock=34", distanceMeters: 2600
+        ),
+        Service(
+            title: "تحضير القدرات والتحصيلي",
+            summary: "دورة مكثّفة مع اختبارات محاكية وتحليل أداء لرفع درجتك في اختبارات القياس.",
+            category: .education, providerName: providers[7].name, providerId: providers[7].id,
+            isVerified: false, rating: 4.9, reviewsCount: 264, location: dammam,
+            startingPrice: 450, imageURL: "https://loremflickr.com/600/400/exam,study?lock=35", distanceMeters: 900
+        ),
+        Service(
+            title: "حلقة تحفيظ وتجويد القرآن",
+            summary: "حلقات تحفيظ وتجويد بمنهج متدرّج، حضورياً أو عن بُعد، بإشراف معلّمين مجازين.",
+            category: .education, providerName: providers[8].name, providerId: providers[8].id,
+            isVerified: true, rating: 5.0, reviewsCount: 58, location: khobar,
+            startingPrice: 200, imageURL: "https://loremflickr.com/600/400/quran,book?lock=36", distanceMeters: 3100
+        ),
+        Service(
+            title: "كوتشينغ فردي لتحقيق الأهداف",
+            summary: "جلسات كوتشينغ شخصية لتحديد أهدافك وبناء خطة عملية والالتزام بها.",
+            category: .selfDevelopment, providerName: providers[9].name, providerId: providers[9].id,
+            isVerified: true, rating: 4.9, reviewsCount: 176, location: jeddah,
+            startingPrice: 800, imageURL: "https://loremflickr.com/600/400/coaching,mentor?lock=37", distanceMeters: 2400
+        ),
+        Service(
+            title: "مهارات العرض والإلقاء",
+            summary: "تغلّب على رهبة الجمهور وقدّم عروضاً مؤثرة باحتراف خلال ورشة مكثّفة.",
+            category: .selfDevelopment, providerName: providers[2].name, providerId: providers[2].id,
+            isVerified: false, rating: 4.7, reviewsCount: 88, location: dammam,
+            startingPrice: 350, imageURL: "https://loremflickr.com/600/400/presentation,speaker?lock=38", distanceMeters: 1000
+        ),
+        Service(
+            title: "ريادة الأعمال: من الفكرة للتنفيذ",
+            summary: "حوّل فكرتك إلى مشروع قابل للتنفيذ عبر مسار عملي في نموذج العمل والتسويق والتمويل.",
+            category: .selfDevelopment, providerName: providers[2].name, providerId: providers[2].id,
+            isVerified: false, rating: 4.8, reviewsCount: 121, location: dammam,
+            startingPrice: 700, imageURL: "https://loremflickr.com/600/400/startup,business?lock=39", distanceMeters: 1150
+        ),
+        Service(
+            title: "دورة تصميم UI/UX من الصفر",
+            summary: "تعلّم تصميم تجربة وواجهة المستخدم بأدوات احترافية ومشروع تخرّج حقيقي.",
+            category: .tech, providerName: providers[10].name, providerId: providers[10].id,
+            isVerified: true, rating: 4.7, reviewsCount: 112, location: riyadh,
+            startingPrice: 900, imageURL: "https://loremflickr.com/600/400/design,ux?lock=40", distanceMeters: 1900
+        ),
+        Service(
+            title: "تحليل البيانات باستخدام Python",
+            summary: "من أساسيات Python إلى تحليل البيانات وتصويرها عبر مشاريع من السوق السعودي.",
+            category: .tech, providerName: providers[11].name, providerId: providers[11].id,
+            isVerified: false, rating: 4.5, reviewsCount: 69, location: khobar,
+            startingPrice: 1100, imageURL: "https://loremflickr.com/600/400/data,analytics?lock=41", distanceMeters: 3600
+        ),
+        Service(
+            title: "أساسيات الأمن السيبراني",
+            summary: "مدخل عملي لأمن المعلومات وحماية الأنظمة والشبكات للمبتدئين.",
+            category: .tech, providerName: providers[3].name, providerId: providers[3].id,
+            isVerified: true, rating: 4.6, reviewsCount: 54, location: khobar,
+            startingPrice: 950, imageURL: "https://loremflickr.com/600/400/cybersecurity,network?lock=42", distanceMeters: 3300
+        ),
+        Service(
+            title: "تصميم الهوية البصرية",
+            summary: "أنشئ هوية بصرية متكاملة لعلامتك: الشعار والألوان ودليل الاستخدام.",
+            category: .tech, providerName: providers[10].name, providerId: providers[10].id,
+            isVerified: true, rating: 4.8, reviewsCount: 73, location: riyadh,
+            startingPrice: 650, imageURL: "https://loremflickr.com/600/400/branding,logo?lock=43", distanceMeters: 2000
+        ),
+        Service(
+            title: "معسكر تطوير الويب المتكامل",
+            summary: "ابنِ مواقع وتطبيقات ويب كاملة من الواجهة للخلفية خلال 8 أسابيع.",
+            category: .tech, providerName: providers[3].name, providerId: providers[3].id,
+            isVerified: true, rating: 4.7, reviewsCount: 91, location: khobar,
+            startingPrice: 1300, imageURL: "https://loremflickr.com/600/400/webdevelopment,code?lock=44", distanceMeters: 3500
         )
     ]
 
