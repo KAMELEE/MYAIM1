@@ -1,527 +1,395 @@
 DEVICE=DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9
 Monitoring boot status for iPhone 16 Pro (DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9).
-[2026-10-12 12:36:06 +0000] Status=2, isTerminal=NO, Elapsed=00:31.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:24 seconds
-
-[2026-10-12 12:36:07 +0000] Status=2, isTerminal=NO, Elapsed=00:32.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:25 seconds
-
-[2026-10-12 12:36:08 +0000] Status=2, isTerminal=NO, Elapsed=00:33.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:26 seconds
-
-[2026-10-12 12:36:09 +0000] Status=2, isTerminal=NO, Elapsed=00:34.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:27 seconds
-
-[2026-10-12 12:36:10 +0000] Status=2, isTerminal=NO, Elapsed=00:35.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:28 seconds
-
-[2026-10-12 12:36:11 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:29 seconds
-
-[2026-10-12 12:36:12 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:30 seconds
-
-[2026-10-12 12:36:15 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:32 seconds
-
-[2026-10-12 12:36:17 +0000] Status=2, isTerminal=NO, Elapsed=00:42.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
-		Migration Elapsed:00:34 seconds
-
-[2026-10-12 12:36:18 +0000] Status=2, isTerminal=NO, Elapsed=00:43.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator) (Concurrent: Running plugin com.apple.MobileSlideShow (MobileSlideShow.migrator, concurrent after com.apple.accounts.migrator))
-		Migration Elapsed:00:36 seconds
-
-[2026-10-12 12:36:21 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
-		Migration Elapsed:00:36 seconds
-
-[2026-10-12 12:36:23 +0000] Status=4, isTerminal=NO, Elapsed=00:48.
-	Waiting on System App
-
-[2026-10-12 12:36:24 +0000] Status=4, isTerminal=NO, Elapsed=00:49.
-	Waiting on System App
-
-[2026-10-12 12:36:25 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:50.
-	Finished
+Device already booted, nothing to do.
 
 APP=build/Build/Products/Debug-iphonesimulator/MYAIM.app
-com.myaim.app: 21684
+com.myaim.app: 15922
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-top.png
-com.myaim.app: 21981
+com.myaim.app: 17416
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-mid.png
-com.myaim.app: 22343
+com.myaim.app: 17706
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-bot.png
-com.myaim.app: 22565
+com.myaim.app: 18265
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-top.png
-com.myaim.app: 22984
+com.myaim.app: 18363
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-mid.png
-com.myaim.app: 23857
+com.myaim.app: 18946
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-bot.png
-com.myaim.app: 24240
+com.myaim.app: 18987
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-top.png
-com.myaim.app: 24892
+com.myaim.app: 19583
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-mid.png
-com.myaim.app: 25422
+com.myaim.app: 19744
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-bot.png
-com.myaim.app: 25508
+com.myaim.app: 20585
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-top.png
-com.myaim.app: 26076
+com.myaim.app: 21102
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-mid.png
-com.myaim.app: 26217
+com.myaim.app: 21564
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-bot.png
-com.myaim.app: 26698
+com.myaim.app: 22009
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-dashboard.png
-com.myaim.app: 27182
+com.myaim.app: 22229
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-courses.png
-com.myaim.app: 27527
+com.myaim.app: 22817
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-posts.png
-com.myaim.app: 28457
+com.myaim.app: 22902
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-subscription.png
-com.myaim.app: 28777
+com.myaim.app: 23490
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-account.png
-com.myaim.app: 29205
+com.myaim.app: 23935
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-serviceDetail.png
-com.myaim.app: 29462
+com.myaim.app: 24429
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-booking.png
-com.myaim.app: 29837
+com.myaim.app: 25407
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-search.png
-com.myaim.app: 30278
+com.myaim.app: 25795
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-favorites.png
-com.myaim.app: 30496
+com.myaim.app: 26087
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-notifications.png
-com.myaim.app: 31316
+com.myaim.app: 26684
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-registerAcademy.png
-com.myaim.app: 31668
+com.myaim.app: 26959
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-providerProfile.png
-com.myaim.app: 32388
+com.myaim.app: 27333
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-settings.png
-com.myaim.app: 32535
+com.myaim.app: 28183
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-messages.png
-com.myaim.app: 33018
+com.myaim.app: 28547
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-chat.png
-com.myaim.app: 33495
+com.myaim.app: 29292
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingPayment.png
-com.myaim.app: 33645
+com.myaim.app: 29361
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-addCourse.png
-com.myaim.app: 34210
+com.myaim.app: 29964
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-publishAd.png
-com.myaim.app: 34563
+com.myaim.app: 30466
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-courseDetail.png
-com.myaim.app: 35464
+com.myaim.app: 30664
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingRequests.png
-com.myaim.app: 35738
+com.myaim.app: 31257
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyInbox.png
-com.myaim.app: 36247
+com.myaim.app: 31529
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyChat.png
-com.myaim.app: 36783
+com.myaim.app: 32226
+Detected file type 'PNG' from extension
+Wrote screenshot to: shot-page-providerStats.png
+com.myaim.app: 32903
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-splash.png
-com.myaim.app: 36906
+com.myaim.app: 33243
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-onboarding.png
-com.myaim.app: 37373
+com.myaim.app: 33367
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-login.png
-com.myaim.app: 37635
+com.myaim.app: 33918
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-login.png
-com.myaim.app: 38416
+com.myaim.app: 34525
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-otp.png
-com.myaim.app: 39453
+com.myaim.app: 35154
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-done.png
--rw-r--r--@ 1 runner  staff   164904 Oct 12 12:44 shot-auth-done.png
--rw-r--r--@ 1 runner  staff   971413 Oct 12 12:43 shot-auth-login.png
--rw-r--r--@ 1 runner  staff   167395 Oct 12 12:43 shot-auth-otp.png
--rw-r--r--@ 1 runner  staff   787033 Oct 12 12:38 shot-bookings-bot.png
--rw-r--r--@ 1 runner  staff   787033 Oct 12 12:38 shot-bookings-mid.png
--rw-r--r--@ 1 runner  staff   787033 Oct 12 12:38 shot-bookings-top.png
--rw-r--r--@ 1 runner  staff  1367032 Oct 12 12:38 shot-discover-bot.png
--rw-r--r--@ 1 runner  staff  1645972 Oct 12 12:38 shot-discover-mid.png
--rw-r--r--@ 1 runner  staff  2248081 Oct 12 12:38 shot-discover-top.png
--rw-r--r--@ 1 runner  staff  1670251 Oct 12 12:37 shot-home-bot.png
--rw-r--r--@ 1 runner  staff  2212750 Oct 12 12:37 shot-home-mid.png
--rw-r--r--@ 1 runner  staff  2456501 Oct 12 12:37 shot-home-top.png
--rw-r--r--@ 1 runner  staff   165765 Oct 12 12:43 shot-login.png
--rw-r--r--@ 1 runner  staff   405887 Oct 12 12:43 shot-onboarding.png
--rw-r--r--@ 1 runner  staff   346867 Oct 12 12:42 shot-page-academyChat.png
--rw-r--r--@ 1 runner  staff   390112 Oct 12 12:42 shot-page-academyInbox.png
--rw-r--r--@ 1 runner  staff   368078 Oct 12 12:42 shot-page-addCourse.png
--rw-r--r--@ 1 runner  staff   686324 Oct 12 12:40 shot-page-booking.png
--rw-r--r--@ 1 runner  staff   632801 Oct 12 12:41 shot-page-bookingPayment.png
--rw-r--r--@ 1 runner  staff   652466 Oct 12 12:42 shot-page-bookingRequests.png
--rw-r--r--@ 1 runner  staff   369501 Oct 12 12:41 shot-page-chat.png
--rw-r--r--@ 1 runner  staff  1372899 Oct 12 12:42 shot-page-courseDetail.png
--rw-r--r--@ 1 runner  staff   218418 Oct 12 12:40 shot-page-favorites.png
--rw-r--r--@ 1 runner  staff   636222 Oct 12 12:41 shot-page-messages.png
--rw-r--r--@ 1 runner  staff   351390 Oct 12 12:40 shot-page-notifications.png
--rw-r--r--@ 1 runner  staff  1731588 Oct 12 12:41 shot-page-providerProfile.png
--rw-r--r--@ 1 runner  staff  1406113 Oct 12 12:42 shot-page-publishAd.png
--rw-r--r--@ 1 runner  staff   318241 Oct 12 12:41 shot-page-registerAcademy.png
--rw-r--r--@ 1 runner  staff  1025185 Oct 12 12:40 shot-page-search.png
--rw-r--r--@ 1 runner  staff  1530448 Oct 12 12:40 shot-page-serviceDetail.png
--rw-r--r--@ 1 runner  staff   506787 Oct 12 12:41 shot-page-settings.png
--rw-r--r--@ 1 runner  staff   702421 Oct 12 12:39 shot-profile-bot.png
--rw-r--r--@ 1 runner  staff   716861 Oct 12 12:39 shot-profile-mid.png
--rw-r--r--@ 1 runner  staff   721737 Oct 12 12:38 shot-profile-top.png
--rw-r--r--@ 1 runner  staff   764949 Oct 12 12:39 shot-prov-account.png
--rw-r--r--@ 1 runner  staff   931071 Oct 12 12:39 shot-prov-courses.png
--rw-r--r--@ 1 runner  staff   971959 Oct 12 12:39 shot-prov-dashboard.png
--rw-r--r--@ 1 runner  staff   930891 Oct 12 12:39 shot-prov-posts.png
--rw-r--r--@ 1 runner  staff   492170 Oct 12 12:39 shot-prov-subscription.png
--rw-r--r--@ 1 runner  staff   155901 Oct 12 12:43 shot-splash.png
+-rw-r--r--@ 1 runner  staff   163872 Oct 12 13:41 shot-auth-done.png
+-rw-r--r--@ 1 runner  staff   969201 Oct 12 13:41 shot-auth-login.png
+-rw-r--r--@ 1 runner  staff   163872 Oct 12 13:41 shot-auth-otp.png
+-rw-r--r--@ 1 runner  staff   786133 Oct 12 13:36 shot-bookings-bot.png
+-rw-r--r--@ 1 runner  staff   786133 Oct 12 13:36 shot-bookings-mid.png
+-rw-r--r--@ 1 runner  staff   786133 Oct 12 13:36 shot-bookings-top.png
+-rw-r--r--@ 1 runner  staff  1368593 Oct 12 13:36 shot-discover-bot.png
+-rw-r--r--@ 1 runner  staff  1644942 Oct 12 13:36 shot-discover-mid.png
+-rw-r--r--@ 1 runner  staff  2246843 Oct 12 13:36 shot-discover-top.png
+-rw-r--r--@ 1 runner  staff  1670243 Oct 12 13:36 shot-home-bot.png
+-rw-r--r--@ 1 runner  staff  2212359 Oct 12 13:35 shot-home-mid.png
+-rw-r--r--@ 1 runner  staff  2418551 Oct 12 13:35 shot-home-top.png
+-rw-r--r--@ 1 runner  staff   165503 Oct 12 13:41 shot-login.png
+-rw-r--r--@ 1 runner  staff   405826 Oct 12 13:41 shot-onboarding.png
+-rw-r--r--@ 1 runner  staff   344449 Oct 12 13:40 shot-page-academyChat.png
+-rw-r--r--@ 1 runner  staff   389048 Oct 12 13:40 shot-page-academyInbox.png
+-rw-r--r--@ 1 runner  staff   365242 Oct 12 13:39 shot-page-addCourse.png
+-rw-r--r--@ 1 runner  staff   685531 Oct 12 13:38 shot-page-booking.png
+-rw-r--r--@ 1 runner  staff   633136 Oct 12 13:39 shot-page-bookingPayment.png
+-rw-r--r--@ 1 runner  staff   651105 Oct 12 13:40 shot-page-bookingRequests.png
+-rw-r--r--@ 1 runner  staff   368116 Oct 12 13:39 shot-page-chat.png
+-rw-r--r--@ 1 runner  staff  1373647 Oct 12 13:40 shot-page-courseDetail.png
+-rw-r--r--@ 1 runner  staff   217576 Oct 12 13:38 shot-page-favorites.png
+-rw-r--r--@ 1 runner  staff   635983 Oct 12 13:39 shot-page-messages.png
+-rw-r--r--@ 1 runner  staff   352603 Oct 12 13:38 shot-page-notifications.png
+-rw-r--r--@ 1 runner  staff  1731652 Oct 12 13:39 shot-page-providerProfile.png
+-rw-r--r--@ 1 runner  staff   779452 Oct 12 13:40 shot-page-providerStats.png
+-rw-r--r--@ 1 runner  staff  1405263 Oct 12 13:40 shot-page-publishAd.png
+-rw-r--r--@ 1 runner  staff   319984 Oct 12 13:38 shot-page-registerAcademy.png
+-rw-r--r--@ 1 runner  staff  1020009 Oct 12 13:38 shot-page-search.png
+-rw-r--r--@ 1 runner  staff  1530447 Oct 12 13:38 shot-page-serviceDetail.png
+-rw-r--r--@ 1 runner  staff   506973 Oct 12 13:39 shot-page-settings.png
+-rw-r--r--@ 1 runner  staff   700777 Oct 12 13:37 shot-profile-bot.png
+-rw-r--r--@ 1 runner  staff   714670 Oct 12 13:37 shot-profile-mid.png
+-rw-r--r--@ 1 runner  staff   720577 Oct 12 13:36 shot-profile-top.png
+-rw-r--r--@ 1 runner  staff   763413 Oct 12 13:37 shot-prov-account.png
+-rw-r--r--@ 1 runner  staff   929747 Oct 12 13:37 shot-prov-courses.png
+-rw-r--r--@ 1 runner  staff   969861 Oct 12 13:37 shot-prov-dashboard.png
+-rw-r--r--@ 1 runner  staff   928561 Oct 12 13:37 shot-prov-posts.png
+-rw-r--r--@ 1 runner  staff   490328 Oct 12 13:37 shot-prov-subscription.png
+-rw-r--r--@ 1 runner  staff   192778 Oct 12 13:40 shot-splash.png
 STORE=F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C
 Monitoring boot status for iPhone 16 Pro Max (F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C).
-[2026-10-12 12:44:55 +0000] Status=2, isTerminal=NO, Elapsed=00:31.
+[2026-10-12 13:43:05 +0000] Status=2, isTerminal=NO, Elapsed=01:06.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:00 seconds
+		Migration Elapsed:00:59 seconds
 
-[2026-10-12 12:44:58 +0000] Status=2, isTerminal=NO, Elapsed=00:34.
+[2026-10-12 13:43:05 +0000] Status=2, isTerminal=NO, Elapsed=01:07.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:02 seconds
+		Migration Elapsed:01:00 seconds
 
-[2026-10-12 12:45:00 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
+[2026-10-12 13:43:06 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:05 seconds
+		Migration Elapsed:01:01 seconds
 
-[2026-10-12 12:45:01 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
+[2026-10-12 13:43:07 +0000] Status=2, isTerminal=NO, Elapsed=01:09.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:07 seconds
+		Migration Elapsed:01:02 seconds
 
-[2026-10-12 12:45:05 +0000] Status=2, isTerminal=NO, Elapsed=00:41.
+[2026-10-12 13:43:08 +0000] Status=2, isTerminal=NO, Elapsed=01:10.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:09 seconds
+		Migration Elapsed:01:03 seconds
 
-[2026-10-12 12:45:07 +0000] Status=2, isTerminal=NO, Elapsed=00:42.
+[2026-10-12 13:43:10 +0000] Status=2, isTerminal=NO, Elapsed=01:11.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:12 seconds
+		Migration Elapsed:01:04 seconds
 
-[2026-10-12 12:45:08 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+[2026-10-12 13:43:11 +0000] Status=2, isTerminal=NO, Elapsed=01:12.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:14 seconds
-
-[2026-10-12 12:45:09 +0000] Status=2, isTerminal=NO, Elapsed=00:45.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:15 seconds
-
-[2026-10-12 12:45:10 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:16 seconds
-
-[2026-10-12 12:45:11 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:17 seconds
-
-[2026-10-12 12:45:12 +0000] Status=2, isTerminal=NO, Elapsed=00:47.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:17 seconds
-
-[2026-10-12 12:45:12 +0000] Status=2, isTerminal=NO, Elapsed=00:48.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:18 seconds
-
-[2026-10-12 12:45:15 +0000] Status=2, isTerminal=NO, Elapsed=00:50.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:19 seconds
-
-[2026-10-12 12:45:15 +0000] Status=2, isTerminal=NO, Elapsed=00:51.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:22 seconds
-
-[2026-10-12 12:45:16 +0000] Status=2, isTerminal=NO, Elapsed=00:52.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:22 seconds
-
-[2026-10-12 12:45:17 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:23 seconds
-
-[2026-10-12 12:45:18 +0000] Status=2, isTerminal=NO, Elapsed=00:54.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:24 seconds
-
-[2026-10-12 12:45:19 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:25 seconds
-
-[2026-10-12 12:45:20 +0000] Status=2, isTerminal=NO, Elapsed=00:56.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:26 seconds
-
-[2026-10-12 12:45:21 +0000] Status=2, isTerminal=NO, Elapsed=00:57.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:27 seconds
-
-[2026-10-12 12:45:22 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:29 seconds
-
-[2026-10-12 12:45:23 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:29 seconds
-
-[2026-10-12 12:45:24 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:30 seconds
-
-[2026-10-12 12:45:25 +0000] Status=2, isTerminal=NO, Elapsed=01:01.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:31 seconds
-
-[2026-10-12 12:45:26 +0000] Status=2, isTerminal=NO, Elapsed=01:02.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:32 seconds
-
-[2026-10-12 12:45:27 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:33 seconds
-
-[2026-10-12 12:45:28 +0000] Status=2, isTerminal=NO, Elapsed=01:04.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:34 seconds
-
-[2026-10-12 12:45:29 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:36 seconds
-
-[2026-10-12 12:45:30 +0000] Status=2, isTerminal=NO, Elapsed=01:06.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:36 seconds
-
-[2026-10-12 12:45:31 +0000] Status=2, isTerminal=NO, Elapsed=01:07.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:37 seconds
-
-[2026-10-12 12:45:32 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:38 seconds
-
-[2026-10-12 12:45:33 +0000] Status=2, isTerminal=NO, Elapsed=01:09.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:39 seconds
-
-[2026-10-12 12:45:34 +0000] Status=2, isTerminal=NO, Elapsed=01:10.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:40 seconds
-
-[2026-10-12 12:45:35 +0000] Status=2, isTerminal=NO, Elapsed=01:11.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:41 seconds
-
-[2026-10-12 12:45:36 +0000] Status=2, isTerminal=NO, Elapsed=01:12.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:42 seconds
-
-[2026-10-12 12:45:37 +0000] Status=2, isTerminal=NO, Elapsed=01:13.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:43 seconds
-
-[2026-10-12 12:45:38 +0000] Status=2, isTerminal=NO, Elapsed=01:14.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:44 seconds
-
-[2026-10-12 12:45:39 +0000] Status=2, isTerminal=NO, Elapsed=01:15.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:45 seconds
-
-[2026-10-12 12:45:40 +0000] Status=2, isTerminal=NO, Elapsed=01:16.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:46 seconds
-
-[2026-10-12 12:45:41 +0000] Status=2, isTerminal=NO, Elapsed=01:17.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:47 seconds
-
-[2026-10-12 12:45:42 +0000] Status=2, isTerminal=NO, Elapsed=01:18.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:48 seconds
-
-[2026-10-12 12:45:43 +0000] Status=2, isTerminal=NO, Elapsed=01:19.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:49 seconds
-
-[2026-10-12 12:45:44 +0000] Status=2, isTerminal=NO, Elapsed=01:20.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:50 seconds
-
-[2026-10-12 12:45:45 +0000] Status=2, isTerminal=NO, Elapsed=01:21.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:51 seconds
-
-[2026-10-12 12:45:46 +0000] Status=2, isTerminal=NO, Elapsed=01:22.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:52 seconds
-
-[2026-10-12 12:45:47 +0000] Status=2, isTerminal=NO, Elapsed=01:23.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:53 seconds
-
-[2026-10-12 12:45:48 +0000] Status=2, isTerminal=NO, Elapsed=01:24.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:54 seconds
-
-[2026-10-12 12:45:49 +0000] Status=2, isTerminal=NO, Elapsed=01:25.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:55 seconds
-
-[2026-10-12 12:45:50 +0000] Status=2, isTerminal=NO, Elapsed=01:26.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:56 seconds
-
-[2026-10-12 12:45:51 +0000] Status=2, isTerminal=NO, Elapsed=01:26.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:57 seconds
-
-[2026-10-12 12:45:58 +0000] Status=2, isTerminal=NO, Elapsed=01:33.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:58 seconds
-
-[2026-10-12 12:46:04 +0000] Status=2, isTerminal=NO, Elapsed=01:40.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
 		Migration Elapsed:01:05 seconds
 
-[2026-10-12 12:46:08 +0000] Status=2, isTerminal=NO, Elapsed=01:43.
+[2026-10-12 13:43:17 +0000] Status=2, isTerminal=NO, Elapsed=01:19.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
-		Migration Elapsed:01:11 seconds
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:01:06 seconds
 
-[2026-10-12 12:46:14 +0000] Status=2, isTerminal=NO, Elapsed=01:50.
+[2026-10-12 13:43:19 +0000] Status=2, isTerminal=NO, Elapsed=01:21.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.MobileAsset (MobileAsset.migrator)
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:12 seconds
+
+[2026-10-12 13:43:20 +0000] Status=2, isTerminal=NO, Elapsed=01:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
 		Migration Elapsed:01:14 seconds
 
-[2026-10-12 12:46:23 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:59.
+[2026-10-12 13:43:21 +0000] Status=2, isTerminal=NO, Elapsed=01:22.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:15 seconds
+
+[2026-10-12 13:43:22 +0000] Status=2, isTerminal=NO, Elapsed=01:23.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:16 seconds
+
+[2026-10-12 13:43:23 +0000] Status=2, isTerminal=NO, Elapsed=01:24.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:01:17 seconds
+
+[2026-10-12 13:43:24 +0000] Status=2, isTerminal=NO, Elapsed=01:25.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:18 seconds
+
+[2026-10-12 13:43:24 +0000] Status=2, isTerminal=NO, Elapsed=01:26.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:19 seconds
+
+[2026-10-12 13:43:26 +0000] Status=2, isTerminal=NO, Elapsed=01:27.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:20 seconds
+
+[2026-10-12 13:43:26 +0000] Status=2, isTerminal=NO, Elapsed=01:28.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:21 seconds
+
+[2026-10-12 13:43:28 +0000] Status=2, isTerminal=NO, Elapsed=01:29.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:22 seconds
+
+[2026-10-12 13:43:30 +0000] Status=2, isTerminal=NO, Elapsed=01:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:23 seconds
+
+[2026-10-12 13:43:30 +0000] Status=2, isTerminal=NO, Elapsed=01:31.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:24 seconds
+
+[2026-10-12 13:43:31 +0000] Status=2, isTerminal=NO, Elapsed=01:32.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:25 seconds
+
+[2026-10-12 13:43:32 +0000] Status=2, isTerminal=NO, Elapsed=01:33.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:26 seconds
+
+[2026-10-12 13:43:32 +0000] Status=2, isTerminal=NO, Elapsed=01:34.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:27 seconds
+
+[2026-10-12 13:43:33 +0000] Status=2, isTerminal=NO, Elapsed=01:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:28 seconds
+
+[2026-10-12 13:43:34 +0000] Status=2, isTerminal=NO, Elapsed=01:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:29 seconds
+
+[2026-10-12 13:43:35 +0000] Status=2, isTerminal=NO, Elapsed=01:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:30 seconds
+
+[2026-10-12 13:43:36 +0000] Status=2, isTerminal=NO, Elapsed=01:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:31 seconds
+
+[2026-10-12 13:43:37 +0000] Status=2, isTerminal=NO, Elapsed=01:39.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:32 seconds
+
+[2026-10-12 13:43:38 +0000] Status=2, isTerminal=NO, Elapsed=01:40.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:33 seconds
+
+[2026-10-12 13:43:39 +0000] Status=2, isTerminal=NO, Elapsed=01:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:34 seconds
+
+[2026-10-12 13:43:40 +0000] Status=2, isTerminal=NO, Elapsed=01:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:35 seconds
+
+[2026-10-12 13:43:41 +0000] Status=2, isTerminal=NO, Elapsed=01:43.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:36 seconds
+
+[2026-10-12 13:43:42 +0000] Status=2, isTerminal=NO, Elapsed=01:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:37 seconds
+
+[2026-10-12 13:43:43 +0000] Status=2, isTerminal=NO, Elapsed=01:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:38 seconds
+
+[2026-10-12 13:43:44 +0000] Status=2, isTerminal=NO, Elapsed=01:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:39 seconds
+
+[2026-10-12 13:43:45 +0000] Status=2, isTerminal=NO, Elapsed=01:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:40 seconds
+
+[2026-10-12 13:43:49 +0000] Status=2, isTerminal=NO, Elapsed=01:50.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:01:41 seconds
+
+[2026-10-12 13:43:52 +0000] Status=2, isTerminal=NO, Elapsed=01:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator)
+		Migration Elapsed:01:44 seconds
+
+[2026-10-12 13:43:56 +0000] Status=2, isTerminal=NO, Elapsed=01:57.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.cleanup.migrator (MCCleanup.migrator)
+		Migration Elapsed:01:47 seconds
+
+[2026-10-12 13:44:06 +0000] Status=4294967295, isTerminal=YES, Elapsed=02:08.
 	Finished
 
-com.myaim.app: 44087
+com.myaim.app: 40200
+com.myaim.app: 40801
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/01-home.png
-com.myaim.app: 45416
+com.myaim.app: 41661
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/02-discover.png
-com.myaim.app: 48437
+com.myaim.app: 42223
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/03-service.png
-com.myaim.app: 49872
+com.myaim.app: 43501
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/04-payment.png
-com.myaim.app: 50330
+com.myaim.app: 44034
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/05-requests.png
-com.myaim.app: 51072
+com.myaim.app: 44561
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/06-chat.png
-com.myaim.app: 52315
+com.myaim.app: 45520
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/07-dashboard.png
-com.myaim.app: 52632
+com.myaim.app: 46279
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/08-splash.png
 === store screenshot dimensions ===
@@ -549,17 +417,17 @@ Wrote screenshot to: store/08-splash.png
 /Users/runner/work/MYAIM1/MYAIM1/store/08-splash.png
   pixelWidth: 1320
   pixelHeight: 2868
-total 14856
-drwxr-xr-x  10 runner  staff      320 Oct 12 12:54 .
-drwxr-xr-x  70 runner  staff     2240 Oct 12 12:48 ..
--rw-r--r--@  1 runner  staff  2851917 Oct 12 12:51 01-home.png
--rw-r--r--@  1 runner  staff    89358 Oct 12 12:52 02-discover.png
--rw-r--r--@  1 runner  staff  1732640 Oct 12 12:53 03-service.png
--rw-r--r--@  1 runner  staff   655168 Oct 12 12:53 04-payment.png
--rw-r--r--@  1 runner  staff   671076 Oct 12 12:54 05-requests.png
--rw-r--r--@  1 runner  staff   379027 Oct 12 12:54 06-chat.png
--rw-r--r--@  1 runner  staff  1048491 Oct 12 12:54 07-dashboard.png
--rw-r--r--@  1 runner  staff   167009 Oct 12 12:54 08-splash.png
+total 19552
+drwxr-xr-x  10 runner  staff      320 Oct 12 13:48 .
+drwxr-xr-x  71 runner  staff     2272 Oct 12 13:45 ..
+-rw-r--r--@  1 runner  staff  2844235 Oct 12 13:46 01-home.png
+-rw-r--r--@  1 runner  staff  2582599 Oct 12 13:46 02-discover.png
+-rw-r--r--@  1 runner  staff  1730748 Oct 12 13:47 03-service.png
+-rw-r--r--@  1 runner  staff   653950 Oct 12 13:47 04-payment.png
+-rw-r--r--@  1 runner  staff   668540 Oct 12 13:47 05-requests.png
+-rw-r--r--@  1 runner  staff   377206 Oct 12 13:47 06-chat.png
+-rw-r--r--@  1 runner  staff  1047212 Oct 12 13:48 07-dashboard.png
+-rw-r--r--@  1 runner  staff    89313 Oct 12 13:48 08-splash.png
 === tools ===
 Version: ImageMagick 7.1.2-31 Q16-HDRI aarch64 8309dc92a:20260903 https://imagemagick.org
 rsvg-convert version 2.62.3
@@ -571,35 +439,35 @@ libraries used:
   fontconfig 2.18.3
 /Users/runner/.fonts/IBMPlexSansArabic-Bold.ttf: IBM Plex Sans Arabic:style=Bold
 === framing 01-home.png :: كل الأكاديميات والمدرّبين في مكان واحد ===
-  files: ..=5376 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1586402 
-  OUT size: 1448319 bytes
+  files: ..=5056 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1582860 
+  OUT size: 1444971 bytes
 === framing 02-discover.png :: اكتشف الأقرب إليك وقارن بسهولة ===
-  files: ..=5376 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=29835 
-  OUT size: 50744 bytes
+  files: ..=5056 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1474779 
+  OUT size: 1367257 bytes
 === framing 03-service.png :: تفاصيل واضحة وأسعار شفافة ===
-  files: ..=5376 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1003038 
-  OUT size: 940468 bytes
+  files: ..=5056 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1001736 
+  OUT size: 938653 bytes
 === framing 04-payment.png :: ادفع بأمان عبر التحويل أو رمز QR ===
-  files: ..=5376 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=352572 
-  OUT size: 364401 bytes
+  files: ..=5056 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=350666 
+  OUT size: 362685 bytes
 === framing 05-requests.png :: تأكيد الحجوزات بضغطة واحدة ===
-  files: ..=5376 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=333259 
-  OUT size: 335389 bytes
+  files: ..=5056 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=331101 
+  OUT size: 333814 bytes
 === framing 06-chat.png :: تواصل مباشر مع الأكاديمية — نصاً وصوتاً ===
-  files: ..=5376 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=237591 
-  OUT size: 254168 bytes
+  files: ..=5056 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=236187 
+  OUT size: 253244 bytes
 === framing 07-dashboard.png :: لوحة متكاملة لإدارة أكاديميتك ===
-  files: ..=5376 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=523717 
-  OUT size: 521414 bytes
+  files: ..=5056 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=522869 
+  OUT size: 520545 bytes
 === framing 08-splash.png :: حدّد هدفك… ونكمّل الطريق معك ===
-  files: ..=5376 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=98214 
-  OUT size: 109707 bytes
+  files: ..=5056 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=28787 
+  OUT size: 46582 bytes
 === framed output ===
-01-home.png 1320x2868 1.44832MB
-02-discover.png 1320x2868 50744B
-03-service.png 1320x2868 940468B
-04-payment.png 1320x2868 364401B
-05-requests.png 1320x2868 335389B
-06-chat.png 1320x2868 254168B
-07-dashboard.png 1320x2868 521414B
-08-splash.png 1320x2868 109707B
+01-home.png 1320x2868 1.44497MB
+02-discover.png 1320x2868 1.36726MB
+03-service.png 1320x2868 938653B
+04-payment.png 1320x2868 362685B
+05-requests.png 1320x2868 333814B
+06-chat.png 1320x2868 253244B
+07-dashboard.png 1320x2868 520545B
+08-splash.png 1320x2868 46582B
