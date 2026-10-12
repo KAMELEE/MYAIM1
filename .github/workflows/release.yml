@@ -1,0 +1,106 @@
+name: Release to App Store Connect (TestFlight)
+
+# Manual trigger only — signing + upload is sensitive and must never run by accident.
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "Build number (CURRENT_PROJECT_VERSION). Leave blank to use the run number."
+        required: false
+        default: ""
+
+# ──────────────────────────────────────────────────────────────────────────────
+# REQUIRED GitHub SECRETS (Settings ▸ Secrets and variables ▸ Actions):
+#   APPLE_TEAM_ID    Your 10-char Apple Developer Team ID.
+#   ASC_KEY_ID       App Store Connect API Key ID (Users and Access ▸ Integrations ▸ App Store Connect API).
+#   ASC_ISSUER_ID    The Issuer ID shown on that same page.
+#   ASC_KEY_P8       The full contents of the downloaded AuthKey_XXXX.p8 file
+#                    (paste it as-is, including the BEGIN/END lines).
+# The API key needs the "App Manager" (or Admin) role so automatic signing can
+# create the distribution certificate + App Store provisioning profile, and upload.
+# A matching App ID for bundle id `com.myaim.app` must exist, OR the key's role
+# must allow creating it (App Manager can).
+# ──────────────────────────────────────────────────────────────────────────────
+
+jobs:
+  release:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode 16
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+      - name: Install XcodeGen & generate project
+        run: |
+          brew install xcodegen 2>&1 | tail -2 || true
+          xcodegen generate
+
+      - name: Write App Store Connect API key
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_KEY_P8: ${{ secrets.ASC_KEY_P8 }}
+        run: |
+          if [ -z "$ASC_KEY_ID" ] || [ -z "$ASC_KEY_P8" ]; then
+            echo "::error::Missing ASC_KEY_ID / ASC_KEY_P8 secrets. See the header in release.yml."
+            exit 1
+          fi
+          mkdir -p ~/private_keys
+          printf '%s\n' "$ASC_KEY_P8" > ~/private_keys/AuthKey_${ASC_KEY_ID}.p8
+          chmod 600 ~/private_keys/AuthKey_${ASC_KEY_ID}.p8
+
+      - name: Archive (Release, cloud-managed signing)
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KID:  ${{ secrets.ASC_KEY_ID }}
+          ISS:  ${{ secrets.ASC_ISSUER_ID }}
+          BN:   ${{ github.event.inputs.build_number }}
+        run: |
+          BUILD_NO="${BN:-${{ github.run_number }}}"
+          xcodebuild archive \
+            -project MYAIM.xcodeproj \
+            -scheme MYAIM \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/MYAIM.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${KID}.p8 \
+            -authenticationKeyID "$KID" \
+            -authenticationKeyIssuerID "$ISS" \
+            DEVELOPMENT_TEAM="$TEAM" \
+            CODE_SIGN_STYLE=Automatic \
+            CURRENT_PROJECT_VERSION="$BUILD_NO" \
+            | tee archive.log | tail -40
+
+      - name: Export & upload to App Store Connect
+        env:
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+          KID:  ${{ secrets.ASC_KEY_ID }}
+          ISS:  ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          cat > ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>upload</string>
+            <key>teamID</key><string>${TEAM}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>manageAppVersionAndBuildNumber</key><true/>
+          </dict></plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath build/MYAIM.xcarchive \
+            -exportPath build/export \
+            -exportOptionsPlist ExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${KID}.p8 \
+            -authenticationKeyID "$KID" \
+            -authenticationKeyIssuerID "$ISS" \
+            | tee export.log | tail -40
+          echo "Uploaded. The build will appear in TestFlight after Apple finishes processing."
+
+      - name: Clean up key
+        if: always()
+        run: rm -f ~/private_keys/AuthKey_*.p8

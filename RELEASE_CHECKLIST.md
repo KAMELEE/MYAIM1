@@ -5,11 +5,17 @@ are handled in the codebase; **[you]** require your Apple/Firebase accounts.
 
 ## 1. Apple Developer & signing — [you]
 - [ ] Enroll in the Apple Developer Program ($99/yr).
-- [ ] Put your Team ID in `project.yml` → `DEVELOPMENT_TEAM`.
-- [ ] Create the App ID for bundle `com.myaim.app` in the developer portal.
-- [ ] Produce a **signed Release archive** (Mac + Xcode, or CI with an
-      App Store Connect API key). CI currently builds unsigned for the
-      simulator only (`CODE_SIGNING_ALLOWED=NO`).
+- [ ] A signed-release **CI workflow is ready**: `.github/workflows/release.yml`
+      (manual trigger → archives, signs with cloud-managed signing, and uploads
+      to TestFlight). You only add four secrets:
+      - `APPLE_TEAM_ID` — your 10-char Team ID.
+      - `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_KEY_P8` — an App Store Connect API
+        key (Users and Access ▸ Integrations), role **App Manager**. Paste the
+        whole `AuthKey_XXXX.p8` file contents into `ASC_KEY_P8`.
+      Then run the "Release to App Store Connect (TestFlight)" workflow from the
+      Actions tab. Automatic signing creates the distribution certificate and
+      App Store profile for `com.myaim.app` on first run.
+- [ ] (Optional) also set `DEVELOPMENT_TEAM` in `project.yml` for local Xcode builds.
 
 ## 2. App technical requirements — [done]
 - [x] Privacy Manifest `PrivacyInfo.xcprivacy` (data types + required-reason APIs).
