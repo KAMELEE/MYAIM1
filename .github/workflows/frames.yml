@@ -1,0 +1,39 @@
+name: Marketing frames (fast)
+
+on:
+  push:
+    paths:
+      - 'scripts/marketing_frames.sh'
+      - '.github/workflows/frames.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  frames:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build marketing frames from committed raw screenshots
+        run: |
+          set -x
+          mkdir -p store
+          cp ci-logs/store/*.png store/ 2>/dev/null || true
+          ls -la store/ || true
+          command -v magick >/dev/null 2>&1 || brew install imagemagick 2>&1 | tail -3 || true
+          bash scripts/marketing_frames.sh store store-framed 2>&1 | tee frames-run.log
+
+      - name: Publish framed output
+        if: always()
+        run: |
+          mkdir -p ci-logs/store-framed
+          cp store-framed/*.png ci-logs/store-framed/ 2>/dev/null || true
+          cp frames-run.log ci-logs/frames-run.txt 2>/dev/null || true
+          git config user.name "ci-bot"
+          git config user.email "ci@myaim.app"
+          git pull --rebase --autostash 2>/dev/null || true
+          git add -A ci-logs
+          git commit -m "Marketing frames run ${{ github.run_number }} [skip ci]" || echo "no changes"
+          git push || echo "push failed"
