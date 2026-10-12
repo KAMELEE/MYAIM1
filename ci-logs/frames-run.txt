@@ -1,52 +1,43 @@
-=== ImageMagick / Pango check ===
+=== tools ===
 Version: ImageMagick 7.1.2-31 Q16-HDRI aarch64 8309dc92a:20260903 https://imagemagick.org
-    PANGO* PANGO     ---   Pango Markup Language
+rsvg-convert version 2.62.3
+
+libraries used:
+  cairo 1.18.4
+  pango 1.58.2
+  harfbuzz 14.4.0
+  fontconfig 2.18.3
+/Users/runner/.fonts/IBMPlexSansArabic-Bold.ttf: IBM Plex Sans Arabic:style=Bold
 === framing 01-home.png :: كل الأكاديميات والمدرّبين في مكان واحد ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>كل الأكاديميات والمدرّبين في مكان واحد</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=1557500 
-  OUT size: 1407789 bytes
+  files: ..=2912 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1557500 
+  OUT size: 1425891 bytes
 === framing 02-discover.png :: اكتشف الأقرب إليك وقارن بسهولة ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>اكتشف الأقرب إليك وقارن بسهولة</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=1324174 
-  OUT size: 1222138 bytes
+  files: ..=2912 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1324174 
+  OUT size: 1238648 bytes
 === framing 03-service.png :: تفاصيل واضحة وأسعار شفافة ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تفاصيل واضحة وأسعار شفافة</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=1002742 
-  OUT size: 922095 bytes
+  files: ..=2912 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1002742 
+  OUT size: 939984 bytes
 === framing 04-payment.png :: ادفع بأمان عبر التحويل أو رمز QR ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>ادفع بأمان عبر التحويل أو رمز QR</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=352230 
-  OUT size: 348886 bytes
+  files: ..=2912 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=352230 
+  OUT size: 364128 bytes
 === framing 05-requests.png :: تأكيد الحجوزات بضغطة واحدة ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تأكيد الحجوزات بضغطة واحدة</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=330116 
-  OUT size: 320647 bytes
+  files: ..=2912 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=330116 
+  OUT size: 333180 bytes
 === framing 06-chat.png :: تواصل مباشر مع الأكاديمية — نصاً وصوتاً ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>تواصل مباشر مع الأكاديمية — نصاً وصوتاً</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=235206 
-  OUT size: 232180 bytes
+  files: ..=2912 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=235206 
+  OUT size: 252688 bytes
 === framing 07-dashboard.png :: لوحة متكاملة لإدارة أكاديميتك ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>لوحة متكاملة لإدارة أكاديميتك</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=523518 
-  OUT size: 509567 bytes
+  files: ..=2912 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=523518 
+  OUT size: 521182 bytes
 === framing 08-splash.png :: حدّد هدفك… ونكمّل الطريق معك ===
-magick: no decode delegate for this image format `<span font_desc='IBM Plex Sans Arabic SemiBold 52' foreground='#FFFFFF'>حدّد هدفك… ونكمّل الطريق معك</span>' @ error/constitute.c/ReadImage/739.
-  caption FAILED
-  files: ..=3968 shot.png=150559 
-  OUT size: 144581 bytes
+  files: ..=2912 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=150559 
+  OUT size: 161141 bytes
 === framed output ===
-01-home.png 1320x2868 1.40779MB
-02-discover.png 1320x2868 1.22214MB
-03-service.png 1320x2868 922095B
-04-payment.png 1320x2868 348886B
-05-requests.png 1320x2868 320647B
-06-chat.png 1320x2868 232180B
-07-dashboard.png 1320x2868 509567B
-08-splash.png 1320x2868 144581B
+01-home.png 1320x2868 1.42589MB
+02-discover.png 1320x2868 1.23865MB
+03-service.png 1320x2868 939984B
+04-payment.png 1320x2868 364128B
+05-requests.png 1320x2868 333180B
+06-chat.png 1320x2868 252688B
+07-dashboard.png 1320x2868 521182B
+08-splash.png 1320x2868 161141B
