@@ -1,4 +1,4 @@
-# CI log — run 73
+# CI log — run 74
 exit code: 0
 
 ===== xcodegen =====
@@ -20,9 +20,9 @@ Resolve Package Graph
 
 Fetching from https://github.com/firebase/firebase-ios-sdk.git
 
-Fetching from https://github.com/google/interop-ios-for-google-sdks.git
-
 Fetching from https://github.com/google/app-check.git
+
+Fetching from https://github.com/google/interop-ios-for-google-sdks.git
 
 Fetching from https://github.com/firebase/leveldb.git
 
@@ -46,33 +46,33 @@ Fetching from https://github.com/google/promises.git
 
 Fetching from https://github.com/googleads/google-ads-on-device-conversion-ios-sdk
 
-Creating working copy of package ‘grpc-binary’
-
-Checking out 1.69.1 of package ‘grpc-binary’
-
-Creating working copy of package ‘nanopb’
-
-Checking out 2.30910.1 of package ‘nanopb’
-
 Creating working copy of package ‘promises’
 
 Checking out 2.4.1 of package ‘promises’
 
-Creating working copy of package ‘GoogleUtilities’
+Creating working copy of package ‘GoogleDataTransport’
 
-Checking out 8.1.4 of package ‘GoogleUtilities’
+Checking out 10.1.1 of package ‘GoogleDataTransport’
 
-Creating working copy of package ‘interop-ios-for-google-sdks’
+Creating working copy of package ‘gtm-session-fetcher’
 
-Checking out 101.0.0 of package ‘interop-ios-for-google-sdks’
+Checking out 4.5.0 of package ‘gtm-session-fetcher’
+
+Creating working copy of package ‘grpc-binary’
+
+Checking out 1.69.1 of package ‘grpc-binary’
+
+Creating working copy of package ‘google-ads-on-device-conversion-ios-sdk’
+
+Checking out 2.3.0 of package ‘google-ads-on-device-conversion-ios-sdk’
 
 Creating working copy of package ‘leveldb’
 
 Checking out 1.22.5 of package ‘leveldb’
 
-Creating working copy of package ‘swift-protobuf’
+Creating working copy of package ‘nanopb’
 
-Checking out 1.38.1 of package ‘swift-protobuf’
+Checking out 2.30910.1 of package ‘nanopb’
 
 Creating working copy of package ‘app-check’
 
@@ -82,41 +82,41 @@ Creating working copy of package ‘GoogleAppMeasurement’
 
 Checking out 11.15.0 of package ‘GoogleAppMeasurement’
 
-Creating working copy of package ‘gtm-session-fetcher’
-
-Checking out 4.5.0 of package ‘gtm-session-fetcher’
-
 Creating working copy of package ‘firebase-ios-sdk’
 
 Checking out 11.15.0 of package ‘firebase-ios-sdk’
-
-Creating working copy of package ‘GoogleDataTransport’
-
-Checking out 10.1.1 of package ‘GoogleDataTransport’
 
 Creating working copy of package ‘abseil-cpp-binary’
 
 Checking out 1.2024072200.0 of package ‘abseil-cpp-binary’
 
-Creating working copy of package ‘google-ads-on-device-conversion-ios-sdk’
+Creating working copy of package ‘interop-ios-for-google-sdks’
 
-Checking out 2.3.0 of package ‘google-ads-on-device-conversion-ios-sdk’
+Checking out 101.0.0 of package ‘interop-ios-for-google-sdks’
+
+Creating working copy of package ‘GoogleUtilities’
+
+Checking out 8.1.4 of package ‘GoogleUtilities’
+
+Creating working copy of package ‘swift-protobuf’
+
+Checking out 1.39.0 of package ‘swift-protobuf’
 
 
 Resolved source packages:
+  leveldb: https://github.com/firebase/leveldb.git @ 1.22.5
+  InteropForGoogle: https://github.com/google/interop-ios-for-google-sdks.git @ 101.0.0
+  GoogleAdsOnDeviceConversion: https://github.com/googleads/google-ads-on-device-conversion-ios-sdk @ 2.3.0
+  nanopb: https://github.com/firebase/nanopb.git @ 2.30910.1
   abseil: https://github.com/google/abseil-cpp-binary.git @ 1.2024072200.0
+  GoogleDataTransport: https://github.com/google/GoogleDataTransport.git @ 10.1.1
   gRPC: https://github.com/google/grpc-binary.git @ 1.69.1
+  AppCheck: https://github.com/google/app-check.git @ 11.3.2
+  GTMSessionFetcher: https://github.com/google/gtm-session-fetcher.git @ 4.5.0
   Firebase: https://github.com/firebase/firebase-ios-sdk.git @ 11.15.0
   GoogleAppMeasurement: https://github.com/google/GoogleAppMeasurement.git @ 11.15.0
-  GoogleAdsOnDeviceConversion: https://github.com/googleads/google-ads-on-device-conversion-ios-sdk @ 2.3.0
-  leveldb: https://github.com/firebase/leveldb.git @ 1.22.5
-  SwiftProtobuf: https://github.com/apple/swift-protobuf.git @ 1.38.1
-  GoogleDataTransport: https://github.com/google/GoogleDataTransport.git @ 10.1.1
-  nanopb: https://github.com/firebase/nanopb.git @ 2.30910.1
-  InteropForGoogle: https://github.com/google/interop-ios-for-google-sdks.git @ 101.0.0
-  GTMSessionFetcher: https://github.com/google/gtm-session-fetcher.git @ 4.5.0
+  SwiftProtobuf: https://github.com/apple/swift-protobuf.git @ 1.39.0
   Promises: https://github.com/google/promises.git @ 2.4.1
-  AppCheck: https://github.com/google/app-check.git @ 11.3.2
   GoogleUtilities: https://github.com/google/GoogleUtilities.git @ 8.1.4
 
 Information about project "MYAIM":
@@ -136,15 +136,38 @@ Information about project "MYAIM":
 ===== errors =====
 
 ===== build tail (80) =====
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseFirestore.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app
+
+Copy /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCoreInternal.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCoreInternal.bundle (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCoreInternal.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app
+
+ConstructStubExecutorLinkFileList /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-arm64.txt (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    construct-stub-executor-link-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM.debug.dylib /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-arm64.txt
 note: Using stub executor library with Swift entry point. (in target 'MYAIM' from project 'MYAIM')
 
 Copy /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCoreExtension.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCoreExtension.bundle (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCoreExtension.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app
 
+Ld /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM normal arm64 (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -O0 -L/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-arm64.txt /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM.debug.dylib -o /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM
+
 Copy /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCore.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCore.bundle (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
     builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseCore.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app
+
+CreateUniversalBinary /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/MYAIM.debug.dylib normal arm64\ x86_64 (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM.debug.dylib /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib -output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/MYAIM.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-x86_64.txt (in target 'MYAIM' from project 'MYAIM')
+    cd /Users/runner/work/MYAIM1/MYAIM1
+    construct-stub-executor-link-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-x86_64.txt
+note: Using stub executor library with Swift entry point. (in target 'MYAIM' from project 'MYAIM')
 
 Copy /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseAuth.bundle /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/Firebase_FirebaseAuth.bundle (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
@@ -153,29 +176,6 @@ Copy /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator
 ProcessInfoPlistFile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Info.plist /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Resources/Info.plist (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
     builtin-infoPlistUtility /Users/runner/work/MYAIM1/MYAIM1/MYAIM/Resources/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/assetcatalog_generated_info.plist -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseAuth.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCore.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCoreExtension.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseCoreInternal.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Firebase_FirebaseFirestore.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Frameworks/FirebaseFirestoreInternal.framework -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Frameworks/absl.framework -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Frameworks/grpc.framework -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Frameworks/grpcpp.framework -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Frameworks/openssl_grpc.framework -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GTMSessionFetcher_GTMSessionFetcherCore.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-AppDelegateSwizzler.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-Environment.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-Logger.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-NSData.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-Network.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/GoogleUtilities_GoogleUtilities-Reachability.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/abseil_abslWrapper.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/gRPC_grpcWrapper.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/gRPC_grpcppWrapper.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/gRPC_opensslWrapper.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/leveldb_leveldb.bundle -scanforprivacyfile /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/nanopb_nanopb.bundle -o /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Info.plist
-
-Ld /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM normal arm64 (in target 'MYAIM' from project 'MYAIM')
-    cd /Users/runner/work/MYAIM1/MYAIM1
-    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -isysroot /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -O0 -L/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-arm64.txt /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM.debug.dylib -o /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM
-
-SwiftDriverJobDiscovery normal x86_64 Compiling ChatView.swift, Color+Hex.swift, ComingSoonView.swift, Course.swift, CourseDetailView.swift, CreateGoalView.swift, DemoScroll.swift, DiscoverView.swift, DiscoverViewModel.swift, FavoritesStore.swift, FavoritesView.swift, FeaturedStore.swift, FiltersSheet.swift, FirebaseAdsRepository.swift, FirebaseAuthRepository.swift, FirebaseBookingRepository.swift, FirebaseGoalRepository.swift, FirebaseMessagesRepository.swift, FirebaseProviderRepository.swift, FirebaseServiceRepository.swift, FirestoreMappers.swift, Font+AppFont.swift, ForgotPasswordView.swift, Formatters.swift (in target 'MYAIM' from project 'MYAIM')
-
-SwiftDriver\ Compilation MYAIM normal x86_64 com.apple.xcode.tools.swift.compiler (in target 'MYAIM' from project 'MYAIM')
-    cd /Users/runner/work/MYAIM1/MYAIM1
-    builtin-Swift-Compilation -- /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name MYAIM -Onone -enforce-exclusivity\=checked @/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.SwiftFileList -DDEBUG -DDEBUG -DDEMO -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/RecaptchaInterop.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-Network.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-Reachability.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-AppDelegateSwizzler.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseAuthInternal.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/abslWrapper.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/opensslWrapper.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/grpcWrapper.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/grpcppWrapper.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/nanopb.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/leveldb.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseFirestoreInternalWrapper.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseFirestoreTarget.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-NSData.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-Environment.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/third-party-IsAppEncrypted.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GoogleUtilities-Logger.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/GTMSessionFetcherCore.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseCoreExtension.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseCore.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseAuthInterop.modulemap -Xcc -fmodule-map-file\=/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FirebaseAppCheckInterop.modulemap -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -target x86_64-apple-ios17.0-simulator -g -module-cache-path /Users/runner/work/MYAIM1/MYAIM1/build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/work/MYAIM1/MYAIM1/build/Index.noindex/DataStore -swift-version 5 -I /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/work/MYAIM1/MYAIM1/build/SDKStatCaches.noindex/iphonesimulator18.5-22F76-96ae0914227b19deccb34b33ba7b5dea.sdkstatcache -output-file-map /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/work/MYAIM1/MYAIM1/build/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-generated-files.hmap -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-own-target-headers.hmap -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM-b0d77175769ff1869f08027f85c61ef1-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-project-headers.hmap -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/interop-ios-for-google-sdks/RecaptchaEnterprise/RecaptchaInterop/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/Network/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/Reachability/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseAuth/Sources/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/abseil-cpp-binary/absl-Wrapper/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/grpc-binary/openssl-grpc-Wrapper/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/grpc-binary/grpc-Wrapper/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/grpc-binary/grpcpp-Wrapper/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/nanopb/spm_headers -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/leveldb/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFirestoreInternal -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/SwiftPM-PlatformExclude/FirebaseFirestoreWrap/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/NSData+zlib/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/third_party/IsAppEncrypted/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/GoogleUtilities/GoogleUtilities/Logger/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/gtm-session-fetcher/Sources/Core/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCore/Extension -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseCore/Sources/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/CoreOnly/Sources -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseAuth/Interop/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/SourcePackages/checkouts/firebase-ios-sdk/FirebaseAppCheck/Interop/Public -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/DerivedSources-normal/x86_64 -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/DerivedSources/x86_64 -Xcc -I/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM-Swift.h -working-directory /Users/runner/work/MYAIM1/MYAIM1 -experimental-emit-module-separately -disable-cmo
-
-Ld /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib normal x86_64 (in target 'MYAIM' from project 'MYAIM')
-    cd /Users/runner/work/MYAIM1/MYAIM1
-    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target x86_64-apple-ios17.0-simulator -dynamiclib -isysroot /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk -O0 -L/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator -filelist /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.LinkFileList -install_name @rpath/MYAIM.debug.dylib -Xlinker -rpath -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.swiftmodule -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -lc++ -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -Wl,-no_warn_duplicate_libraries -framework UIKit -lz -lc++ -framework SystemConfiguration -framework UIKit -framework Security -framework SafariServices -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -framework FirebaseFirestoreInternal -framework absl -framework grpcpp -framework grpc -framework openssl_grpc -o /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/Firebase.build/Debug-iphonesimulator/FirebaseCoreInternal.build/Objects-normal/x86_64/FirebaseCoreInternal.swiftmodule -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/Firebase.build/Debug-iphonesimulator/FirebaseAuth.build/Objects-normal/x86_64/FirebaseAuth.swiftmodule -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/Firebase.build/Debug-iphonesimulator/FirebaseSharedSwift.build/Objects-normal/x86_64/FirebaseSharedSwift.swiftmodule -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/Firebase.build/Debug-iphonesimulator/FirebaseFirestore.build/Objects-normal/x86_64/FirebaseFirestore.swiftmodule -Xlinker -add_ast_path -Xlinker /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/Firebase.build/Debug-iphonesimulator/FirebaseStorage.build/Objects-normal/x86_64/FirebaseStorage.swiftmodule
-
-ConstructStubExecutorLinkFileList /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-x86_64.txt (in target 'MYAIM' from project 'MYAIM')
-    cd /Users/runner/work/MYAIM1/MYAIM1
-    construct-stub-executor-link-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM-ExecutorLinkFileList-normal-x86_64.txt
-note: Using stub executor library with Swift entry point. (in target 'MYAIM' from project 'MYAIM')
-
-CreateUniversalBinary /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/MYAIM.debug.dylib normal arm64\ x86_64 (in target 'MYAIM' from project 'MYAIM')
-    cd /Users/runner/work/MYAIM1/MYAIM1
-    /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo -create /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/Binary/MYAIM.debug.dylib /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM.debug.dylib -output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/MYAIM.debug.dylib
 
 Ld /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/Binary/MYAIM normal x86_64 (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
@@ -193,14 +193,14 @@ Ignoring --strip-bitcode because --sign was not passed
 ExtractAppIntentsMetadata (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
     /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name MYAIM --sdk-root /Applications/Xcode_16.4.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator18.5.sdk --xcode-version 16F6 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.myaim.app --output /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app --target-triple arm64-apple-ios17.0-simulator --target-triple x86_64-apple-ios17.0-simulator --binary-file /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/MYAIM --dependency-file /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/MYAIM_dependency_info.dat --dependency-file /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM_dependency_info.dat --stringsdata-file /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --stringsdata-file /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/MYAIM.SwiftFileList --source-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.SwiftFileList --metadata-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM.DependencyMetadataFileList --static-metadata-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/arm64/MYAIM.SwiftConstValuesFileList --swift-const-vals-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/Objects-normal/x86_64/MYAIM.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
-2026-10-12 14:41:52.265 appintentsmetadataprocessor[12459:39646] Starting appintentsmetadataprocessor export
-2026-10-12 14:41:52.270 appintentsmetadataprocessor[12459:39646] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+2026-10-13 21:53:13.681 appintentsmetadataprocessor[12859:40520] Starting appintentsmetadataprocessor export
+2026-10-13 21:53:13.687 appintentsmetadataprocessor[12859:40520] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
 
 AppIntentsSSUTraining (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
     /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Info.plist --temp-dir-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/ssu --bundle-id com.myaim.app --product-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app --extracted-metadata-path /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app/Metadata.appintents --metadata-file-list /Users/runner/work/MYAIM1/MYAIM1/build/Build/Intermediates.noindex/MYAIM.build/Debug-iphonesimulator/MYAIM.build/MYAIM.DependencyMetadataFileList --archive-ssu-assets
-2026-10-12 14:41:52.329 appintentsnltrainingprocessor[12460:39647] Parsing options for appintentsnltrainingprocessor
-2026-10-12 14:41:52.332 appintentsnltrainingprocessor[12460:39647] No AppShortcuts found - Skipping.
+2026-10-13 21:53:13.734 appintentsnltrainingprocessor[12860:40523] Parsing options for appintentsnltrainingprocessor
+2026-10-13 21:53:13.736 appintentsnltrainingprocessor[12860:40523] No AppShortcuts found - Skipping.
 
 RegisterExecutionPolicyException /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulator/MYAIM.app (in target 'MYAIM' from project 'MYAIM')
     cd /Users/runner/work/MYAIM1/MYAIM1
@@ -220,282 +220,296 @@ Touch /Users/runner/work/MYAIM1/MYAIM1/build/Build/Products/Debug-iphonesimulato
 ===== simulator =====
 DEVICE=DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9
 Monitoring boot status for iPhone 16 Pro (DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9).
-[2026-10-12 14:43:01 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
+[2026-10-13 21:53:49 +0000] Status=2, isTerminal=NO, Elapsed=00:30.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
-		Migration Elapsed:00:52 seconds
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:22 seconds
 
-[2026-10-12 14:43:02 +0000] Status=2, isTerminal=NO, Elapsed=00:59.
+[2026-10-13 21:53:51 +0000] Status=2, isTerminal=NO, Elapsed=00:31.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator) (Concurrent: Running plugin com.apple.MobileSlideShow (MobileSlideShow.migrator, concurrent after com.apple.accounts.migrator))
-		Migration Elapsed:00:53 seconds
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:23 seconds
 
-[2026-10-12 14:43:03 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+[2026-10-13 21:53:52 +0000] Status=2, isTerminal=NO, Elapsed=00:32.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
-		Migration Elapsed:00:54 seconds
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:24 seconds
 
-[2026-10-12 14:43:04 +0000] Status=2, isTerminal=NO, Elapsed=01:01.
+[2026-10-13 21:53:53 +0000] Status=2, isTerminal=NO, Elapsed=00:33.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.cleanup.migrator (MCCleanup.migrator)
-		Migration Elapsed:00:55 seconds
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:25 seconds
 
-[2026-10-12 14:43:05 +0000] Status=2, isTerminal=NO, Elapsed=01:02.
+[2026-10-13 21:53:54 +0000] Status=2, isTerminal=NO, Elapsed=00:34.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.cleanup.migrator (MCCleanup.migrator)
-		Migration Elapsed:00:56 seconds
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:26 seconds
 
-[2026-10-12 14:43:08 +0000] Status=4, isTerminal=NO, Elapsed=01:05.
+[2026-10-13 21:53:55 +0000] Status=2, isTerminal=NO, Elapsed=00:35.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:27 seconds
+
+[2026-10-13 21:53:55 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:28 seconds
+
+[2026-10-13 21:53:56 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:29 seconds
+
+[2026-10-13 21:53:57 +0000] Status=2, isTerminal=NO, Elapsed=00:38.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:30 seconds
+
+[2026-10-13 21:53:58 +0000] Status=2, isTerminal=NO, Elapsed=00:39.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:31 seconds
+
+[2026-10-13 21:53:59 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:32 seconds
+
+[2026-10-13 21:54:00 +0000] Status=2, isTerminal=NO, Elapsed=00:41.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:33 seconds
+
+[2026-10-13 21:54:03 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:34 seconds
+
+[2026-10-13 21:54:06 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.WebBookmarks.migrator (WebBookmarks.migrator)
+		Migration Elapsed:00:36 seconds
+
+[2026-10-13 21:54:09 +0000] Status=2, isTerminal=NO, Elapsed=00:49.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.dataaccess.migrator (DAAccount.migrator)
+		Migration Elapsed:00:39 seconds
+
+[2026-10-13 21:54:13 +0000] Status=4, isTerminal=NO, Elapsed=00:53.
 	Waiting on System App
 
-[2026-10-12 14:43:09 +0000] Status=4, isTerminal=NO, Elapsed=01:06.
+[2026-10-13 21:54:15 +0000] Status=4, isTerminal=NO, Elapsed=00:55.
 	Waiting on System App
 
-[2026-10-12 14:43:10 +0000] Status=4, isTerminal=NO, Elapsed=01:07.
+[2026-10-13 21:54:16 +0000] Status=4, isTerminal=NO, Elapsed=00:56.
 	Waiting on System App
 
-[2026-10-12 14:43:14 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:12.
+[2026-10-13 21:54:17 +0000] Status=4, isTerminal=NO, Elapsed=00:57.
+	Waiting on System App
+
+[2026-10-13 21:54:21 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:01.
 	Finished
 
 APP=build/Build/Products/Debug-iphonesimulator/MYAIM.app
-com.myaim.app: 14958
+com.myaim.app: 15553
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-top.png
-com.myaim.app: 15863
+com.myaim.app: 16443
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-mid.png
-com.myaim.app: 16233
+com.myaim.app: 16593
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-bot.png
-com.myaim.app: 16793
+com.myaim.app: 17120
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-top.png
-com.myaim.app: 17020
+com.myaim.app: 17540
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-mid.png
-com.myaim.app: 17418
+com.myaim.app: 17754
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-bot.png
-com.myaim.app: 17638
+com.myaim.app: 18309
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-top.png
-com.myaim.app: 18049
+com.myaim.app: 18392
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-mid.png
-com.myaim.app: 18610
+com.myaim.app: 18954
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-bot.png
-com.myaim.app: 18704
+com.myaim.app: 19564
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-top.png
-com.myaim.app: 19549
+com.myaim.app: 20277
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-mid.png
-com.myaim.app: 20196
+com.myaim.app: 20825
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-bot.png
-com.myaim.app: 20593
+com.myaim.app: 20943
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-dashboard.png
-com.myaim.app: 21135
+com.myaim.app: 21618
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-courses.png
-com.myaim.app: 21208
+com.myaim.app: 22184
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-posts.png
-com.myaim.app: 21759
+com.myaim.app: 22693
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-subscription.png
-com.myaim.app: 22076
+com.myaim.app: 22841
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-account.png
-com.myaim.app: 22372
+com.myaim.app: 23598
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-serviceDetail.png
-com.myaim.app: 22923
+com.myaim.app: 24356
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-booking.png
-com.myaim.app: 23286
+com.myaim.app: 25804
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-search.png
-com.myaim.app: 24326
+com.myaim.app: 26043
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-favorites.png
-com.myaim.app: 24887
+com.myaim.app: 26480
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-notifications.png
-com.myaim.app: 25029
+com.myaim.app: 26765
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-registerAcademy.png
-com.myaim.app: 25500
+com.myaim.app: 27395
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-providerProfile.png
-com.myaim.app: 25982
+com.myaim.app: 28414
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-settings.png
-com.myaim.app: 26157
+com.myaim.app: 28914
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-messages.png
-com.myaim.app: 26740
+com.myaim.app: 29060
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-chat.png
-com.myaim.app: 27131
+com.myaim.app: 29632
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-help.png
-com.myaim.app: 27993
+com.myaim.app: 30012
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingPayment.png
-com.myaim.app: 28262
+com.myaim.app: 30285
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-addCourse.png
-com.myaim.app: 28679
+com.myaim.app: 30858
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-publishAd.png
-com.myaim.app: 29243
+com.myaim.app: 31867
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-courseDetail.png
-com.myaim.app: 29314
+com.myaim.app: 32211
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingRequests.png
-com.myaim.app: 29883
+com.myaim.app: 32791
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyInbox.png
-com.myaim.app: 30369
+com.myaim.app: 33393
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyChat.png
-com.myaim.app: 30572
+com.myaim.app: 33977
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-providerStats.png
-com.myaim.app: 31467
+com.myaim.app: 34241
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyInfo.png
-com.myaim.app: 31921
+com.myaim.app: 34639
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-splash.png
-com.myaim.app: 32399
+com.myaim.app: 34810
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-onboarding.png
-com.myaim.app: 32472
+com.myaim.app: 35537
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-login.png
-com.myaim.app: 33052
+com.myaim.app: 36476
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-login.png
-com.myaim.app: 33657
+com.myaim.app: 36887
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-otp.png
-com.myaim.app: 34268
+com.myaim.app: 37192
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-done.png
--rw-r--r--@ 1 runner  staff   165136 Oct 12 14:51 shot-auth-done.png
--rw-r--r--@ 1 runner  staff   970330 Oct 12 14:51 shot-auth-login.png
--rw-r--r--@ 1 runner  staff   166765 Oct 12 14:51 shot-auth-otp.png
--rw-r--r--@ 1 runner  staff   786250 Oct 12 14:46 shot-bookings-bot.png
--rw-r--r--@ 1 runner  staff   786184 Oct 12 14:45 shot-bookings-mid.png
--rw-r--r--@ 1 runner  staff   786184 Oct 12 14:45 shot-bookings-top.png
--rw-r--r--@ 1 runner  staff  1368620 Oct 12 14:45 shot-discover-bot.png
--rw-r--r--@ 1 runner  staff  1644970 Oct 12 14:45 shot-discover-mid.png
--rw-r--r--@ 1 runner  staff  2246858 Oct 12 14:45 shot-discover-top.png
--rw-r--r--@ 1 runner  staff  1669909 Oct 12 14:45 shot-home-bot.png
--rw-r--r--@ 1 runner  staff  2212446 Oct 12 14:45 shot-home-mid.png
--rw-r--r--@ 1 runner  staff  2417514 Oct 12 14:44 shot-home-top.png
--rw-r--r--@ 1 runner  staff   167668 Oct 12 14:50 shot-login.png
--rw-r--r--@ 1 runner  staff   408309 Oct 12 14:50 shot-onboarding.png
--rw-r--r--@ 1 runner  staff   347791 Oct 12 14:50 shot-page-academyChat.png
--rw-r--r--@ 1 runner  staff   391500 Oct 12 14:50 shot-page-academyInbox.png
--rw-r--r--@ 1 runner  staff   393404 Oct 12 14:50 shot-page-academyInfo.png
--rw-r--r--@ 1 runner  staff   368708 Oct 12 14:49 shot-page-addCourse.png
--rw-r--r--@ 1 runner  staff   685499 Oct 12 14:47 shot-page-booking.png
--rw-r--r--@ 1 runner  staff   633350 Oct 12 14:49 shot-page-bookingPayment.png
--rw-r--r--@ 1 runner  staff   652463 Oct 12 14:49 shot-page-bookingRequests.png
--rw-r--r--@ 1 runner  staff   368585 Oct 12 14:48 shot-page-chat.png
--rw-r--r--@ 1 runner  staff  1374430 Oct 12 14:49 shot-page-courseDetail.png
--rw-r--r--@ 1 runner  staff   216616 Oct 12 14:48 shot-page-favorites.png
--rw-r--r--@ 1 runner  staff   475037 Oct 12 14:49 shot-page-help.png
--rw-r--r--@ 1 runner  staff   637617 Oct 12 14:48 shot-page-messages.png
--rw-r--r--@ 1 runner  staff   351322 Oct 12 14:48 shot-page-notifications.png
--rw-r--r--@ 1 runner  staff  1731674 Oct 12 14:48 shot-page-providerProfile.png
--rw-r--r--@ 1 runner  staff   780378 Oct 12 14:50 shot-page-providerStats.png
--rw-r--r--@ 1 runner  staff  1406364 Oct 12 14:49 shot-page-publishAd.png
--rw-r--r--@ 1 runner  staff   320260 Oct 12 14:48 shot-page-registerAcademy.png
--rw-r--r--@ 1 runner  staff  1020500 Oct 12 14:47 shot-page-search.png
--rw-r--r--@ 1 runner  staff  1529849 Oct 12 14:47 shot-page-serviceDetail.png
--rw-r--r--@ 1 runner  staff   507352 Oct 12 14:48 shot-page-settings.png
--rw-r--r--@ 1 runner  staff   701672 Oct 12 14:46 shot-profile-bot.png
--rw-r--r--@ 1 runner  staff   715509 Oct 12 14:46 shot-profile-mid.png
--rw-r--r--@ 1 runner  staff   720890 Oct 12 14:46 shot-profile-top.png
--rw-r--r--@ 1 runner  staff   735840 Oct 12 14:47 shot-prov-account.png
--rw-r--r--@ 1 runner  staff   930106 Oct 12 14:46 shot-prov-courses.png
--rw-r--r--@ 1 runner  staff   971017 Oct 12 14:46 shot-prov-dashboard.png
--rw-r--r--@ 1 runner  staff   929564 Oct 12 14:46 shot-prov-posts.png
--rw-r--r--@ 1 runner  staff   490825 Oct 12 14:47 shot-prov-subscription.png
--rw-r--r--@ 1 runner  staff   154994 Oct 12 14:50 shot-splash.png
+-rw-r--r--@ 1 runner  staff   165610 Oct 13 22:03 shot-auth-done.png
+-rw-r--r--@ 1 runner  staff   971201 Oct 13 22:02 shot-auth-login.png
+-rw-r--r--@ 1 runner  staff   165397 Oct 13 22:02 shot-auth-otp.png
+-rw-r--r--@ 1 runner  staff   787874 Oct 13 21:57 shot-bookings-bot.png
+-rw-r--r--@ 1 runner  staff   787874 Oct 13 21:57 shot-bookings-mid.png
+-rw-r--r--@ 1 runner  staff   787676 Oct 13 21:57 shot-bookings-top.png
+-rw-r--r--@ 1 runner  staff  1366785 Oct 13 21:56 shot-discover-bot.png
+-rw-r--r--@ 1 runner  staff  1642077 Oct 13 21:56 shot-discover-mid.png
+-rw-r--r--@ 1 runner  staff  2247939 Oct 13 21:56 shot-discover-top.png
+-rw-r--r--@ 1 runner  staff  1670760 Oct 13 21:56 shot-home-bot.png
+-rw-r--r--@ 1 runner  staff  2213741 Oct 13 21:56 shot-home-mid.png
+-rw-r--r--@ 1 runner  staff  2383005 Oct 13 21:56 shot-home-top.png
+-rw-r--r--@ 1 runner  staff   165397 Oct 13 22:02 shot-login.png
+-rw-r--r--@ 1 runner  staff   405809 Oct 13 22:02 shot-onboarding.png
+-rw-r--r--@ 1 runner  staff   347007 Oct 13 22:01 shot-page-academyChat.png
+-rw-r--r--@ 1 runner  staff   388807 Oct 13 22:01 shot-page-academyInbox.png
+-rw-r--r--@ 1 runner  staff   393741 Oct 13 22:02 shot-page-academyInfo.png
+-rw-r--r--@ 1 runner  staff   368480 Oct 13 22:00 shot-page-addCourse.png
+-rw-r--r--@ 1 runner  staff   686099 Oct 13 21:59 shot-page-booking.png
+-rw-r--r--@ 1 runner  staff   633050 Oct 13 22:00 shot-page-bookingPayment.png
+-rw-r--r--@ 1 runner  staff   652854 Oct 13 22:01 shot-page-bookingRequests.png
+-rw-r--r--@ 1 runner  staff   364427 Oct 13 22:00 shot-page-chat.png
+-rw-r--r--@ 1 runner  staff  1373804 Oct 13 22:01 shot-page-courseDetail.png
+-rw-r--r--@ 1 runner  staff   216927 Oct 13 21:59 shot-page-favorites.png
+-rw-r--r--@ 1 runner  staff   475293 Oct 13 22:00 shot-page-help.png
+-rw-r--r--@ 1 runner  staff   633332 Oct 13 22:00 shot-page-messages.png
+-rw-r--r--@ 1 runner  staff   300958 Oct 13 21:59 shot-page-notifications.png
+-rw-r--r--@ 1 runner  staff  1732634 Oct 13 21:59 shot-page-providerProfile.png
+-rw-r--r--@ 1 runner  staff   779912 Oct 13 22:01 shot-page-providerStats.png
+-rw-r--r--@ 1 runner  staff  1405792 Oct 13 22:01 shot-page-publishAd.png
+-rw-r--r--@ 1 runner  staff   320361 Oct 13 21:59 shot-page-registerAcademy.png
+-rw-r--r--@ 1 runner  staff   995492 Oct 13 21:59 shot-page-search.png
+-rw-r--r--@ 1 runner  staff  1530995 Oct 13 21:58 shot-page-serviceDetail.png
+-rw-r--r--@ 1 runner  staff   507302 Oct 13 22:00 shot-page-settings.png
+-rw-r--r--@ 1 runner  staff   701812 Oct 13 21:57 shot-profile-bot.png
+-rw-r--r--@ 1 runner  staff   715578 Oct 13 21:57 shot-profile-mid.png
+-rw-r--r--@ 1 runner  staff   721045 Oct 13 21:57 shot-profile-top.png
+-rw-r--r--@ 1 runner  staff   737186 Oct 13 21:58 shot-prov-account.png
+-rw-r--r--@ 1 runner  staff   930650 Oct 13 21:58 shot-prov-courses.png
+-rw-r--r--@ 1 runner  staff   971335 Oct 13 21:57 shot-prov-dashboard.png
+-rw-r--r--@ 1 runner  staff   930544 Oct 13 21:58 shot-prov-posts.png
+-rw-r--r--@ 1 runner  staff   491847 Oct 13 21:58 shot-prov-subscription.png
+-rw-r--r--@ 1 runner  staff   155634 Oct 13 22:02 shot-splash.png
 STORE=F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C
 Monitoring boot status for iPhone 16 Pro Max (F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C).
-[2026-10-12 14:52:53 +0000] Status=2, isTerminal=NO, Elapsed=01:06.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:51 seconds
+Device already booted, nothing to do.
 
-[2026-10-12 14:52:54 +0000] Status=2, isTerminal=NO, Elapsed=01:07.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:52 seconds
-
-[2026-10-12 14:53:03 +0000] Status=2, isTerminal=NO, Elapsed=01:16.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:53 seconds
-
-[2026-10-12 14:53:05 +0000] Status=2, isTerminal=NO, Elapsed=01:18.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
-		Migration Elapsed:01:00 seconds
-
-[2026-10-12 14:53:07 +0000] Status=2, isTerminal=NO, Elapsed=01:20.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
-		Migration Elapsed:01:03 seconds
-
-[2026-10-12 14:53:12 +0000] Status=2, isTerminal=NO, Elapsed=01:25.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.MobileSafari.migrator (MobileSafari.migrator)
-		Migration Elapsed:01:04 seconds
-
-[2026-10-12 14:53:19 +0000] Status=2, isTerminal=NO, Elapsed=01:32.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.managedconfiguration.cleanup.migrator (MCCleanup.migrator)
-		Migration Elapsed:01:10 seconds
-
-[2026-10-12 14:53:23 +0000] Status=4, isTerminal=NO, Elapsed=01:36.
-	Waiting on System App
-
-[2026-10-12 14:53:27 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:40.
-	Finished
-
-com.myaim.app: 39089
-com.myaim.app: 39606
+com.myaim.app: 65088
+com.myaim.app: 66964
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/01-home.png
-com.myaim.app: 40750
+com.myaim.app: 67659
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/02-discover.png
-com.myaim.app: 41786
+com.myaim.app: 68599
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/03-service.png
-com.myaim.app: 42309
+com.myaim.app: 69541
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/04-payment.png
-com.myaim.app: 43238
+com.myaim.app: 71315
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/05-requests.png
-com.myaim.app: 44194
+com.myaim.app: 72293
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/06-chat.png
-com.myaim.app: 45185
+com.myaim.app: 72783
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/07-dashboard.png
-com.myaim.app: 46820
+com.myaim.app: 73341
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/08-splash.png
 === store screenshot dimensions ===
@@ -523,17 +537,17 @@ Wrote screenshot to: store/08-splash.png
 /Users/runner/work/MYAIM1/MYAIM1/store/08-splash.png
   pixelWidth: 1320
   pixelHeight: 2868
-total 19752
-drwxr-xr-x  10 runner  staff      320 Oct 12 14:58 .
-drwxr-xr-x  73 runner  staff     2336 Oct 12 14:55 ..
--rw-r--r--@  1 runner  staff  2852569 Oct 12 14:56 01-home.png
--rw-r--r--@  1 runner  staff  2592238 Oct 12 14:56 02-discover.png
--rw-r--r--@  1 runner  staff  1732600 Oct 12 14:56 03-service.png
--rw-r--r--@  1 runner  staff   654069 Oct 12 14:56 04-payment.png
--rw-r--r--@  1 runner  staff   669637 Oct 12 14:57 05-requests.png
--rw-r--r--@  1 runner  staff   375365 Oct 12 14:57 06-chat.png
--rw-r--r--@  1 runner  staff  1047906 Oct 12 14:58 07-dashboard.png
--rw-r--r--@  1 runner  staff   179162 Oct 12 14:58 08-splash.png
+total 19672
+drwxr-xr-x  10 runner  staff      320 Oct 13 22:16 .
+drwxr-xr-x  73 runner  staff     2336 Oct 13 22:05 ..
+-rw-r--r--@  1 runner  staff  2819992 Oct 13 22:14 01-home.png
+-rw-r--r--@  1 runner  staff  2591752 Oct 13 22:14 02-discover.png
+-rw-r--r--@  1 runner  staff  1731503 Oct 13 22:14 03-service.png
+-rw-r--r--@  1 runner  staff   656005 Oct 13 22:15 04-payment.png
+-rw-r--r--@  1 runner  staff   671743 Oct 13 22:16 05-requests.png
+-rw-r--r--@  1 runner  staff   373040 Oct 13 22:16 06-chat.png
+-rw-r--r--@  1 runner  staff  1048264 Oct 13 22:16 07-dashboard.png
+-rw-r--r--@  1 runner  staff   167033 Oct 13 22:16 08-splash.png
 === tools ===
 Version: ImageMagick 7.1.2-31 Q16-HDRI aarch64 8309dc92a:20260903 https://imagemagick.org
 rsvg-convert version 2.62.3
@@ -545,35 +559,35 @@ libraries used:
   fontconfig 2.18.3
 /Users/runner/.fonts/IBMPlexSansArabic-Bold.ttf: IBM Plex Sans Arabic:style=Bold
 === framing 01-home.png :: كل الأكاديميات والمدرّبين في مكان واحد ===
-  files: ..=5056 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1587160 
-  OUT size: 1449008 bytes
+  files: ..=5152 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1561127 
+  OUT size: 1429390 bytes
 === framing 02-discover.png :: اكتشف الأقرب إليك وقارن بسهولة ===
-  files: ..=5056 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1479434 
-  OUT size: 1371355 bytes
+  files: ..=5152 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1478677 
+  OUT size: 1370755 bytes
 === framing 03-service.png :: تفاصيل واضحة وأسعار شفافة ===
-  files: ..=5056 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1002987 
-  OUT size: 940343 bytes
+  files: ..=5152 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1002197 
+  OUT size: 939387 bytes
 === framing 04-payment.png :: ادفع بأمان عبر التحويل أو رمز QR ===
-  files: ..=5056 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=352060 
-  OUT size: 363873 bytes
+  files: ..=5152 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=352296 
+  OUT size: 364144 bytes
 === framing 05-requests.png :: تأكيد الحجوزات بضغطة واحدة ===
-  files: ..=5056 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=332371 
-  OUT size: 334797 bytes
+  files: ..=5152 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=333179 
+  OUT size: 335467 bytes
 === framing 06-chat.png :: تواصل مباشر مع الأكاديمية — نصاً وصوتاً ===
-  files: ..=5056 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=235942 
-  OUT size: 253184 bytes
+  files: ..=5152 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=234429 
+  OUT size: 251861 bytes
 === framing 07-dashboard.png :: لوحة متكاملة لإدارة أكاديميتك ===
-  files: ..=5056 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=524136 
-  OUT size: 521909 bytes
+  files: ..=5152 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=523827 
+  OUT size: 521682 bytes
 === framing 08-splash.png :: حدّد هدفك… ونكمّل الطريق معك ===
-  files: ..=5056 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=131566 
-  OUT size: 143187 bytes
+  files: ..=5152 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=98418 
+  OUT size: 109780 bytes
 === framed output ===
-01-home.png 1320x2868 1.44901MB
-02-discover.png 1320x2868 1.37136MB
-03-service.png 1320x2868 940343B
-04-payment.png 1320x2868 363873B
-05-requests.png 1320x2868 334797B
-06-chat.png 1320x2868 253184B
-07-dashboard.png 1320x2868 521909B
-08-splash.png 1320x2868 143187B
+01-home.png 1320x2868 1.42939MB
+02-discover.png 1320x2868 1.37076MB
+03-service.png 1320x2868 939387B
+04-payment.png 1320x2868 364144B
+05-requests.png 1320x2868 335467B
+06-chat.png 1320x2868 251861B
+07-dashboard.png 1320x2868 521682B
+08-splash.png 1320x2868 109780B
