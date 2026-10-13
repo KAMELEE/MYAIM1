@@ -1,12 +1,11 @@
 import SwiftUI
 
 enum NotificationKind {
-    case booking, goal, suggestion, message
+    case booking, suggestion, message
 
     var icon: String {
         switch self {
         case .booking:    return "calendar.badge.checkmark"
-        case .goal:       return "target"
         case .suggestion: return "sparkles"
         case .message:    return "bubble.left"
         }
@@ -15,7 +14,6 @@ enum NotificationKind {
     var tint: Color {
         switch self {
         case .booking:    return MYColor.success
-        case .goal:       return MYColor.primary
         case .suggestion: return MYColor.warning
         case .message:    return Color(hex: "#2B77E0")
         }

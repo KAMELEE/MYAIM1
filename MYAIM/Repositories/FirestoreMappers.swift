@@ -102,33 +102,4 @@ enum FirestoreMappers {
                        paymentMethod: payment)
     }
 
-    // MARK: - Goal
-
-    static func goalData(userId: String, goal: Goal) -> [String: Any] {
-        [
-            "userId": userId,
-            "title": goal.title,
-            "category": goal.category.rawValue,
-            "steps": goal.steps.map { ["title": $0.title, "isDone": $0.isDone] },
-            "createdAt": Timestamp(date: goal.createdAt)
-        ]
-    }
-
-    static func goal(from data: [String: Any], id: String) -> Goal? {
-        guard let title = data["title"] as? String,
-              let categoryRaw = data["category"] as? String,
-              let category = ServiceCategory(rawValue: categoryRaw),
-              let stepsData = data["steps"] as? [[String: Any]]
-        else { return nil }
-        let steps = stepsData.compactMap { d -> GoalStep? in
-            guard let t = d["title"] as? String else { return nil }
-            return GoalStep(title: t, isDone: d["isDone"] as? Bool ?? false)
-        }
-        let createdAt = (data["createdAt"] as? Timestamp)?.dateValue() ?? Date()
-        return Goal(id: UUID(uuidString: id) ?? UUID(),
-                    title: title,
-                    category: category,
-                    steps: steps,
-                    createdAt: createdAt)
-    }
 }

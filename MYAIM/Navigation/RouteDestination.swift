@@ -27,12 +27,6 @@ struct RouteDestination: View {
         case .favorites:
             FavoritesView()
 
-        case .goalDetail(let goal):
-            GoalDetailView(goal: goal)
-
-        case .createGoal:
-            CreateGoalView()
-
         case .registerAcademy:
             RegisterAcademyView()
 

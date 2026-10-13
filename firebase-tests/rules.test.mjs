@@ -71,8 +71,8 @@ test('services: nobody can edit the unowned sample catalog', async () => {
   await assertFails(updateDoc(doc(db(TRAINEE), 'services/seed1'), { startingPrice: 1 }));
 });
 
-// ---------- bookings / goals ----------
-for (const col of ['bookings', 'goals']) {
+// ---------- bookings ----------
+for (const col of ['bookings']) {
   test(`${col}: owner-only`, async () => {
     await assertSucceeds(setDoc(doc(db(TRAINEE), `${col}/b1`), { userId: TRAINEE }));
     await assertFails(setDoc(doc(db(TRAINEE), `${col}/b2`), { userId: STRANGER }));

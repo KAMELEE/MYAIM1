@@ -75,7 +75,6 @@ private struct TabNavigationStack<Content: View>: View {
     RootTabView()
         .environment(AppState())
         .environment(FavoritesStore())
-        .environment(GoalsStore())
         .environment(LocationService())
         .environment(MessagesStore())
         .environment(NotificationService())

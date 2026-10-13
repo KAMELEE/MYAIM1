@@ -21,13 +21,6 @@ enum AppRepositories {
         #endif
     }
 
-    static func goals() -> GoalRepository {
-        #if DEMO
-        MockGoalRepository()
-        #else
-        FirestoreGoalRepository()
-        #endif
-    }
 
     /// Academy dashboard persistence — nil in DEMO (in-memory store).
     static func provider() -> ProviderRepository? {

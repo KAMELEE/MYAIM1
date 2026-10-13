@@ -9,8 +9,6 @@ enum AppRoute: Hashable {
     case search
     case notifications
     case favorites
-    case goalDetail(Goal)
-    case createGoal
     case registerAcademy
     case booking(Service)
     case settings

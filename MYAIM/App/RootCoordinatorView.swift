@@ -3,7 +3,6 @@ import SwiftUI
 /// Decides which top-level flow to show: Onboarding → Authentication → App.
 struct RootCoordinatorView: View {
     @Environment(AppState.self) private var appState
-    @Environment(GoalsStore.self) private var goalsStore
     @Environment(ProviderStore.self) private var providerStore
     @Environment(MessagesStore.self) private var messagesStore
     @Environment(AcademyInboxStore.self) private var academyInbox
@@ -61,7 +60,6 @@ struct RootCoordinatorView: View {
         .onChange(of: appState.isAuthenticated) { _, signedIn in
             guard signedIn else { return }
             Task {
-                await goalsStore.reload()
                 await messagesStore.reload()
                 await providerStore.reload()
                 await academyInbox.reload()
@@ -75,7 +73,6 @@ struct RootCoordinatorView: View {
     RootCoordinatorView()
         .environment(AppState())
         .environment(FavoritesStore())
-        .environment(GoalsStore())
         .environment(ProviderStore())
         .environment(LocationService())
         .environment(MessagesStore())

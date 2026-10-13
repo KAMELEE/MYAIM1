@@ -16,12 +16,6 @@ service cloud.firestore {
       allow create: if request.auth != null
         && request.auth.uid == request.resource.data.userId;
     }
-    match /goals/{doc} {
-      allow read, update, delete: if request.auth != null
-        && request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null
-        && request.auth.uid == request.resource.data.userId;
-    }
     // لوحة الأكاديمية: كل حساب يملك مستنده ومجموعاته الفرعية فقط
     match /providers/{uid}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == uid;

@@ -228,29 +228,6 @@ enum SampleData {
         )
     ]
 
-    // MARK: - Goals
-    static let goals: [Goal] = [
-        Goal(
-            title: "إطلاق مشروعي الإلكتروني",
-            category: .tech,
-            steps: [
-                GoalStep(title: "تحديد الفكرة", isDone: true),
-                GoalStep(title: "دراسة السوق", isDone: true),
-                GoalStep(title: "إنشاء المتجر", isDone: false),
-                GoalStep(title: "إطلاق الحملة", isDone: false)
-            ]
-        ),
-        Goal(
-            title: "تحسين لياقتي البدنية",
-            category: .sports,
-            steps: [
-                GoalStep(title: "الاشتراك في أكاديمية", isDone: true),
-                GoalStep(title: "وضع خطة تدريب", isDone: true),
-                GoalStep(title: "الالتزام 3 أشهر", isDone: true)
-            ]
-        )
-    ]
-
     // MARK: - Academy stories (Home)
     static let academyStories: [AcademyStory] = [
         AcademyStory(
@@ -318,12 +295,9 @@ enum SampleData {
         AppNotification(kind: .booking, title: "تم تأكيد حجزك",
                         body: "حجزك في «برنامج اللياقة الشامل» تم تأكيده ليوم الأحد ١٠:٣٠ ص.",
                         date: Date().addingTimeInterval(-3600), isUnread: true),
-        AppNotification(kind: .suggestion, title: "اقتراح يناسب هدفك",
-                        body: "وجدنا «معسكر تطوير تطبيقات iOS» قد يساعدك في تحقيق هدفك.",
+        AppNotification(kind: .suggestion, title: "اقتراح يناسبك",
+                        body: "وجدنا «معسكر تطوير تطبيقات iOS» قد يناسب اهتماماتك.",
                         date: Date().addingTimeInterval(-3600 * 6), isUnread: true),
-        AppNotification(kind: .goal, title: "تقدّم جديد في هدفك",
-                        body: "أنجزت خطوة جديدة في «إطلاق مشروعي الإلكتروني». استمر!",
-                        date: Date().addingTimeInterval(-86400), isUnread: false),
         AppNotification(kind: .message, title: "رسالة من مقدّم الخدمة",
                         body: "أكاديمية النخبة الرياضية: نتطلع لرؤيتك في أول حصة!",
                         date: Date().addingTimeInterval(-86400 * 2), isUnread: false)
@@ -371,7 +345,4 @@ extension Service {
 }
 extension Provider {
     static let preview = SampleData.providers[0]
-}
-extension Goal {
-    static let preview = SampleData.goals[0]
 }

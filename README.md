@@ -47,7 +47,7 @@ MYAIM/
 │  ├─ Extensions/          Color+Hex, Font+AppFont, Formatters, View+…
 │  └─ Utilities/           Haptics, LoadingState
 ├─ Navigation/             AppTab + RootTabView (شريط التبويب)
-├─ Features/               Home · Discover · Goals · Bookings · Profile
+├─ Features/               Home · Discover · Bookings · Profile
 ├─ Components/             MYButton · MYSectionHeader · MYEmptyState
 ├─ Models/                 (تُبنى مع الميزات)
 ├─ Repositories/           (Repository Architecture — تُبنى مع الميزات)
@@ -195,7 +195,6 @@ MYAIM/
     تلقائيًا من الكتالوج العربي المدمج (`SampleData`) مرة واحدة، ثم يقرأ التطبيق
     البيانات الحية دائمًا.
   - **`bookings`** — حجوزات المستخدم (`userId` + لقطة الخدمة لحظة الحجز + التاريخ/الوقت/الحالة).
-  - **`goals`** — أهداف المستخدم وخطواتها؛ الإضافة وتأشير الخطوات تُكتب فورًا إلى Firestore.
   - **`providers/{uid}`** — لوحة الأكاديمية: الاسم/الوصف/الفئة/الباقة، ومعها
     `courses` و`posts` كمجموعات فرعية. أول دخول ينشئ المستند، وكل إضافة دورة أو منشور أو
     تغيير نشر/باقة يُكتب فورًا. الحساب الحقيقي يبدأ فارغًا (بلا دورات تجريبية).
@@ -204,7 +203,7 @@ MYAIM/
     ويُحفظ رابطها ومدتها في الرسالة، فتُشغَّل عند الطرف الآخر (المتدرب أو الأكاديمية).
     **لا ردود آلية في الإنتاج** — الردود الوهمية في نسخة DEMO فقط.
 - `AppRepositories` هي نقطة القرار الوحيدة: `DEMO` → Mocks/ذاكرة، غير ذلك → Firestore.
-- بعد تسجيل الدخول تُعاد تعبئة الأهداف والمحادثات ولوحة الأكاديمية من Firestore.
+- بعد تسجيل الدخول تُعاد تعبئة المحادثات ولوحة الأكاديمية والإعلانات من Firestore.
 
 ### قواعد الحماية (Firestore ▸ Rules)
 > المصدر الرسمي: الملفان `firestore.rules` و`storage.rules` في جذر المستودع.
@@ -225,12 +224,6 @@ service cloud.firestore {
         && resource.data.ownerUid == request.auth.uid;
     }
     match /bookings/{doc} {
-      allow read, update, delete: if request.auth != null
-        && request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null
-        && request.auth.uid == request.resource.data.userId;
-    }
-    match /goals/{doc} {
       allow read, update, delete: if request.auth != null
         && request.auth.uid == resource.data.userId;
       allow create: if request.auth != null
@@ -321,7 +314,7 @@ service firebase.storage {
   ويعود تلقائيًا عند الرجوع للجذر — فلا يغطي شريط «احجز الآن» أو خانة الكتابة بعد اليوم.
   `myTabBarInset()` / `myTabBarClearance()` تصبح صفرًا تلقائيًا في الشاشات الفرعية (`\.myTabBarVisible`).
 - **دخول متتابع** (`myAppear`) لأقسام الرئيسية ولبطاقات القوائم والشبكات (اكتشف، الكل، المفضلة،
-  حجوزاتي، أهدافي، الإشعارات، الرسائل) — يحترم إعداد «تقليل الحركة».
+  حجوزاتي، الإشعارات، الرسائل) — يحترم إعداد «تقليل الحركة».
 - **شريط الحالة في الرئيسية**: خلفية خلف الساعة/الجزيرة حتى لا يتداخل المحتوى عند التمرير (`myStatusBarScrim`).
 - **اتجاه الأسهم RTL**: زر الرجوع في تفاصيل الخدمة وصفحة الأكاديمية يشير لليمين، وأزرار التالي/السابق
   و«ابدأ الآن» في الـOnboarding صُحّح اتجاهها.
@@ -345,6 +338,8 @@ service firebase.storage {
   - **أول شيء في رئيسية المتدربين**: سلايدر إعلانات بعرض الشاشة يتنقّل تلقائيًا (يحترم «تقليل الحركة»)،
     ويختفي الإعلان تلقائيًا بعد انتهاء مدته.
   - في نسخة DEMO يُفعَّل الإعلان فورًا (دفع محاكى) ليظهر مباشرة.
+- [x] **حذف «أهدافي» بالكامل**: التبويب وقسم «هدفك الحالي» (١١ أكتوبر)، ثم الكود نفسه —
+  الشاشات و`GoalsStore` و`Goal` والمستودعات ومجموعة `goals` في القواعد.
 - **المرحلة 13 (المتبقي):** اختبار شامل على جهاز حقيقي.
 
 > ملاحظة: لا يمكن بناء المشروع على Windows؛ افتحه على Mac (`xcodegen generate`) وبلّغني بأي خطأ ترجمة.

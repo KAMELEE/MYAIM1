@@ -32,7 +32,6 @@ struct MYAIMApp: App {
 
     @State private var appState = AppState()
     @State private var favorites = FavoritesStore()
-    @State private var goals = GoalsStore()
     @State private var provider = ProviderStore()
     @State private var location = LocationService()
     @State private var messages = MessagesStore()
@@ -45,7 +44,6 @@ struct MYAIMApp: App {
             RootCoordinatorView()
                 .environment(appState)
                 .environment(favorites)
-                .environment(goals)
                 .environment(provider)
                 .environment(location)
                 .environment(messages)
