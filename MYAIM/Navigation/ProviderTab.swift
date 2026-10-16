@@ -22,20 +22,20 @@ enum ProviderTab: Int, CaseIterable, Identifiable, TabBarItem {
 
     var icon: String {
         switch self {
-        case .dashboard:    return "square.grid.2x2"
-        case .courses:      return "book"
+        case .dashboard:    return "chart.bar"
+        case .courses:      return "rectangle.stack"
         case .ads:          return "megaphone"
-        case .subscription: return "creditcard"
+        case .subscription: return "crown"
         case .account:      return "building.2"
         }
     }
 
     var selectedIcon: String {
         switch self {
-        case .dashboard:    return "square.grid.2x2.fill"
-        case .courses:      return "book.fill"
+        case .dashboard:    return "chart.bar.fill"
+        case .courses:      return "rectangle.stack.fill"
         case .ads:          return "megaphone.fill"
-        case .subscription: return "creditcard.fill"
+        case .subscription: return "crown.fill"
         case .account:      return "building.2.fill"
         }
     }

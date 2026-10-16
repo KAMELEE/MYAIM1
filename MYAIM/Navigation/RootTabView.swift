@@ -3,6 +3,7 @@ import SwiftUI
 /// Root shell: a `TabView` (native bar hidden) with a custom boxed `MYTabBar`.
 /// Each tab owns a `Router` + NavigationStack and registers app routes.
 struct RootTabView: View {
+    @Environment(MessagesStore.self) private var messages
     @State private var selection: AppTab
     /// Navigation depth per tab — the floating bar hides on pushed screens.
     @State private var depths: [AppTab: Int] = [:]
@@ -15,6 +16,7 @@ struct RootTabView: View {
             switch args[i + 1] {
             case "discover": initial = .discover
             case "bookings": initial = .bookings
+            case "messages": initial = .messages
             case "profile":  initial = .profile
             default:         initial = .home
             }
@@ -34,7 +36,8 @@ struct RootTabView: View {
         }
         .overlay(alignment: .bottom) {
             if (depths[selection] ?? 0) == 0 {
-                MYTabBar(items: AppTab.allCases, selection: $selection)
+                MYTabBar(items: AppTab.allCases, selection: $selection,
+                         badged: messages.totalUnread > 0 ? [.messages] : [])
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
         }
@@ -48,6 +51,7 @@ struct RootTabView: View {
         case .home:     HomeView()
         case .discover: DiscoverView()
         case .bookings: BookingsView()
+        case .messages: MessagesView()
         case .profile:  ProfileView()
         }
     }

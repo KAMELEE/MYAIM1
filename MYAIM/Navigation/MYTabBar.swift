@@ -7,6 +7,8 @@ import SwiftUI
 struct MYTabBar<Tab: TabBarItem>: View {
     let items: [Tab]
     @Binding var selection: Tab
+    /// Tabs that show a small unread dot on their icon.
+    var badged: Set<Tab> = []
 
     var body: some View {
         HStack(spacing: MYSpacing.xs) {
@@ -43,6 +45,15 @@ struct MYTabBar<Tab: TabBarItem>: View {
                 Image(systemName: isActive ? tab.selectedIcon : tab.icon)
                     .font(.system(size: 20, weight: isActive ? .semibold : .regular))
                     .symbolRenderingMode(.hierarchical)
+                    .overlay(alignment: .topTrailing) {
+                        if badged.contains(tab) && !isActive {
+                            Circle()
+                                .fill(MYColor.warning)
+                                .frame(width: 9, height: 9)
+                                .overlay(Circle().strokeBorder(MYColor.surface, lineWidth: 2))
+                                .offset(x: 3, y: -2)
+                        }
+                    }
 
                 if isActive {
                     Text(tab.title)
@@ -61,7 +72,7 @@ struct MYTabBar<Tab: TabBarItem>: View {
             .contentShape(Capsule())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(tab.title)
+        .accessibilityLabel(badged.contains(tab) ? "\(tab.title)، رسائل جديدة" : tab.title)
         .accessibilityAddTraits(isActive ? [.isSelected, .isButton] : .isButton)
     }
 }
