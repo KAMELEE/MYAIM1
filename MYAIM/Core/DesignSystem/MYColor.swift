@@ -28,6 +28,9 @@ enum MYColor {
     }
 
     // MARK: - Brand
+    /// Fixed logo violet (does NOT adapt to dark mode) — for full-bleed brand
+    /// surfaces like the splash and onboarding header, where white text sits on it.
+    static let brandSolid = Color(hex: Brand.primary)
     static let primary = Color(uiColor: UIColor(
         light: UIColor(hex: Brand.primary),
         dark:  UIColor(hex: Brand.primaryLight)

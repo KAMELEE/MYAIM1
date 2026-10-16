@@ -1,146 +1,160 @@
 import SwiftUI
 
-private struct OnboardingPage: Identifiable {
-    let id = UUID()
-    let imageName: String
-    let icon: String
-    let eyebrow: String
-    let titlePlain: String
-    let titleBold: String
-    let subtitle: String
-    let stats: [(icon: String, text: String)]
+/// What a page shows in the violet hero area.
+private enum OnboardingHero {
+    /// A sample academy card (real photo) — the marketplace at a glance.
+    case academyCard
+    /// One of the bundled illustrations, framed in a white card.
+    case illustration(String)
 }
 
+private struct OnboardingPage: Identifiable {
+    let id = UUID()
+    let hero: OnboardingHero
+    let title: String
+    let subtitle: String
+    /// Small chip pinned to the hero card.
+    let badge: (icon: String, text: String)
+}
+
+/// Onboarding — direction «ب — جريء بالهوية»: violet hero with the rings
+/// motif and a tilted white card, under a white sheet with the copy, page
+/// dots and one wide primary button. The hero swipes; the sheet's copy
+/// cross-fades with it.
 struct OnboardingView: View {
     @Environment(AppState.self) private var appState
     @State private var index = 0
 
     private let pages: [OnboardingPage] = [
-        .init(imageName: "onboard_verified",
-              icon: "building.2.fill",
-              eyebrow: "MY AIM",
-              titlePlain: "اكتشف أفضل الأكاديميات",
-              titleBold: "والجهات التدريبية",
-              subtitle: "ابحث عن الأكاديمية أو الدورة التي تناسبك، وقارن الخيارات المتاحة واختر ما يناسب تخصصك واحتياجك.",
-              stats: [("checkmark.seal.fill", "جهات تدريبية موثوقة"),
-                      ("books.vertical.fill", "دورات وتخصصات متنوعة")]),
-        .init(imageName: "onboard_nearby",
-              icon: "location.circle.fill",
-              eyebrow: "MY AIM",
-              titlePlain: "الجهات الأقرب",
-              titleBold: "لك أولاً",
-              subtitle: "نعرض لك الأكاديميات والخدمات مرتبة حسب موقعك، فتعرف المسافة قبل أن تحجز.",
-              stats: [("map.fill", "ترتيب حسب المسافة"),
-                      ("figure.walk.motion", "خيارات قريبة")]),
-        .init(imageName: "onboard_choice",
-              icon: "slider.horizontal.3",
-              eyebrow: "MY AIM",
-              titlePlain: "قارن الخيارات",
-              titleBold: "واختر بثقة",
-              subtitle: "فلاتر للسعر والتخصص والتوقيت تسهّل المقارنة بين الجهات حتى تصل لما يناسبك.",
-              stats: [("arrow.left.arrow.right", "مقارنة مباشرة"),
-                      ("line.3.horizontal.decrease.circle.fill", "فلاتر واضحة")]),
-        .init(imageName: "onboard_offers",
-              icon: "tag.fill",
-              eyebrow: "MY AIM",
-              titlePlain: "أسعار واضحة",
-              titleBold: "من البداية",
-              subtitle: "السعر يظهر مع كل خدمة، وتجد خصومات على دورات مختارة بشكل مستمر.",
-              stats: [("percent", "خصومات متجددة"),
-                      ("banknote.fill", "سعر معلن لكل خدمة")])
+        .init(hero: .academyCard,
+              title: "كل الأكاديميات في مكان واحد",
+              subtitle: "رياضة، تعليم، تقنية وتطوير ذات — اكتشف الجهات التدريبية الموثوقة وقارن بينها.",
+              badge: ("checkmark.seal.fill", "جهات موثّقة")),
+        .init(hero: .illustration("onboard_nearby"),
+              title: "الأقرب لك أولًا",
+              subtitle: "نرتّب الأكاديميات حسب موقعك، فتعرف المسافة قبل أن تحجز.",
+              badge: ("location.fill", "حسب موقعك")),
+        .init(hero: .illustration("onboard_choice"),
+              title: "قارن واختر بثقة",
+              subtitle: "فلاتر للسعر والتخصص والتوقيت تختصر عليك المقارنة.",
+              badge: ("slider.horizontal.3", "فلاتر واضحة")),
+        .init(hero: .illustration("onboard_offers"),
+              title: "أسعار واضحة من البداية",
+              subtitle: "السعر معلن مع كل خدمة، وخصومات متجددة على دورات مختارة.",
+              badge: ("tag.fill", "خصومات متجددة"))
     ]
 
     private var isLast: Bool { index == pages.count - 1 }
+    private var page: OnboardingPage { pages[index] }
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                MYColor.brandSolid.ignoresSafeArea()
 
-            TabView(selection: $index) {
-                ForEach(Array(pages.enumerated()), id: \.element.id) { i, page in
-                    PageContent(page: page, isActive: i == index)
-                        .tag(i)
+                BrandRings(size: geo.size.width * 1.45)
+                    .position(x: geo.size.width * 0.38, y: geo.size.height * 0.08)
+
+                VStack(spacing: 0) {
+                    header
+
+                    TabView(selection: $index) {
+                        ForEach(Array(pages.enumerated()), id: \.element.id) { i, p in
+                            HeroCard(page: p, tilt: i.isMultiple(of: 2) ? -3 : 3)
+                                .padding(.horizontal, 44)
+                                .tag(i)
+                        }
+                    }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+
+                    sheet
                 }
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.easeInOut(duration: 0.3), value: index)
-
-            dots.padding(.vertical, MYSpacing.lg)
-
-            controls
-                .padding(.horizontal, MYSpacing.screen)
-                .padding(.bottom, MYSpacing.xl)
         }
-        .myScreenBackground()
     }
 
-    // MARK: Header
+    // MARK: Header — white logo + skip pill
     private var header: some View {
         HStack {
-            MYLogo(size: 36)
+            Image("LogoWhite")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 22)
+                .accessibilityLabel("MY AIM")
             Spacer()
             if !isLast {
-                Button("تخطي") { finish() }
-                    .font(MYTypography.secondary)
-                    .foregroundStyle(MYColor.textSecondary)
+                Button {
+                    finish()
+                } label: {
+                    Text("تخطي")
+                        .font(MYTypography.secondary.weight(.medium))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, MYSpacing.md)
+                        .frame(height: 36)
+                        .background(.white.opacity(0.16), in: Capsule())
+                }
+                .frame(minHeight: 44)
+                .transition(.opacity)
             }
         }
         .padding(.horizontal, MYSpacing.screen)
         .padding(.top, MYSpacing.sm)
+        .animation(.easeInOut(duration: 0.2), value: isLast)
     }
 
-    // MARK: Dots
+    // MARK: Bottom sheet — copy, dots, one wide button
+    private var sheet: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            VStack(alignment: .leading, spacing: MYSpacing.sm) {
+                Text(page.title)
+                    .font(.appFont(28, weight: .bold, relativeTo: .largeTitle))
+                    .foregroundStyle(MYColor.textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(page.subtitle)
+                    .font(MYTypography.body)
+                    .foregroundStyle(MYColor.textSecondary)
+                    .lineSpacing(4)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(minHeight: 128, alignment: .top)
+            .id(index)
+            .transition(.opacity.combined(with: .offset(y: 8)))
+
+            dots
+
+            MYButton(title: isLast ? "ابدأ الآن" : "التالي") {
+                Haptics.selection()
+                if isLast {
+                    finish()
+                } else {
+                    withAnimation(.easeInOut(duration: 0.3)) { index += 1 }
+                }
+            }
+            .padding(.top, MYSpacing.xs)
+        }
+        .padding(.horizontal, MYSpacing.screen)
+        .padding(.top, 30)
+        .padding(.bottom, MYSpacing.lg)
+        .background(
+            UnevenRoundedRectangle(topLeadingRadius: 32, topTrailingRadius: 32, style: .continuous)
+                .fill(MYColor.surface)
+                .ignoresSafeArea(edges: .bottom)
+        )
+        .animation(.easeInOut(duration: 0.25), value: index)
+    }
+
     private var dots: some View {
-        HStack(spacing: MYSpacing.xs) {
+        HStack(spacing: 6) {
             ForEach(pages.indices, id: \.self) { i in
                 Capsule()
                     .fill(i == index ? MYColor.primary : MYColor.border)
-                    .frame(width: i == index ? 26 : 8, height: 8)
-                    .scaleEffect(i == index ? 1 : 0.85, anchor: .center)
-                    .animation(.spring(response: 0.4, dampingFraction: 0.7), value: index)
+                    .frame(width: i == index ? 22 : 6, height: 6)
             }
         }
-        .padding(MYSpacing.xs)
-        .background(Capsule().fill(MYColor.surfaceSecondary))
-    }
-
-    // MARK: Controls — circular back / forward, final pill "start"
-    private var controls: some View {
-        HStack(spacing: MYSpacing.md) {
-            if index > 0 {
-                circleButton(icon: "chevron.backward", style: .outline) {
-                    Haptics.selection()
-                    withAnimation { index -= 1 }
-                }
-                .transition(.scale.combined(with: .opacity))
-            }
-
-            if isLast {
-                MYButton(title: "ابدأ الآن", icon: "chevron.forward") { finish() }
-            } else {
-                Spacer(minLength: 0)
-                circleButton(icon: "chevron.forward", style: .primary) {
-                    Haptics.selection()
-                    withAnimation { index += 1 }
-                }
-            }
-        }
-        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: index)
-    }
-
-    private func circleButton(icon: String, style: MYButtonStyle, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: icon)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(style == .primary ? MYColor.onPrimary : MYColor.textSecondary)
-                .frame(width: 52, height: 52)
-                .background(style == .primary ? MYColor.primary : MYColor.surfaceSecondary)
-                .clipShape(Circle())
-                .overlay(
-                    Circle().strokeBorder(MYColor.border, lineWidth: style == .primary ? 0 : 1)
-                )
-        }
-        .buttonStyle(PressableButtonStyle())
+        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: index)
+        .accessibilityElement()
+        .accessibilityLabel("الصفحة \(index + 1) من \(pages.count)")
     }
 
     private func finish() {
@@ -149,165 +163,85 @@ struct OnboardingView: View {
     }
 }
 
-// MARK: - Page content (staggered entrance, breathing illustration)
+// MARK: - Hero card (tilted white card, gentle float)
 
-/// One onboarding page. Content enters in a staggered sequence (illustration
-/// → eyebrow → title → subtitle → chips) whenever the page becomes active,
-/// giving each swipe a crisp, layered reveal.
-private struct PageContent: View {
+private struct HeroCard: View {
     let page: OnboardingPage
-    let isActive: Bool
+    let tilt: Double
 
-    @State private var appeared = false
-
-    private let columns = [GridItem(.flexible(), spacing: MYSpacing.md),
-                           GridItem(.flexible(), spacing: MYSpacing.md)]
+    @State private var up = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: MYSpacing.xl) {
-                illustration
-                    .padding(.top, MYSpacing.sm)
-
-                VStack(spacing: MYSpacing.md) {
-                    Text(page.eyebrow)
-                        .font(MYTypography.caption)
-                        .foregroundStyle(MYColor.primary)
-                        .tracking(1.2)
-                        .stagger(0.10, appeared: appeared)
-
-                    (Text(page.titlePlain + " ")
-                        .foregroundStyle(MYColor.textPrimary)
-                     + Text(page.titleBold)
-                        .foregroundStyle(MYColor.primary))
-                        .font(MYTypography.largeTitle)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .stagger(0.20, appeared: appeared)
-
-                    Text(page.subtitle)
-                        .font(MYTypography.body)
-                        .foregroundStyle(MYColor.textSecondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, MYSpacing.lg)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .stagger(0.30, appeared: appeared)
-                }
-
-                statChips(page.stats)
-                    .padding(.bottom, MYSpacing.md)
-                    .stagger(0.42, appeared: appeared)
+        card
+            .overlay(alignment: .topLeading) { badge.offset(x: -10, y: -14) }
+            .rotationEffect(.degrees(tilt))
+            .offset(y: up ? -5 : 5)
+            .frame(maxHeight: .infinity)
+            .onAppear {
+                guard !reduceMotion else { return }
+                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) { up = true }
             }
-            .padding(.horizontal, MYSpacing.screen)
-        }
-        .onAppear { play() }
-        .onChange(of: isActive) { _, active in if active { play() } }
+            .accessibilityHidden(true)
     }
 
-    private func play() {
-        appeared = false
-        withAnimation(.spring(response: 0.55, dampingFraction: 0.8)) { appeared = true }
-    }
+    @ViewBuilder
+    private var card: some View {
+        switch page.hero {
+        case .academyCard:
+            VStack(alignment: .leading, spacing: 0) {
+                Image("photo_sports")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(height: 150)
+                    .frame(maxWidth: .infinity)
+                    .clipped()
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Text("برنامج اللياقة الشامل")
+                            .font(MYTypography.cardTitle)
+                            .foregroundStyle(Color(hex: "#14181F"))
+                        Spacer(minLength: 4)
+                        HStack(spacing: 3) {
+                            Image(systemName: "star.fill").foregroundStyle(MYColor.star)
+                            Text("4.8").foregroundStyle(Color(hex: "#14181F"))
+                        }
+                        .font(MYTypography.caption)
+                    }
+                    Text("أكاديمية النخبة الرياضية · الرياض")
+                        .font(MYTypography.description)
+                        .foregroundStyle(Color(hex: "#6B7280"))
+                    Text(MYFormat.startingPrice(450))
+                        .font(MYTypography.cardTitle)
+                        .foregroundStyle(MYColor.brandSolid)
+                }
+                .padding(MYSpacing.md)
+            }
+            .background(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
 
-    /// Illustration with a gentle continuous float and a gradient icon badge.
-    private var illustration: some View {
-        ZStack(alignment: .bottomLeading) {
-            Image(page.imageName)
+        case .illustration(let name):
+            Image(name)
                 .resizable()
                 .scaledToFit()
-                .frame(height: 190)
-                .frame(maxWidth: .infinity, minHeight: 240)
-                .background(
-                    RoundedRectangle(cornerRadius: MYRadius.lg, style: .continuous)
-                        .fill(MYColor.surfaceSecondary)
-                )
-                .modifier(FloatingAnimation())
-
-            IconBadge(icon: page.icon)
-                .offset(x: 8, y: 8)
-        }
-        .scaleEffect(appeared ? 1 : 0.85)
-        .opacity(appeared ? 1 : 0)
-    }
-
-    private func statChips(_ stats: [(icon: String, text: String)]) -> some View {
-        HStack(spacing: MYSpacing.sm) {
-            ForEach(stats, id: \.text) { stat in
-                HStack(spacing: MYSpacing.xs) {
-                    Image(systemName: stat.icon)
-                        .font(.system(size: 12, weight: .semibold))
-                        .symbolRenderingMode(.hierarchical)
-                    Text(stat.text)
-                        .font(MYTypography.caption)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .foregroundStyle(MYColor.primary)
-                .padding(.horizontal, MYSpacing.md)
-                .padding(.vertical, MYSpacing.sm)
-                .background(MYColor.primaryTint, in: Capsule())
-            }
+                .padding(MYSpacing.lg)
+                .frame(maxWidth: .infinity)
+                .frame(height: 250)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
         }
     }
-}
 
-/// Slide-up + fade entrance, staggered by delay.
-private struct StaggerEffect: ViewModifier {
-    let delay: Double
-    let appeared: Bool
-
-    func body(content: Content) -> some View {
-        content
-            .opacity(appeared ? 1 : 0)
-            .offset(y: appeared ? 0 : 18)
-    }
-}
-
-private extension View {
-    func stagger(_ delay: Double, appeared: Bool) -> some View {
-        modifier(StaggerEffect(delay: delay, appeared: appeared))
-            .animation(.spring(response: 0.55, dampingFraction: 0.8).delay(delay),
-                       value: appeared)
-    }
-}
-
-/// Rounded-square gradient badge with a soft breathing pulse — the modern
-/// replacement for the old circle badge.
-private struct IconBadge: View {
-    let icon: String
-    @State private var pulse = false
-
-    var body: some View {
-        Image(systemName: icon)
-            .font(.system(size: 20, weight: .semibold))
-            .foregroundStyle(.white)
-            .frame(width: 48, height: 48)
-            .background(
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(MYColor.primary)
-            )
-            .myShadow(MYShadow.raised)
-            .scaleEffect(pulse ? 1.06 : 1.0)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 1.6).repeatForever(autoreverses: true)) {
-                    pulse = true
-                }
-            }
-    }
-}
-
-/// Continuous gentle vertical float, used to give the flat illustrations
-/// a sense of life without any heavy motion.
-private struct FloatingAnimation: ViewModifier {
-    @State private var up = false
-
-    func body(content: Content) -> some View {
-        content
-            .offset(y: up ? -6 : 6)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 2.2).repeatForever(autoreverses: true)) {
-                    up = true
-                }
-            }
+    private var badge: some View {
+        HStack(spacing: 5) {
+            Image(systemName: page.badge.icon).font(.system(size: 11, weight: .bold))
+            Text(page.badge.text).font(MYTypography.caption.weight(.semibold))
+        }
+        .foregroundStyle(MYColor.brandSolid)
+        .padding(.horizontal, 12)
+        .frame(height: 30)
+        .background(Color(hex: "#EEEAFB"), in: Capsule())
+        .overlay(Capsule().strokeBorder(.white, lineWidth: 2))
     }
 }
 

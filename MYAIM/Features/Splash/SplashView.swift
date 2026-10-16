@@ -1,104 +1,85 @@
 import SwiftUI
 
-/// Branded launch splash shown once on cold start, before the app content.
+/// Branded launch splash (direction «ب — جريء بالهوية»).
 ///
-/// Solid brand color only — no gradients/glow (per brand guidelines). The
-/// animation is a controlled, staged reveal: the logo tile springs in, the
-/// wordmark and tagline rise and fade, and a slim progress bar fills, then the
-/// whole splash cross-fades to the app.
+/// Solid logo violet, the concentric-rings motif, white logo + wordmark and
+/// a short marketplace tagline. Matches the launch-screen color, so iOS's
+/// static launch → splash hand-off is seamless. Short on purpose (~0.9s):
+/// nothing is loading here, so the user isn't kept waiting.
 struct SplashView: View {
     /// Called once the intro finishes so the coordinator can reveal the app.
     var onFinished: () -> Void
 
-    @State private var tileIn = false      // logo tile scale/opacity
-    @State private var textIn = false      // wordmark + tagline
-    @State private var progress: CGFloat = 0
-    @State private var leaving = false      // fade/scale the whole splash out
+    @State private var ringsIn: CGFloat = 0
+    @State private var logoIn = false
+    @State private var textIn = false
+    @State private var leaving = false
 
-    // Reduce motion → skip the staged animation, respect the user's setting.
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
-        ZStack {
-            MYColor.primary.ignoresSafeArea()
+        GeometryReader { geo in
+            ZStack {
+                MYColor.brandSolid.ignoresSafeArea()
 
-            VStack(spacing: MYSpacing.xl) {
-                Spacer()
+                BrandRings(size: geo.size.width * 1.95, progress: ringsIn)
+                    .position(x: geo.size.width * 0.5, y: geo.size.height * 0.5)
 
-                logoTile
-                    .scaleEffect(tileIn ? 1 : 0.72)
-                    .opacity(tileIn ? 1 : 0)
-
-                VStack(spacing: MYSpacing.sm) {
-                    Text("MY AIM")
-                        .font(.appFont(30, weight: .bold))
+                VStack(spacing: 22) {
+                    Image("LogoWhite")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 128)
+                        .accessibilityLabel("MY AIM")
+                    Text(verbatim: "MY AIM")
+                        .font(.appFont(22, weight: .bold))
+                        .tracking(8)
                         .foregroundStyle(.white)
-                        .tracking(2)
-                    Text("حدّد هدفك… ونكمّل الطريق معك")
-                        .font(.appFont(17, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .multilineTextAlignment(.center)
-                    Text("أكاديميات ومدرّبون لكل مهارة تطمح لها")
-                        .font(MYTypography.secondary)
-                        .foregroundStyle(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
+                        .environment(\.layoutDirection, .leftToRight)
+                        .accessibilityHidden(true)
                 }
+                .scaleEffect(logoIn ? 1 : 0.86)
+                .opacity(logoIn ? 1 : 0)
+
+                VStack(spacing: 6) {
+                    Spacer()
+                    Text("اكتشف. قارن. احجز.")
+                        .font(.appFont(20, weight: .bold))
+                        .foregroundStyle(.white)
+                    Text("أكاديميات ومدرّبون لكل مهارة")
+                        .font(MYTypography.secondary)
+                        .foregroundStyle(.white.opacity(0.85))
+                }
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, MYSpacing.xl)
+                .padding(.bottom, 64)
                 .opacity(textIn ? 1 : 0)
-                .offset(y: textIn ? 0 : 12)
-
-                Spacer()
-
-                progressBar
-                    .padding(.bottom, MYSpacing.xxxl)
-                    .opacity(textIn ? 1 : 0)
+                .offset(y: textIn ? 0 : 10)
             }
-            .padding(.horizontal, MYSpacing.xl)
         }
         .opacity(leaving ? 0 : 1)
-        .scaleEffect(leaving ? 1.04 : 1)
         .task { await run() }
-    }
-
-    private var logoTile: some View {
-        Image("Logo")
-            .resizable()
-            .scaledToFit()
-            .padding(22)
-            .frame(width: 116, height: 116)
-            .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
-            .shadow(color: .black.opacity(0.18), radius: 22, x: 0, y: 10)
-    }
-
-    private var progressBar: some View {
-        GeometryReader { geo in
-            ZStack(alignment: .leading) {
-                Capsule().fill(.white.opacity(0.25))
-                Capsule().fill(.white)
-                    .frame(width: geo.size.width * progress)
-            }
-        }
-        .frame(width: 140, height: 4)
-        .frame(maxWidth: .infinity)
     }
 
     @MainActor
     private func run() async {
         if reduceMotion {
-            tileIn = true; textIn = true; progress = 1
-            try? await Task.sleep(nanoseconds: 700_000_000)
+            ringsIn = 1; logoIn = true; textIn = true
+            try? await Task.sleep(for: .milliseconds(500))
             onFinished()
             return
         }
-
-        withAnimation(.spring(response: 0.55, dampingFraction: 0.68)) { tileIn = true }
-        try? await Task.sleep(nanoseconds: 260_000_000)
-        withAnimation(.easeOut(duration: 0.45)) { textIn = true }
-        withAnimation(.easeInOut(duration: 1.15)) { progress = 1 }
-
-        try? await Task.sleep(nanoseconds: 1_350_000_000)
-        withAnimation(.easeIn(duration: 0.35)) { leaving = true }
-        try? await Task.sleep(nanoseconds: 360_000_000)
+        ringsIn = 1
+        withAnimation(.spring(response: 0.5, dampingFraction: 0.72)) { logoIn = true }
+        try? await Task.sleep(for: .milliseconds(180))
+        withAnimation(.easeOut(duration: 0.35)) { textIn = true }
+        try? await Task.sleep(for: .milliseconds(520))
+        #if DEBUG
+        // CI captures the splash itself: keep it on screen.
+        if ProcessInfo.processInfo.arguments.contains("-holdSplash") { return }
+        #endif
+        withAnimation(.easeIn(duration: 0.22)) { leaving = true }
+        try? await Task.sleep(for: .milliseconds(220))
         onFinished()
     }
 }
