@@ -1,295 +1,353 @@
 DEVICE=DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9
 Monitoring boot status for iPhone 16 Pro (DC4CD8B3-4457-4153-9087-A0D7A2F9BFD9).
-[2026-10-13 21:53:49 +0000] Status=2, isTerminal=NO, Elapsed=00:30.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:22 seconds
-
-[2026-10-13 21:53:51 +0000] Status=2, isTerminal=NO, Elapsed=00:31.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:23 seconds
-
-[2026-10-13 21:53:52 +0000] Status=2, isTerminal=NO, Elapsed=00:32.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:24 seconds
-
-[2026-10-13 21:53:53 +0000] Status=2, isTerminal=NO, Elapsed=00:33.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:25 seconds
-
-[2026-10-13 21:53:54 +0000] Status=2, isTerminal=NO, Elapsed=00:34.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:26 seconds
-
-[2026-10-13 21:53:55 +0000] Status=2, isTerminal=NO, Elapsed=00:35.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:27 seconds
-
-[2026-10-13 21:53:55 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:28 seconds
-
-[2026-10-13 21:53:56 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
-	Waiting on Data Migration
-		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
-		Migration Elapsed:00:29 seconds
-
-[2026-10-13 21:53:57 +0000] Status=2, isTerminal=NO, Elapsed=00:38.
+[2026-10-16 19:19:42 +0000] Status=2, isTerminal=NO, Elapsed=00:35.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
 		Migration Elapsed:00:30 seconds
 
-[2026-10-13 21:53:58 +0000] Status=2, isTerminal=NO, Elapsed=00:39.
+[2026-10-16 19:19:43 +0000] Status=2, isTerminal=NO, Elapsed=00:36.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
 		Migration Elapsed:00:31 seconds
 
-[2026-10-13 21:53:59 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
+[2026-10-16 19:19:44 +0000] Status=2, isTerminal=NO, Elapsed=00:37.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
 		Migration Elapsed:00:32 seconds
 
-[2026-10-13 21:54:00 +0000] Status=2, isTerminal=NO, Elapsed=00:41.
+[2026-10-16 19:19:45 +0000] Status=2, isTerminal=NO, Elapsed=00:38.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
 		Migration Elapsed:00:33 seconds
 
-[2026-10-13 21:54:03 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
+[2026-10-16 19:19:46 +0000] Status=2, isTerminal=NO, Elapsed=00:39.
 	Waiting on Data Migration
 		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
 		Migration Elapsed:00:34 seconds
 
-[2026-10-13 21:54:06 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+[2026-10-16 19:19:47 +0000] Status=2, isTerminal=NO, Elapsed=00:40.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.WebBookmarks.migrator (WebBookmarks.migrator)
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:35 seconds
+
+[2026-10-16 19:19:50 +0000] Status=2, isTerminal=NO, Elapsed=00:42.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
 		Migration Elapsed:00:36 seconds
 
-[2026-10-13 21:54:09 +0000] Status=2, isTerminal=NO, Elapsed=00:49.
+[2026-10-16 19:19:51 +0000] Status=2, isTerminal=NO, Elapsed=00:44.
 	Waiting on Data Migration
-		Reason:Running plugin com.apple.dataaccess.migrator (DAAccount.migrator)
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:37 seconds
+
+[2026-10-16 19:19:53 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
 		Migration Elapsed:00:39 seconds
 
-[2026-10-13 21:54:13 +0000] Status=4, isTerminal=NO, Elapsed=00:53.
+[2026-10-16 19:19:55 +0000] Status=2, isTerminal=NO, Elapsed=00:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.preferences.InternationalSupportMigrator (InternationalSupportMigrator.migrator)
+		Migration Elapsed:00:41 seconds
+
+[2026-10-16 19:19:57 +0000] Status=4, isTerminal=NO, Elapsed=00:50.
 	Waiting on System App
 
-[2026-10-13 21:54:15 +0000] Status=4, isTerminal=NO, Elapsed=00:55.
-	Waiting on System App
-
-[2026-10-13 21:54:16 +0000] Status=4, isTerminal=NO, Elapsed=00:56.
-	Waiting on System App
-
-[2026-10-13 21:54:17 +0000] Status=4, isTerminal=NO, Elapsed=00:57.
-	Waiting on System App
-
-[2026-10-13 21:54:21 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:01.
+[2026-10-16 19:20:01 +0000] Status=4294967295, isTerminal=YES, Elapsed=00:54.
 	Finished
 
 APP=build/Build/Products/Debug-iphonesimulator/MYAIM.app
-com.myaim.app: 15553
+com.myaim.app: 25310
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-top.png
-com.myaim.app: 16443
+com.myaim.app: 26316
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-mid.png
-com.myaim.app: 16593
+com.myaim.app: 26524
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-home-bot.png
-com.myaim.app: 17120
+com.myaim.app: 27125
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-top.png
-com.myaim.app: 17540
+com.myaim.app: 27558
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-mid.png
-com.myaim.app: 17754
+com.myaim.app: 28358
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-discover-bot.png
-com.myaim.app: 18309
+com.myaim.app: 29083
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-top.png
-com.myaim.app: 18392
+com.myaim.app: 29276
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-mid.png
-com.myaim.app: 18954
+com.myaim.app: 29714
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-bookings-bot.png
-com.myaim.app: 19564
+com.myaim.app: 30291
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-top.png
-com.myaim.app: 20277
+com.myaim.app: 30361
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-mid.png
-com.myaim.app: 20825
+com.myaim.app: 31014
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-profile-bot.png
-com.myaim.app: 20943
+com.myaim.app: 31869
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-dashboard.png
-com.myaim.app: 21618
+com.myaim.app: 32246
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-courses.png
-com.myaim.app: 22184
+com.myaim.app: 32844
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-posts.png
-com.myaim.app: 22693
+com.myaim.app: 33445
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-subscription.png
-com.myaim.app: 22841
+com.myaim.app: 33703
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-prov-account.png
-com.myaim.app: 23598
+com.myaim.app: 34095
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-serviceDetail.png
-com.myaim.app: 24356
+com.myaim.app: 34939
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-booking.png
-com.myaim.app: 25804
+com.myaim.app: 35979
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-search.png
-com.myaim.app: 26043
+com.myaim.app: 36167
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-favorites.png
-com.myaim.app: 26480
+com.myaim.app: 36615
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-notifications.png
-com.myaim.app: 26765
+com.myaim.app: 37216
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-registerAcademy.png
-com.myaim.app: 27395
+com.myaim.app: 38101
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-providerProfile.png
-com.myaim.app: 28414
+com.myaim.app: 38744
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-settings.png
-com.myaim.app: 28914
+com.myaim.app: 39376
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-messages.png
-com.myaim.app: 29060
+com.myaim.app: 39814
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-chat.png
-com.myaim.app: 29632
+com.myaim.app: 40340
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-help.png
-com.myaim.app: 30012
+com.myaim.app: 40468
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingPayment.png
-com.myaim.app: 30285
+com.myaim.app: 41082
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-addCourse.png
-com.myaim.app: 30858
+com.myaim.app: 41376
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-publishAd.png
-com.myaim.app: 31867
+com.myaim.app: 41773
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-courseDetail.png
-com.myaim.app: 32211
+com.myaim.app: 42450
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-bookingRequests.png
-com.myaim.app: 32791
+com.myaim.app: 42838
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyInbox.png
-com.myaim.app: 33393
+com.myaim.app: 43782
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyChat.png
-com.myaim.app: 33977
+com.myaim.app: 44017
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-providerStats.png
-com.myaim.app: 34241
+com.myaim.app: 44468
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-page-academyInfo.png
-com.myaim.app: 34639
+com.myaim.app: 44755
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-splash.png
-com.myaim.app: 34810
+com.myaim.app: 45146
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-onboarding.png
-com.myaim.app: 35537
+com.myaim.app: 45437
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-login.png
-com.myaim.app: 36476
+com.myaim.app: 45841
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-login.png
-com.myaim.app: 36887
+com.myaim.app: 46504
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-otp.png
-com.myaim.app: 37192
+com.myaim.app: 47716
 Detected file type 'PNG' from extension
 Wrote screenshot to: shot-auth-done.png
--rw-r--r--@ 1 runner  staff   165610 Oct 13 22:03 shot-auth-done.png
--rw-r--r--@ 1 runner  staff   971201 Oct 13 22:02 shot-auth-login.png
--rw-r--r--@ 1 runner  staff   165397 Oct 13 22:02 shot-auth-otp.png
--rw-r--r--@ 1 runner  staff   787874 Oct 13 21:57 shot-bookings-bot.png
--rw-r--r--@ 1 runner  staff   787874 Oct 13 21:57 shot-bookings-mid.png
--rw-r--r--@ 1 runner  staff   787676 Oct 13 21:57 shot-bookings-top.png
--rw-r--r--@ 1 runner  staff  1366785 Oct 13 21:56 shot-discover-bot.png
--rw-r--r--@ 1 runner  staff  1642077 Oct 13 21:56 shot-discover-mid.png
--rw-r--r--@ 1 runner  staff  2247939 Oct 13 21:56 shot-discover-top.png
--rw-r--r--@ 1 runner  staff  1670760 Oct 13 21:56 shot-home-bot.png
--rw-r--r--@ 1 runner  staff  2213741 Oct 13 21:56 shot-home-mid.png
--rw-r--r--@ 1 runner  staff  2383005 Oct 13 21:56 shot-home-top.png
--rw-r--r--@ 1 runner  staff   165397 Oct 13 22:02 shot-login.png
--rw-r--r--@ 1 runner  staff   405809 Oct 13 22:02 shot-onboarding.png
--rw-r--r--@ 1 runner  staff   347007 Oct 13 22:01 shot-page-academyChat.png
--rw-r--r--@ 1 runner  staff   388807 Oct 13 22:01 shot-page-academyInbox.png
--rw-r--r--@ 1 runner  staff   393741 Oct 13 22:02 shot-page-academyInfo.png
--rw-r--r--@ 1 runner  staff   368480 Oct 13 22:00 shot-page-addCourse.png
--rw-r--r--@ 1 runner  staff   686099 Oct 13 21:59 shot-page-booking.png
--rw-r--r--@ 1 runner  staff   633050 Oct 13 22:00 shot-page-bookingPayment.png
--rw-r--r--@ 1 runner  staff   652854 Oct 13 22:01 shot-page-bookingRequests.png
--rw-r--r--@ 1 runner  staff   364427 Oct 13 22:00 shot-page-chat.png
--rw-r--r--@ 1 runner  staff  1373804 Oct 13 22:01 shot-page-courseDetail.png
--rw-r--r--@ 1 runner  staff   216927 Oct 13 21:59 shot-page-favorites.png
--rw-r--r--@ 1 runner  staff   475293 Oct 13 22:00 shot-page-help.png
--rw-r--r--@ 1 runner  staff   633332 Oct 13 22:00 shot-page-messages.png
--rw-r--r--@ 1 runner  staff   300958 Oct 13 21:59 shot-page-notifications.png
--rw-r--r--@ 1 runner  staff  1732634 Oct 13 21:59 shot-page-providerProfile.png
--rw-r--r--@ 1 runner  staff   779912 Oct 13 22:01 shot-page-providerStats.png
--rw-r--r--@ 1 runner  staff  1405792 Oct 13 22:01 shot-page-publishAd.png
--rw-r--r--@ 1 runner  staff   320361 Oct 13 21:59 shot-page-registerAcademy.png
--rw-r--r--@ 1 runner  staff   995492 Oct 13 21:59 shot-page-search.png
--rw-r--r--@ 1 runner  staff  1530995 Oct 13 21:58 shot-page-serviceDetail.png
--rw-r--r--@ 1 runner  staff   507302 Oct 13 22:00 shot-page-settings.png
--rw-r--r--@ 1 runner  staff   701812 Oct 13 21:57 shot-profile-bot.png
--rw-r--r--@ 1 runner  staff   715578 Oct 13 21:57 shot-profile-mid.png
--rw-r--r--@ 1 runner  staff   721045 Oct 13 21:57 shot-profile-top.png
--rw-r--r--@ 1 runner  staff   737186 Oct 13 21:58 shot-prov-account.png
--rw-r--r--@ 1 runner  staff   930650 Oct 13 21:58 shot-prov-courses.png
--rw-r--r--@ 1 runner  staff   971335 Oct 13 21:57 shot-prov-dashboard.png
--rw-r--r--@ 1 runner  staff   930544 Oct 13 21:58 shot-prov-posts.png
--rw-r--r--@ 1 runner  staff   491847 Oct 13 21:58 shot-prov-subscription.png
--rw-r--r--@ 1 runner  staff   155634 Oct 13 22:02 shot-splash.png
+-rw-r--r--@ 1 runner  staff   165737 Oct 16 19:29 shot-auth-done.png
+-rw-r--r--@ 1 runner  staff   970426 Oct 16 19:28 shot-auth-login.png
+-rw-r--r--@ 1 runner  staff   165737 Oct 16 19:29 shot-auth-otp.png
+-rw-r--r--@ 1 runner  staff   787680 Oct 16 19:23 shot-bookings-bot.png
+-rw-r--r--@ 1 runner  staff   787440 Oct 16 19:22 shot-bookings-mid.png
+-rw-r--r--@ 1 runner  staff   787440 Oct 16 19:22 shot-bookings-top.png
+-rw-r--r--@ 1 runner  staff  1364976 Oct 16 19:22 shot-discover-bot.png
+-rw-r--r--@ 1 runner  staff  1640535 Oct 16 19:22 shot-discover-mid.png
+-rw-r--r--@ 1 runner  staff  2245880 Oct 16 19:22 shot-discover-top.png
+-rw-r--r--@ 1 runner  staff  1669259 Oct 16 19:22 shot-home-bot.png
+-rw-r--r--@ 1 runner  staff  2211790 Oct 16 19:21 shot-home-mid.png
+-rw-r--r--@ 1 runner  staff  2417564 Oct 16 19:21 shot-home-top.png
+-rw-r--r--@ 1 runner  staff   165771 Oct 16 19:28 shot-login.png
+-rw-r--r--@ 1 runner  staff   835453 Oct 16 19:28 shot-onboarding.png
+-rw-r--r--@ 1 runner  staff   345301 Oct 16 19:28 shot-page-academyChat.png
+-rw-r--r--@ 1 runner  staff   390085 Oct 16 19:27 shot-page-academyInbox.png
+-rw-r--r--@ 1 runner  staff   391793 Oct 16 19:28 shot-page-academyInfo.png
+-rw-r--r--@ 1 runner  staff   364501 Oct 16 19:27 shot-page-addCourse.png
+-rw-r--r--@ 1 runner  staff   685348 Oct 16 19:25 shot-page-booking.png
+-rw-r--r--@ 1 runner  staff   633089 Oct 16 19:27 shot-page-bookingPayment.png
+-rw-r--r--@ 1 runner  staff   652069 Oct 16 19:27 shot-page-bookingRequests.png
+-rw-r--r--@ 1 runner  staff   365759 Oct 16 19:26 shot-page-chat.png
+-rw-r--r--@ 1 runner  staff  1373730 Oct 16 19:27 shot-page-courseDetail.png
+-rw-r--r--@ 1 runner  staff   216080 Oct 16 19:25 shot-page-favorites.png
+-rw-r--r--@ 1 runner  staff   475181 Oct 16 19:26 shot-page-help.png
+-rw-r--r--@ 1 runner  staff   635943 Oct 16 19:26 shot-page-messages.png
+-rw-r--r--@ 1 runner  staff   299025 Oct 16 19:25 shot-page-notifications.png
+-rw-r--r--@ 1 runner  staff  1731041 Oct 16 19:26 shot-page-providerProfile.png
+-rw-r--r--@ 1 runner  staff   780405 Oct 16 19:28 shot-page-providerStats.png
+-rw-r--r--@ 1 runner  staff  1405593 Oct 16 19:27 shot-page-publishAd.png
+-rw-r--r--@ 1 runner  staff   318564 Oct 16 19:26 shot-page-registerAcademy.png
+-rw-r--r--@ 1 runner  staff  1023155 Oct 16 19:25 shot-page-search.png
+-rw-r--r--@ 1 runner  staff  1529576 Oct 16 19:24 shot-page-serviceDetail.png
+-rw-r--r--@ 1 runner  staff   507203 Oct 16 19:26 shot-page-settings.png
+-rw-r--r--@ 1 runner  staff   701345 Oct 16 19:23 shot-profile-bot.png
+-rw-r--r--@ 1 runner  staff   715243 Oct 16 19:23 shot-profile-mid.png
+-rw-r--r--@ 1 runner  staff   720321 Oct 16 19:23 shot-profile-top.png
+-rw-r--r--@ 1 runner  staff   735697 Oct 16 19:24 shot-prov-account.png
+-rw-r--r--@ 1 runner  staff   927370 Oct 16 19:24 shot-prov-courses.png
+-rw-r--r--@ 1 runner  staff   970382 Oct 16 19:23 shot-prov-dashboard.png
+-rw-r--r--@ 1 runner  staff   929395 Oct 16 19:24 shot-prov-posts.png
+-rw-r--r--@ 1 runner  staff   488722 Oct 16 19:24 shot-prov-subscription.png
+-rw-r--r--@ 1 runner  staff   200028 Oct 16 19:28 shot-splash.png
 STORE=F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C
 Monitoring boot status for iPhone 16 Pro Max (F1218AE5-3D29-4CE5-9D0F-6F21CEAA502C).
-Device already booted, nothing to do.
+[2026-10-16 19:30:13 +0000] Status=2, isTerminal=NO, Elapsed=00:45.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:40 seconds
 
-com.myaim.app: 65088
-com.myaim.app: 66964
+[2026-10-16 19:30:13 +0000] Status=2, isTerminal=NO, Elapsed=00:46.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:41 seconds
+
+[2026-10-16 19:30:14 +0000] Status=2, isTerminal=NO, Elapsed=00:47.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:42 seconds
+
+[2026-10-16 19:30:16 +0000] Status=2, isTerminal=NO, Elapsed=00:48.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.-0LaunchServicesMigrator (00LaunchServicesMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:43 seconds
+
+[2026-10-16 19:30:21 +0000] Status=2, isTerminal=NO, Elapsed=00:53.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.securityd.KeychainMigrator (KeychainMigrator.migrator, user-agnostic)
+		Migration Elapsed:00:44 seconds
+
+[2026-10-16 19:30:23 +0000] Status=2, isTerminal=NO, Elapsed=00:55.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:49 seconds
+
+[2026-10-16 19:30:24 +0000] Status=2, isTerminal=NO, Elapsed=00:56.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:51 seconds
+
+[2026-10-16 19:30:26 +0000] Status=2, isTerminal=NO, Elapsed=00:58.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:52 seconds
+
+[2026-10-16 19:30:27 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:53 seconds
+
+[2026-10-16 19:30:28 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:55 seconds
+
+[2026-10-16 19:30:28 +0000] Status=2, isTerminal=NO, Elapsed=01:00.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:56 seconds
+
+[2026-10-16 19:30:29 +0000] Status=2, isTerminal=NO, Elapsed=01:01.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:56 seconds
+
+[2026-10-16 19:30:29 +0000] Status=2, isTerminal=NO, Elapsed=01:02.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.managedconfiguration.migrator (MCProfile.migrator, user-agnostic)
+		Migration Elapsed:00:57 seconds
+
+[2026-10-16 19:30:31 +0000] Status=2, isTerminal=NO, Elapsed=01:03.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.addressbook.migrator (AddressBookLegacy.migrator)
+		Migration Elapsed:00:58 seconds
+
+[2026-10-16 19:30:32 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.locationd.migrator (CoreLocationMigrator.migrator) (Concurrent: Running plugin com.apple.MobileSlideShow (MobileSlideShow.migrator, concurrent after com.apple.accounts.migrator))
+		Migration Elapsed:00:59 seconds
+
+[2026-10-16 19:30:33 +0000] Status=2, isTerminal=NO, Elapsed=01:05.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.PreferencesMigrator (PreferencesMigrator.migrator)
+		Migration Elapsed:01:00 seconds
+
+[2026-10-16 19:30:36 +0000] Status=2, isTerminal=NO, Elapsed=01:08.
+	Waiting on Data Migration
+		Reason:Running plugin com.apple.vibration.migrator (Vibrations.migrator)
+		Migration Elapsed:01:01 seconds
+
+[2026-10-16 19:30:36 +0000] Status=4, isTerminal=NO, Elapsed=01:09.
+	Waiting on System App
+
+[2026-10-16 19:30:39 +0000] Status=4, isTerminal=NO, Elapsed=01:11.
+	Waiting on System App
+
+[2026-10-16 19:30:47 +0000] Status=4294967295, isTerminal=YES, Elapsed=01:19.
+	Finished
+
+com.myaim.app: 51577
+com.myaim.app: 52251
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/01-home.png
-com.myaim.app: 67659
+com.myaim.app: 53714
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/02-discover.png
-com.myaim.app: 68599
+com.myaim.app: 54032
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/03-service.png
-com.myaim.app: 69541
+com.myaim.app: 54897
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/04-payment.png
-com.myaim.app: 71315
+com.myaim.app: 55713
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/05-requests.png
-com.myaim.app: 72293
+com.myaim.app: 56051
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/06-chat.png
-com.myaim.app: 72783
+com.myaim.app: 57469
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/07-dashboard.png
-com.myaim.app: 73341
+com.myaim.app: 58367
 Detected file type 'PNG' from extension
 Wrote screenshot to: store/08-splash.png
 === store screenshot dimensions ===
@@ -317,17 +375,17 @@ Wrote screenshot to: store/08-splash.png
 /Users/runner/work/MYAIM1/MYAIM1/store/08-splash.png
   pixelWidth: 1320
   pixelHeight: 2868
-total 19672
-drwxr-xr-x  10 runner  staff      320 Oct 13 22:16 .
-drwxr-xr-x  73 runner  staff     2336 Oct 13 22:05 ..
--rw-r--r--@  1 runner  staff  2819992 Oct 13 22:14 01-home.png
--rw-r--r--@  1 runner  staff  2591752 Oct 13 22:14 02-discover.png
--rw-r--r--@  1 runner  staff  1731503 Oct 13 22:14 03-service.png
--rw-r--r--@  1 runner  staff   656005 Oct 13 22:15 04-payment.png
--rw-r--r--@  1 runner  staff   671743 Oct 13 22:16 05-requests.png
--rw-r--r--@  1 runner  staff   373040 Oct 13 22:16 06-chat.png
--rw-r--r--@  1 runner  staff  1048264 Oct 13 22:16 07-dashboard.png
--rw-r--r--@  1 runner  staff   167033 Oct 13 22:16 08-splash.png
+total 19736
+drwxr-xr-x  10 runner  staff      320 Oct 16 19:34 .
+drwxr-xr-x  73 runner  staff     2336 Oct 16 19:32 ..
+-rw-r--r--@  1 runner  staff  2851668 Oct 16 19:33 01-home.png
+-rw-r--r--@  1 runner  staff  2582652 Oct 16 19:33 02-discover.png
+-rw-r--r--@  1 runner  staff  1731966 Oct 16 19:33 03-service.png
+-rw-r--r--@  1 runner  staff   654416 Oct 16 19:34 04-payment.png
+-rw-r--r--@  1 runner  staff   670489 Oct 16 19:34 05-requests.png
+-rw-r--r--@  1 runner  staff   372749 Oct 16 19:34 06-chat.png
+-rw-r--r--@  1 runner  staff  1047300 Oct 16 19:34 07-dashboard.png
+-rw-r--r--@  1 runner  staff   177315 Oct 16 19:34 08-splash.png
 === tools ===
 Version: ImageMagick 7.1.2-31 Q16-HDRI aarch64 8309dc92a:20260903 https://imagemagick.org
 rsvg-convert version 2.62.3
@@ -339,35 +397,35 @@ libraries used:
   fontconfig 2.18.3
 /Users/runner/.fonts/IBMPlexSansArabic-Bold.ttf: IBM Plex Sans Arabic:style=Bold
 === framing 01-home.png :: كل الأكاديميات والمدرّبين في مكان واحد ===
-  files: ..=5152 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1561127 
-  OUT size: 1429390 bytes
+  files: ..=5376 cap_raw.png=16787 cap.png=10503 cap.svg=310 shot.png=1586911 
+  OUT size: 1448847 bytes
 === framing 02-discover.png :: اكتشف الأقرب إليك وقارن بسهولة ===
-  files: ..=5152 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1478677 
-  OUT size: 1370755 bytes
+  files: ..=5376 cap_raw.png=15732 cap.png=9726 cap.svg=295 shot.png=1475462 
+  OUT size: 1367886 bytes
 === framing 03-service.png :: تفاصيل واضحة وأسعار شفافة ===
-  files: ..=5152 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1002197 
-  OUT size: 939387 bytes
+  files: ..=5376 cap_raw.png=13756 cap.png=8148 cap.svg=286 shot.png=1002219 
+  OUT size: 939352 bytes
 === framing 04-payment.png :: ادفع بأمان عبر التحويل أو رمز QR ===
-  files: ..=5152 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=352296 
-  OUT size: 364144 bytes
+  files: ..=5376 cap_raw.png=14674 cap.png=9022 cap.svg=295 shot.png=351368 
+  OUT size: 363293 bytes
 === framing 05-requests.png :: تأكيد الحجوزات بضغطة واحدة ===
-  files: ..=5152 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=333179 
-  OUT size: 335467 bytes
+  files: ..=5376 cap_raw.png=12840 cap.png=7742 cap.svg=288 shot.png=333500 
+  OUT size: 335738 bytes
 === framing 06-chat.png :: تواصل مباشر مع الأكاديمية — نصاً وصوتاً ===
-  files: ..=5152 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=234429 
-  OUT size: 251861 bytes
+  files: ..=5376 cap_raw.png=17375 cap.png=11101 cap.svg=312 shot.png=234365 
+  OUT size: 251675 bytes
 === framing 07-dashboard.png :: لوحة متكاملة لإدارة أكاديميتك ===
-  files: ..=5152 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=523827 
-  OUT size: 521682 bytes
+  files: ..=5376 cap_raw.png=13628 cap.png=8165 cap.svg=294 shot.png=523068 
+  OUT size: 520709 bytes
 === framing 08-splash.png :: حدّد هدفك… ونكمّل الطريق معك ===
-  files: ..=5152 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=98418 
-  OUT size: 109780 bytes
+  files: ..=5376 cap_raw.png=13091 cap.png=7999 cap.svg=292 shot.png=130430 
+  OUT size: 141682 bytes
 === framed output ===
-01-home.png 1320x2868 1.42939MB
-02-discover.png 1320x2868 1.37076MB
-03-service.png 1320x2868 939387B
-04-payment.png 1320x2868 364144B
-05-requests.png 1320x2868 335467B
-06-chat.png 1320x2868 251861B
-07-dashboard.png 1320x2868 521682B
-08-splash.png 1320x2868 109780B
+01-home.png 1320x2868 1.44885MB
+02-discover.png 1320x2868 1.36789MB
+03-service.png 1320x2868 939352B
+04-payment.png 1320x2868 363293B
+05-requests.png 1320x2868 335738B
+06-chat.png 1320x2868 251675B
+07-dashboard.png 1320x2868 520709B
+08-splash.png 1320x2868 141682B
