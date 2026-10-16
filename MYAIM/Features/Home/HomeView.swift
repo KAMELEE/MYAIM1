@@ -3,6 +3,7 @@ import SwiftUI
 /// Home screen — driven by `HomeViewModel` (repositories + loading states).
 struct HomeView: View {
     @Environment(Router.self) private var router
+    @Environment(AppState.self) private var appState
     @Environment(FavoritesStore.self) private var favorites
     @Environment(LocationService.self) private var location
     @Environment(MessagesStore.self) private var messages
@@ -15,41 +16,39 @@ struct HomeView: View {
     private let categories = ServiceCategory.allCases
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: MYSpacing.lg) {
-                MYHomeHeader(onLocationTap: {},
-                             onNotificationsTap: { router.push(.notifications) })
+        ZStack(alignment: .top) {
+            MYColor.background.ignoresSafeArea()
+            // Violet behind the top so pulling down never reveals a light gap.
+            MYColor.brandSolid.frame(height: 420).ignoresSafeArea(edges: .top)
 
-                // Paid academy ads — the first thing trainees see.
-                SponsoredAdsCarousel(ads: featured.liveAds) { ad in
-                    router.push(.allServices(title: ad.providerName))
+            ScrollView {
+                VStack(spacing: 0) {
+                    brandHeader
+                        .padding(.horizontal, MYSpacing.screen)
+                        .padding(.top, MYSpacing.sm)
+                        .padding(.bottom, MYSpacing.lg + Self.sheetRadius)
+                        .frame(maxWidth: .infinity)
+                        .background(alignment: .topLeading) {
+                            BrandRings(size: 460)
+                                .offset(x: -190, y: -250)
+                        }
+                        .clipped()
+
+                    content
+                        .padding(.top, MYSpacing.lg)
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            UnevenRoundedRectangle(topLeadingRadius: Self.sheetRadius,
+                                                   topTrailingRadius: Self.sheetRadius,
+                                                   style: .continuous)
+                                .fill(MYColor.background)
+                        )
+                        .padding(.top, -Self.sheetRadius)
                 }
-                .myAppear()
-
-                storiesSection
-                    .myAppear()
-
-                searchRow
-                    .myAppear(delay: 0.05)
-
-                HomeHero(onCTA: { router.push(.allServices(title: "الأكاديميات")) })
-                    .myAppear(delay: 0.1)
-
-                categoriesSection
-                    .myAppear(delay: 0.2)
-
-                dynamicContent
-                    .myAppear(delay: 0.25)
-
-                MYAcademyCTA(onRegister: { router.push(.registerAcademy) })
-                    .padding(.top, MYSpacing.xs)
             }
-            .padding(.horizontal, MYSpacing.screen)
-            .padding(.top, MYSpacing.sm)
+            .myTabBarInset()
         }
-        .myTabBarInset()
-        .myScreenBackground()
-        .myStatusBarScrim()
+        .myStatusBarScrim(MYColor.brandSolid)
         .toolbar(.hidden, for: .navigationBar)
         .task { await vm.load() }
         .refreshable { await vm.reload() }
@@ -75,6 +74,113 @@ struct HomeView: View {
         }
     }
 
+    private static let sheetRadius: CGFloat = 28
+
+    // MARK: Content sheet (light, rounded top)
+    private var content: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.lg) {
+            // Paid academy ads — the first thing trainees see.
+            SponsoredAdsCarousel(ads: featured.liveAds) { ad in
+                router.push(.allServices(title: ad.providerName))
+            }
+            .myAppear()
+
+            storiesSection
+                .myAppear(delay: 0.05)
+
+            categoriesSection
+                .myAppear(delay: 0.1)
+
+            dynamicContent
+                .myAppear(delay: 0.15)
+
+            MYAcademyCTA(onRegister: { router.push(.registerAcademy) })
+                .padding(.top, MYSpacing.xs)
+        }
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
+    // MARK: Violet header — greeting, location, notifications, search
+    private var brandHeader: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.md) {
+            HStack(spacing: MYSpacing.sm) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(greeting)
+                        .font(MYTypography.secondary)
+                        .foregroundStyle(.white.opacity(0.85))
+                    Text(appState.currentUser?.name ?? "أهلاً بك")
+                        .font(.appFont(22, weight: .bold))
+                        .foregroundStyle(.white)
+                        .lineLimit(1)
+                }
+                Spacer(minLength: MYSpacing.sm)
+
+                Button { Haptics.selection() } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "mappin.and.ellipse")
+                            .font(.system(size: 14, weight: .semibold))
+                        Text("الرياض")
+                            .font(.appFont(13, weight: .semibold))
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .frame(height: 44)
+                    .background(.white.opacity(0.14), in: Capsule())
+                }
+                .buttonStyle(PressableButtonStyle())
+                .accessibilityLabel("الموقع: الرياض")
+
+                Button {
+                    Haptics.light()
+                    router.push(.notifications)
+                } label: {
+                    Image(systemName: "bell")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 44, height: 44)
+                        .background(.white.opacity(0.14), in: Circle())
+                        .overlay(alignment: .topTrailing) {
+                            Circle()
+                                .fill(MYColor.star)
+                                .frame(width: 8, height: 8)
+                                .offset(x: -11, y: 10)
+                        }
+                }
+                .buttonStyle(PressableButtonStyle())
+                .accessibilityLabel("الإشعارات")
+            }
+
+            Button {
+                Haptics.light()
+                router.push(.search)
+            } label: {
+                HStack(spacing: MYSpacing.sm) {
+                    Image(systemName: "magnifyingglass")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundStyle(MYColor.textSecondary)
+                    Text("ابحث عن مهارة، أكاديمية أو مدرّب")
+                        .font(MYTypography.body)
+                        .foregroundStyle(MYColor.textSecondary)
+                        .lineLimit(1)
+                    Spacer(minLength: 0)
+                    Image(systemName: "slider.horizontal.3")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(MYColor.primary)
+                }
+                .padding(.horizontal, MYSpacing.md)
+                .frame(height: 52)
+                .background(Color.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            }
+            .buttonStyle(PressableButtonStyle())
+            .accessibilityLabel("البحث والفلاتر")
+        }
+    }
+
+    private var greeting: String {
+        let h = Calendar.current.component(.hour, from: .now)
+        return h < 12 ? "صباح الخير" : "مساء الخير"
+    }
+
     // MARK: Academy stories (first thing on Home)
     private var storiesSection: some View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
@@ -98,56 +204,35 @@ struct HomeView: View {
         }
     }
 
-    // MARK: Search + filter
-    private var searchRow: some View {
-        HStack(spacing: MYSpacing.sm) {
-            MYSearchButton { router.push(.search) }
-            Button {
-                Haptics.light()
-                router.push(.search)
-            } label: {
-                Image(systemName: "slider.horizontal.3")
-                    .font(.system(size: 19, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(width: 48, height: 48)
-                    .background(MYColor.primary)
-                    .clipShape(RoundedRectangle(cornerRadius: MYRadius.md, style: .continuous))
-            }
-            .accessibilityLabel("الفلاتر")
-        }
-    }
-
-    // MARK: Categories
+    // MARK: Categories — four tiles
     private var categoriesSection: some View {
-        VStack(alignment: .leading, spacing: MYSpacing.md) {
-            MYSectionHeader(title: "استكشف الأقسام",
-                            onAction: { router.push(.allServices(title: "كل الأقسام")) })
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: MYSpacing.sm) {
-                    ForEach(categories) { category in
-                        Button {
-                            Haptics.selection()
-                            router.push(.category(category))
-                        } label: {
-                            HStack(spacing: MYSpacing.xs) {
-                                Image(systemName: category.icon)
-                                    .font(.system(size: 14, weight: .semibold))
-                                    .symbolRenderingMode(.hierarchical)
-                                Text(category.title).font(MYTypography.secondary)
-                            }
+        HStack(spacing: MYSpacing.sm) {
+            ForEach(categories) { category in
+                Button {
+                    Haptics.selection()
+                    router.push(.category(category))
+                } label: {
+                    VStack(spacing: 6) {
+                        Image(systemName: category.icon)
+                            .font(.system(size: 18, weight: .semibold))
                             .foregroundStyle(category.accent)
-                            .padding(.horizontal, MYSpacing.md)
-                            .padding(.vertical, MYSpacing.sm)
-                            .background(category.accent.opacity(0.09))
-                            .clipShape(Capsule())
-                            .overlay(Capsule().strokeBorder(category.accent.opacity(0.25), lineWidth: 1))
-                        }
-                        .buttonStyle(PressableButtonStyle())
+                            .frame(width: 42, height: 42)
+                            .background(category.accent.opacity(0.12),
+                                        in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        Text(category.shortTitle)
+                            .font(.appFont(12, weight: .semibold))
+                            .foregroundStyle(MYColor.textPrimary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.85)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, MYSpacing.sm)
+                    .background(MYColor.surface,
+                                in: RoundedRectangle(cornerRadius: 18, style: .continuous))
                 }
-                .padding(.horizontal, MYSpacing.screen)
+                .buttonStyle(PressableButtonStyle())
+                .accessibilityLabel(category.title)
             }
-            .padding(.horizontal, -MYSpacing.screen)
         }
     }
 
@@ -158,8 +243,8 @@ struct HomeView: View {
         case .idle, .loading:
             skeletonSection
         case .loaded(let content):
-            serviceRow("الأكثر حجزاً", content.popular)
             serviceRow("قريب منك", content.nearby)
+            serviceRow("الأكثر حجزاً", content.popular)
             serviceRow("موصى لك", content.recommended)
         case .empty:
             MYEmptyState(icon: "sparkles", title: "لا يوجد محتوى بعد",
@@ -223,6 +308,18 @@ struct HomeView: View {
     }
 }
 
+private extension ServiceCategory {
+    /// Compact label for the Home category tiles.
+    var shortTitle: String {
+        switch self {
+        case .selfDevelopment: return "تطوير ذات"
+        case .sports:          return "رياضة"
+        case .education:       return "تعليم"
+        case .tech:            return "تقنية"
+        }
+    }
+}
+
 /// Identifiable wrapper so the stories viewer can present via fullScreenCover(item:).
 private struct ActiveStory: Identifiable {
     let index: Int
@@ -232,6 +329,7 @@ private struct ActiveStory: Identifiable {
 #Preview {
     NavigationStack { HomeView() }
         .environment(Router())
+        .environment(AppState())
         .environment(FavoritesStore())
         .environment(LocationService())
         .environment(MessagesStore())

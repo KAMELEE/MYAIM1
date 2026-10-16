@@ -111,12 +111,12 @@ extension View {
     /// For screens with a hidden navigation bar: paints the status-bar strip
     /// with the screen background so scrolled content doesn't run under the
     /// clock / Dynamic Island.
-    func myStatusBarScrim() -> some View {
+    func myStatusBarScrim(_ color: Color = MYColor.background) -> some View {
         overlay(alignment: .top) {
             // The reader respects the safe area, so its proxy reports the real
             // top inset; the strip is then lifted up into the status-bar area.
             GeometryReader { proxy in
-                MYColor.background
+                color
                     .opacity(0.97)
                     .frame(height: proxy.safeAreaInsets.top)
                     .offset(y: -proxy.safeAreaInsets.top)

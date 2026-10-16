@@ -11,19 +11,34 @@ struct ServiceDetailView: View {
     @Environment(AppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
 
+    @State private var selectedSlot: Int = 0
+
     private var isFavorite: Bool { favorites.contains(service.id) }
+    private static let sheetRadius: CGFloat = 24
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: MYSpacing.lg) {
+            VStack(alignment: .leading, spacing: 0) {
                 header
-                titleBlock
-                Divider().background(MYColor.border)
-                aboutSection
-                includesSection
-                locationSection
-                reviewsSection
-                similarSection
+                VStack(alignment: .leading, spacing: MYSpacing.lg) {
+                    titleBlock
+                    providerCard
+                    scheduleSection
+                    aboutSection
+                    includesSection
+                    locationSection
+                    reviewsSection
+                    similarSection
+                }
+                .padding(.top, MYSpacing.lg)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    UnevenRoundedRectangle(topLeadingRadius: Self.sheetRadius,
+                                           topTrailingRadius: Self.sheetRadius,
+                                           style: .continuous)
+                        .fill(MYColor.background)
+                )
+                .padding(.top, -Self.sheetRadius)
             }
             .padding(.bottom, MYSpacing.xxxl)
         }
@@ -40,12 +55,8 @@ struct ServiceDetailView: View {
                       urlString: service.imageURL,
                       fallbackIcon: service.category.icon,
                       accent: service.category.accent)
-            .frame(height: 280)
+            .frame(height: 320)
             .clipped()
-            .overlay(alignment: .bottomLeading) {
-                MYTag(text: service.category.title, style: .brand)
-                    .padding(MYSpacing.lg)
-            }
     }
 
     // MARK: Floating back / favorite / share
@@ -75,34 +86,27 @@ struct ServiceDetailView: View {
             Image(systemName: icon)
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(tint)
-                .frame(width: 40, height: 40)
-                .background(.ultraThinMaterial, in: Circle())
+                .frame(width: 44, height: 44)
+                .background(MYColor.surface, in: Circle())
+                .myShadow(MYShadow.raised)
         }
+        .buttonStyle(PressableButtonStyle())
     }
 
-    // MARK: Title / provider / rating / price
+    // MARK: Category / title / rating
     private var titleBlock: some View {
-        VStack(alignment: .leading, spacing: MYSpacing.sm) {
+        VStack(alignment: .leading, spacing: MYSpacing.xs) {
+            Text(service.category.title)
+                .font(.appFont(12, weight: .semibold))
+                .foregroundStyle(MYColor.primary)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 4)
+                .background(MYColor.primaryTint, in: Capsule())
+
             Text(service.title)
                 .font(MYTypography.pageTitle)
                 .foregroundStyle(MYColor.textPrimary)
-
-            Button {
-                if let provider = SampleData.providers.first(where: { $0.id == service.providerId }) {
-                    router.push(.providerProfile(provider))
-                }
-            } label: {
-                HStack(spacing: MYSpacing.xs) {
-                    Text(service.providerName)
-                        .font(MYTypography.secondary)
-                        .foregroundStyle(MYColor.primary)
-                    if service.isVerified {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 12))
-                            .foregroundStyle(MYColor.primary)
-                    }
-                }
-            }
+                .fixedSize(horizontal: false, vertical: true)
 
             HStack(spacing: MYSpacing.md) {
                 MYRating(rating: service.rating, reviewsCount: service.reviewsCount)
@@ -113,6 +117,92 @@ struct ServiceDetailView: View {
                     Text(locationText)
                         .font(MYTypography.caption)
                         .foregroundStyle(MYColor.textSecondary)
+                }
+            }
+        }
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
+    // MARK: Academy card
+    private var providerCard: some View {
+        Button {
+            if let provider = SampleData.providers.first(where: { $0.id == service.providerId }) {
+                router.push(.providerProfile(provider))
+            }
+        } label: {
+            HStack(spacing: MYSpacing.md) {
+                Text(String(service.providerName.replacingOccurrences(of: "أكاديمية ", with: "").prefix(1)))
+                    .font(.appFont(17, weight: .bold))
+                    .foregroundStyle(.white)
+                    .frame(width: 44, height: 44)
+                    .background(MYColor.brandSolid,
+                                in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 4) {
+                        Text(service.providerName)
+                            .font(MYTypography.cardTitle)
+                            .foregroundStyle(MYColor.textPrimary)
+                            .lineLimit(1)
+                        if service.isVerified {
+                            Image(systemName: "checkmark.seal.fill")
+                                .font(.system(size: 13))
+                                .foregroundStyle(MYColor.primary)
+                        }
+                    }
+                    Text(service.isVerified ? "جهة موثّقة · عرض الملف" : "عرض الملف")
+                        .font(MYTypography.caption)
+                        .foregroundStyle(MYColor.textSecondary)
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.forward")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(MYColor.textTertiary)
+            }
+            .myCard(padding: MYSpacing.md)
+        }
+        .buttonStyle(PressableButtonStyle())
+        .padding(.horizontal, MYSpacing.screen)
+    }
+
+    // MARK: Upcoming sessions
+    private var upcomingDays: [Date] {
+        let cal = Calendar.current
+        let start = cal.startOfDay(for: .now)
+        return [2, 4, 6, 8].compactMap { cal.date(byAdding: .day, value: $0, to: start) }
+    }
+
+    private var scheduleSection: some View {
+        VStack(alignment: .leading, spacing: MYSpacing.sm) {
+            Text("أقرب المواعيد")
+                .font(MYTypography.section)
+                .foregroundStyle(MYColor.textPrimary)
+            HStack(spacing: MYSpacing.xs) {
+                ForEach(Array(upcomingDays.enumerated()), id: \.offset) { i, day in
+                    let on = i == selectedSlot
+                    Button {
+                        Haptics.selection()
+                        withAnimation(.snappy) { selectedSlot = i }
+                    } label: {
+                        VStack(spacing: 2) {
+                            Text(day.formatted(.dateTime.weekday(.wide).locale(Locale(identifier: "ar"))))
+                                .font(.appFont(12))
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
+                            Text(day.formatted(.dateTime.day().locale(Locale(identifier: "ar"))))
+                                .font(.appFont(17, weight: .bold))
+                        }
+                        .foregroundStyle(on ? .white : MYColor.textPrimary)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 64)
+                        .background(on ? MYColor.primary : MYColor.surface,
+                                    in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                .strokeBorder(on ? .clear : MYColor.border, lineWidth: 1)
+                        )
+                    }
+                    .buttonStyle(PressableButtonStyle())
+                    .accessibilityAddTraits(on ? .isSelected : [])
                 }
             }
         }
@@ -183,13 +273,10 @@ struct ServiceDetailView: View {
     // MARK: Reviews
     private var reviewsSection: some View {
         VStack(alignment: .leading, spacing: MYSpacing.md) {
-            HStack {
-                Text("آراء العملاء")
-                    .font(MYTypography.section)
-                    .foregroundStyle(MYColor.textPrimary)
-                Spacer()
-                MYRating(rating: service.rating, reviewsCount: service.reviewsCount)
-            }
+            Text("آراء العملاء")
+                .font(MYTypography.section)
+                .foregroundStyle(MYColor.textPrimary)
+            ratingSummary
             ForEach(SampleData.reviews) { review in
                 VStack(alignment: .leading, spacing: MYSpacing.xs) {
                     HStack {
@@ -208,6 +295,45 @@ struct ServiceDetailView: View {
             }
         }
         .padding(.horizontal, MYSpacing.screen)
+    }
+
+    /// Overall score + star distribution of the reviews shown below.
+    private var ratingSummary: some View {
+        let reviews = SampleData.reviews
+        let total = max(reviews.count, 1)
+        return HStack(spacing: MYSpacing.lg) {
+            VStack(spacing: 2) {
+                Text(String(format: "%.1f", service.rating))
+                    .font(.appFont(30, weight: .bold))
+                    .foregroundStyle(MYColor.textPrimary)
+                Text("\(service.reviewsCount) تقييم")
+                    .font(MYTypography.caption)
+                    .foregroundStyle(MYColor.textSecondary)
+            }
+            .frame(minWidth: 70)
+            VStack(spacing: 5) {
+                ForEach([5, 4, 3, 2, 1], id: \.self) { star in
+                    let n = reviews.filter { Int($0.rating.rounded()) == star }.count
+                    HStack(spacing: MYSpacing.xs) {
+                        Text("\(star)")
+                            .font(.appFont(11))
+                            .foregroundStyle(MYColor.textSecondary)
+                            .frame(width: 10)
+                        GeometryReader { geo in
+                            ZStack(alignment: .leading) {
+                                Capsule().fill(MYColor.surfaceSecondary)
+                                Capsule().fill(MYColor.star)
+                                    .frame(width: geo.size.width * CGFloat(n) / CGFloat(total))
+                            }
+                        }
+                        .frame(height: 6)
+                    }
+                }
+            }
+            .accessibilityHidden(true)
+        }
+        .myCard(padding: MYSpacing.md)
+        .accessibilityElement(children: .combine)
     }
 
     // MARK: Similar services
@@ -238,23 +364,26 @@ struct ServiceDetailView: View {
 
     // MARK: Sticky book bar
     private var bookBar: some View {
-        HStack(spacing: MYSpacing.lg) {
+        HStack(spacing: MYSpacing.md) {
             VStack(alignment: .leading, spacing: 0) {
-                Text("السعر")
+                Text("يبدأ من")
                     .font(MYTypography.caption)
                     .foregroundStyle(MYColor.textSecondary)
                 Text(MYFormat.price(service.startingPrice))
-                    .font(MYTypography.cardTitle)
+                    .font(.appFont(19, weight: .bold))
                     .foregroundStyle(MYColor.textPrimary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
             Spacer(minLength: 0)
             contactButton
-            MYButton(title: "احجز الآن", icon: "calendar") {
+            MYButton(title: "احجز الآن", fullWidth: false) {
                 router.push(.booking(service))
             }
         }
-        .padding(MYSpacing.lg)
-        .background(.regularMaterial)
+        .padding(.horizontal, MYSpacing.screen)
+        .padding(.vertical, MYSpacing.md)
+        .background(MYColor.surface)
         .overlay(alignment: .top) { Divider() }
         .myTabBarClearance()
     }
@@ -267,13 +396,13 @@ struct ServiceDetailView: View {
                                                          traineeName: appState.currentUser?.name)
             router.push(.chat(conversation))
         } label: {
-            Image(systemName: "bubble.left.and.exclamationmark.bubble.right.fill")
+            Image(systemName: "bubble.left.and.bubble.right")
                 .font(.system(size: 18, weight: .semibold))
-                .symbolRenderingMode(.hierarchical)
-                .foregroundStyle(MYColor.primary)
-                .frame(width: 48, height: 48)
-                .background(MYColor.primaryTint, in: Circle())
-                .overlay(Circle().strokeBorder(MYColor.border, lineWidth: 0.5))
+                .foregroundStyle(MYColor.textPrimary)
+                .frame(width: 52, height: 52)
+                .background(MYColor.surface, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .strokeBorder(MYColor.border, lineWidth: 1))
         }
         .buttonStyle(PressableButtonStyle())
         .accessibilityLabel("تواصل مع الأكاديمية")
