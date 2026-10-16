@@ -51,11 +51,16 @@ struct ServiceDetailView: View {
 
     // MARK: Header image
     private var header: some View {
-        MYRemoteImage(assetName: service.category.imageName,
-                      urlString: service.imageURL,
-                      fallbackIcon: service.category.icon,
-                      accent: service.category.accent)
+        // Fixed-size canvas so a fill-scaled photo can never widen the page.
+        Color.clear
+            .frame(maxWidth: .infinity)
             .frame(height: 320)
+            .overlay {
+                MYRemoteImage(assetName: service.category.imageName,
+                              urlString: service.imageURL,
+                              fallbackIcon: service.category.icon,
+                              accent: service.category.accent)
+            }
             .clipped()
     }
 
